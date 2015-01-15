@@ -54,14 +54,14 @@ Le site doit proposer, une inscription-connexion des utilisateurs -> utilisation
 On doit pouvoir choisir le niveau de détail -> cartes svg interactive et graph (Raphaël.js)
 On doit rajouter des données venant d'un autre fichier à celles de l'INSEE, il font donc créer une database normalisé
 Pour la mise en page, on peut faire un système à trois panneaux:
--------------------------------------------
-| Barre de menu pour naviguer sur le site |
--------------------------------------------
-|           |                |            |
-| panneau   | carte          | panneau    |
-| d'options | interactive    | d'options  |
-|           |                |            |
--------------------------------------------
+<table>
+  <tr><th colspan="3">Barre de menu pour naviguer sur le site</th></tr>
+  <tr>
+    <td>panneau d'options</td>
+    <td>carte interactive</td>
+    <td>panneau d'options</td>
+  </tr>
+</table>
 
 #### Ce qui est encore flou
 Pourquoi s'inscrire ? (Que peut-on faire une fois inscrit, qu'on ne pouvait pas faire avant ?)
@@ -71,9 +71,9 @@ Doit-ton gérer les DOM-TOM ?
 D'autre questions possibles ...?
 
 ### Liens utiles
-http://openclassrooms.com/
-http://www.w3schools.com/
-http://symfony.com/
-http://getbootstrap.com/
-http://lesscss.org/
-http://raphaeljs.com/
+- http://openclassrooms.com/
+- http://www.w3schools.com/
+- http://symfony.com/
+- http://getbootstrap.com/
+- http://lesscss.org/
+- http://raphaeljs.com/
