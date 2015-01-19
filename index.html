@@ -1,11 +1,241 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-        
-</head>
-<body>
-    
-   hello hello hello
-    
-</body>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- désactivation du zoom sur mobile -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="description" content="Site de visualisation de la dynamique du territoire français">
+        <meta name="keywords" content="France, territoire, dynamisme, français">
+        <meta name="author" content="Natalia Duske, Saphira Ongotto, Dihia Edjekouane, Rudi Granbensee, Olivier Dadare, Olivier Schyns">
+        <link href="common/css/bootstrap.min.css" rel="stylesheet">
+
+    </head>
+    <body>
+        <!-- Scripts à exécuter avant le chargement de la page -->
+        <script src="common/js/jquery.min.js"></script>
+        <script src="common/js/npm.js"></script>
+        <script src="common/js/raphael.min.js"></script>
+        <script src="common/js/svg.min.js"></script>
+        <script src="common/js/bootstrap.min.js"></script>
+
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <!-- Contenu du bouton sur mobile (trois barres horizontales) -->
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!-- Texte du bouton principal du menu -->
+                    <a class="navbar-brand" href="#">Menu</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="navbar-main">
+                    <ul class="nav navbar-nav">
+                        <!-- exemple de lien et de dropdown -->
+                        <li><a href="#">Link</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">One more separated link</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- Et hop la barre de recherche est déjà faite -->
+                    <form class="navbar-form navbar-right" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Rechercher">
+                        </div>
+                        <button type="submit" class="btn btn-default">Valider</button>
+                    </form>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+        <!-- FIN DE NAVBAR -->
+
+        <!-- Cette div "container" contient tous les trois panneaux de notre page -->
+        <!-- l'attribut -fluid permet de faire en sorte que le container occupe toute la largeur de l'écran -->
+        <!-- CONTAINER -->
+        <div class="container-fluid">
+            
+            <!-- Permet d'éviter que les panneaux ne soient recouvert par le menu en haut de la page -->
+            <div class="page-header" id="banner"></div>
+            <div class="row">
+                <!-- cette div contient notre panneau gauche qui contient les différents boutons pour choisir les options d'affichages-->
+                <!-- Nous devrons définir les classes de ce panneaux pour que celui-ci s'adapte correctement aux différentes tailles d'écran -->
+                <!-- PANNEAU GAUCHE -->
+                <div class="col-lg-4">
+                    <h1 id="buttons">Options</h1>
+
+                    <!-- exemples de boutons -->
+                    <p class="bs-component">
+                        <a href="#" class="btn btn-default">Default</a>
+                        <a href="#" class="btn btn-primary">Primary</a>
+                        <a href="#" class="btn btn-success">Success</a>
+                        <a href="#" class="btn btn-info">Info</a>
+                        <a href="#" class="btn btn-warning">Warning</a>
+                        <a href="#" class="btn btn-danger">Danger</a>
+                        <a href="#" class="btn btn-link">Link</a>
+                    </p>
+
+                    <div style="margin-bottom: 15px;">
+                        <div class="btn-toolbar bs-component" style="margin: 0;">
+                            <div class="btn-group">
+                                <a href="#" class="btn btn-default">Dropdown</a>
+                                <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                </ul>
+                            </div>
+                            <!-- différentes tailles de boutons -->
+                            <p class="bs-component">
+                                <a href="#" class="btn btn-primary btn-lg">Large button</a>
+                                <a href="#" class="btn btn-primary">Default button</a>
+                                <a href="#" class="btn btn-primary btn-sm">Small button</a>
+                                <a href="#" class="btn btn-primary btn-xs">Mini button</a>
+                            </p>
+
+                        </div>
+                        <div class="col-lg-6">
+
+                            <p class="bs-component">
+                                <a href="#" class="btn btn-default btn-lg btn-block">Block level button</a>
+                            </p>
+
+
+                            <div class="bs-component" style="margin-bottom: 15px;">
+                                <div class="btn-group btn-group-justified">
+                                    <a href="#" class="btn btn-default">Left</a>
+                                    <a href="#" class="btn btn-default">Middle</a>
+                                    <a href="#" class="btn btn-default">Right</a>
+                                </div>
+                            </div>
+
+                            <div class="bs-component" style="margin-bottom: 15px;">
+                                <div class="btn-toolbar">
+                                    <div class="btn-group">
+                                        <a href="#" class="btn btn-default">1</a>
+                                        <a href="#" class="btn btn-default">2</a>
+                                        <a href="#" class="btn btn-default">3</a>
+                                        <a href="#" class="btn btn-default">4</a>
+                                    </div>
+
+                                    <div class="btn-group">
+                                        <a href="#" class="btn btn-default">5</a>
+                                        <a href="#" class="btn btn-default">6</a>
+                                        <a href="#" class="btn btn-default">7</a>
+                                    </div>
+
+                                    <div class="btn-group">
+                                        <a href="#" class="btn btn-default">8</a>
+                                        <div class="btn-group">
+                                            <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                Dropdown
+                                                <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#">Dropdown link</a></li>
+                                                <li><a href="#">Dropdown link</a></li>
+                                                <li><a href="#">Dropdown link</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bs-component">
+                                <div class="btn-group-vertical">
+                                    <a href="#" class="btn btn-default">Button</a>
+                                    <a href="#" class="btn btn-default">Button</a>
+                                    <a href="#" class="btn btn-default">Button</a>
+                                    <a href="#" class="btn btn-default">Button</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- cette div contient le panneau central, celui-ci contient la carte à afficher -->
+                <!-- PANNEAU CENTRAL -->
+                <div class="col-lg-4">
+                    <img src="test/img/carla-bruni.jpg"/>
+                </div>
+                
+                <!-- cette div contient les graphiques généré par l'utilisateur, à compléter lorsqu'on aura une idée de comment faire -->
+                <!-- PANNEAU DROIT -->
+                <div class="col-lg-4">
+                    
+                    <!-- exemple de piechart qu'on peut faire avec raphaël.js -->
+                    <script src="test/js/pie.js"></script>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Ruby</th>
+                                <td>40%</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">JavaScript</th>
+                                <td>26%</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Shell</th>
+                                <td>5%</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Python</th>
+                                <td>5%</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">PHP</th>
+                                <td>4%</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">C</th>
+                                <td>4%</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Perl</th>
+                                <td>3%</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">C++</th>
+                                <td>2%</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Java</th>
+                                <td>2%</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Objective-C</th>
+                                <td>2%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="holder"></div>
+                    
+                    
+                </div>
+
+            </div>
+        </div>
+        <!-- FIN DE CONTAINER -->
+
+    </body>
 </html>
