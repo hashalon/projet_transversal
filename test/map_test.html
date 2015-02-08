@@ -1,17 +1,65 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <script src="../common/js/snap.svg-min.js"></script>
+        <script src="../common/js/color-map.min.js"></script>
         <script>
             window.onload = function () {
                 var france = Snap.select("#France");
-                var nord_pas_de_calais = france.select("#Nord-pas-de-calais");
-                nord_pas_de_calais.attr({
-                    fill: "#000000"  
-                });
-                france.select("#Guyane").attr({
-                    fill: "#ff0000"  
-                });
+                // je simule ici la récupération de données venant de la base de données dans un map
+                // la clée étant le nom de la région, et la valeur est inventé
+                var matrix = {};
+                matrix["Nord-pas-de-calais"] = -100;
+                matrix["Haute-normandie"] = -90;
+                matrix["Basse-normandie"] = -80;
+                matrix["Picardie"] = -70;
+                matrix["Centre"] = -60;
+                matrix["Bretagne"] = -50;
+                matrix["Poitou-charente"] = -40;
+                matrix["Aquitaine"] = -30;
+                matrix["Lorraine"] = -20;
+                matrix["Limousin"] = -10;
+                matrix["Bourgogne"] = 0;
+                matrix["Pays-de-la-loire"] = 10;
+                matrix["Champagne-ardenne"] = 20;
+                matrix["Ile-de-france"] = 30;
+                matrix["Auvergne"] = 40;
+                matrix["Franche-comte"] = 50;
+                matrix["Alsace"] = 60;
+                matrix["Corse"] = 70;
+                matrix["Midi-pyrenees"] = 80;
+                matrix["Languedoc-roussillon"] = 90;
+                matrix["Provence-alpes-cote-d_azur"] = 100;
+                matrix["Rhone-alpes"] = 110;
+                matrix["Guadeloupe"] = 120;
+                matrix["Guyane"] = 130;
+                matrix["Martinique"] = 140;
+                matrix["Reunion"] = 150;
+                
+                // on garde en mémoire les valeurs minimum et maximum
+                var minValue = Number.MAX_VALUE;
+                var maxValue = Number.MIN_VALUE;
+                
+                // on choisi une teinte
+                var hue = "#690";
+                for( var i in matrix){
+                    if( minValue > matrix[i] ){
+                        minValue = matrix[i];
+                    }
+                    if( maxValue < matrix[i] ){
+                        maxValue = matrix[i];
+                    }
+                }
+                for( var i in matrix){
+                    france.select( "#".concat(i) ).attr({
+                        fill: mapColor.gradient( matrix[i], minValue, maxValue, hue )  
+                    });
+                }
+                
+                /*france.select( "#Guyane" ).attr({
+                   fill: mapColor.composite( 1,0,2, 10,0,100, 0,-2,0 ) 
+                });*/
             }
         </script>
         <style>
