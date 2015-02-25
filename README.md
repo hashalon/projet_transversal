@@ -93,7 +93,6 @@ Ce que l'on doit pouvoir faire sur notre site web
 
 - Éducation et Recherche
 <ul>
-<li>Nombre d'établissements</li>
 <li>Élèves , Enseignants</li>
 <li>Diplôme ,Formation</li>
 </ul>
