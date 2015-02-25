@@ -59,50 +59,20 @@ Ce que l'on doit pouvoir faire sur notre site web
 - On doit rajouter des données venant d'un autre fichier à celles de l'INSEE, il font donc créer une database normalisé
 - Pour la mise en page, on peut faire un système à trois panneaux:
 <table>
-  <tr><td colspan="2">Onglets</td></tr>
-  <tr><th colspan="2">Barre de menu pour naviguer sur le site</th></tr>
+  <tr><th colspan="3">Barre de menu pour naviguer sur le site</th></tr>
   <tr>
     <td>panneau d'options</td>
-    <td>carte interactive / graphes</td>
+    <td>carte interactive</td>
+    <td>panneau d'options</td>
   </tr>
 </table>
 
-#### Points de pondérations sélectionné:
-- Population active
-<ul>
-<li>Travailleurs</li>
-<li>Chômeurs</li>
-</ul>
-
-- Population
-<ul>
-<li>Natalité</li>
-<li>Mortalité</li>
-</ul>
-
-- Revenus (Salaire)
-<ul>
-<li>Nombre de ménages</li>
-<li>Revenus fiscaux</li>
-</ul>
-
-- Établissements actifs
-<ul>
-<li>Grandes entreprises et établissements</li>
-</ul>
-
-- Éducation et Recherche
-<ul>
-<li>Nombre d'établissements</li>
-<li>Élèves , Enseignants</li>
-<li>Diplôme ,Formation</li>
-</ul>
-
-- Agriculture
-<ul>
-<li>Revenus et productions agricoles</li>
-</ul>
-
+#### Ce qui est encore flou
+- Pourquoi s'inscrire ? (Que peut-on faire une fois inscrit, qu'on ne pouvait pas faire avant ?)
+- Quel type de graphs sont demandé ? (Seulement diagrames, histogrames ou cartes OU les trois en même temps ?)
+- Doit-on réfléchir à l'esthétique ? (L'esthétisme est-elle une composante importante de l'IHM ?)
+- Doit-ton gérer les DOM-TOM ?
+- D'autre questions possibles ...?
 
 ### Liens utiles
 - http://openclassrooms.com/
