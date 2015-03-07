@@ -57,7 +57,7 @@ epci int not null,
 arrondissement_arr_code int,
 FOREIGN KEY (arrondissement_arr_code) REFERENCES arrondissement(arr_code),
 zone_demploi_zone_no int,
-FOREIGN KEY (zone_demploi_zone_no) REFERENCES  zone_demplois(zone_no)
+FOREIGN KEY (zone_demploi_zone_no) REFERENCES  zone_demploi(zone_no)
 );
 
 create table log_type(
@@ -171,7 +171,7 @@ ch_id int primary key not null,
 ch_year int,
 ch_number int,
 zone_demploi_zone_no int,
-FOREIGN KEY (zone_demploi_zone_no) REFERENCES  zone_demplois(zone_no)
+FOREIGN KEY (zone_demploi_zone_no) REFERENCES  zone_demploi(zone_no)
 );
 
 create table travailleurs(
@@ -179,7 +179,7 @@ tr_id int primary key not null,
 tr_year int,
 tr_number int,
 zone_demploi_zone_no int,
-FOREIGN KEY (zone_demploi_zone_no) REFERENCES  zone_demplois(zone_no),
+FOREIGN KEY (zone_demploi_zone_no) REFERENCES  zone_demploi(zone_no),
 categorie_age_cat_id int,
 FOREIGN KEY (categorie_age_cat_id) REFERENCES categorie_age(cat_id)
 );
