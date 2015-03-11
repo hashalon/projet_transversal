@@ -31,7 +31,8 @@
         <script src="common/js/raphael.min.js"></script>
         <script src="common/js/svg.min.js"></script>
         <script src="common/js/snap.svg-min.js"></script>
-        <script src="common/js/color-map.js"></script>
+        <script src="common/js/tinycolor.min.js"></script>
+        <script src="common/js/color-map.min.js"></script>
         <script src="common/js/bootstrap.min.js"></script>
         <script>
             // scripts supplémentaires
@@ -87,10 +88,10 @@
                         data["Martinique"] = 140;
                         data["Reunion"] = 150;
                         
-                        function ponderate(input, color){
+                        function ponderate(input, start, middle, end){
                             //var color;
                             // we should select the right data to display each time this function is launched
-                            mapColor.apply( data, color );
+                            mapColor.apply( data, start, middle, end );
                         };
                     </script>
                     <?php include("maps/france_regions.svg") ?>

@@ -16,11 +16,11 @@
             <div id="collapse0" class="accordion-body collapse">
                 <div class="accordion-inner">
                     <div class="radio radio-blue">
-                        <input id="travailleurs" name="pond" type="radio" onclick="ponderate(this, '#2177c1')">
+                        <input id="travailleurs" name="pond" type="radio" onclick="ponderate(this, '#112458', '#1885e3', '#d6e9fa')">
                         <label for="travailleurs">Travailleurs</label>
                     </div>
                     <div class="radio radio-red">
-                        <input id="chomeurs" name="pond" type="radio" onclick="ponderate(this, '#e0211b')">
+                        <input id="chomeurs" name="pond" type="radio" onclick="ponderate(this, '#4e0f0f', '#e61f18', '#edc2be')">
                         <label for="chomeurs">Chômeurs</label>
                     </div>
                 </div>
@@ -36,11 +36,11 @@
             <div id="collapse1" class="accordion-body collapse">
                 <div class="accordion-inner">
                     <div class="radio radio-yellow">
-                        <input id="natalite" name="pond" type="radio" onclick="ponderate(this, '#d1d12e')">
+                        <input id="natalite" name="pond" type="radio" onclick="ponderate(this, '#332207', '#e6e618', '#e5e5c7')">
                         <label for="natalite">Natalité</label>
                     </div>
                     <div class="radio radio-grey">
-                        <input id="mortalite" name="pond" type="radio" onclick="ponderate(this, '#777777')">
+                        <input id="mortalite" name="pond" type="radio" onclick="ponderate(this, '#292929', '#585858', '#dedede')">
                         <label for="mortalite">Mortalité</label>
                     </div>
                 </div>
@@ -56,11 +56,11 @@
             <div id="collapse2" class="accordion-body collapse">
                 <div class="accordion-inner">
                     <div class="radio radio-cyan">
-                        <input id="nbMenages" name="pond" type="radio" onclick="ponderate(this, '#14ebe3')">
+                        <input id="nbMenages" name="pond" type="radio" onclick="ponderate(this, '#1a3835', '#00fff6', '#bbe2e0')">
                         <label for="nbMenages">Nombre de ménages</label>
                     </div>
                     <div class="radio radio-green">
-                        <input id="revenusFiscaux" name="pond" type="radio" onclick="ponderate(this, '#17aa22')">
+                        <input id="revenusFiscaux" name="pond" type="radio" onclick="ponderate(this, '#04210b', '#1ddd2b', '#9bdea1')">
                         <label for="revenusFiscaux">Revenus fiscaux</label>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
             <div id="collapse3" class="accordion-body collapse">
                 <div class="accordion-inner">
                     <div class="radio radio-colbat">
-                        <input id="entreprises" name="pond" type="radio" onclick="ponderate(this, '#2c3beb')">
+                        <input id="entreprises" name="pond" type="radio" onclick="ponderate(this, '#05082c', '#1b2add', '#b9c0db')">
                         <label for="entreprises">Grandes entreprises et établissements</label>
                     </div>
                 </div>
@@ -92,11 +92,11 @@
             <div id="collapse4" class="accordion-body collapse">
                 <div class="accordion-inner">
                     <div class="radio radio-purple">
-                        <input id="eleves" name="pond" type="radio" onclick="ponderate(this, '#6128cc')">
+                        <input id="eleves" name="pond" type="radio" onclick="ponderate(this, '#160426', '#5e19de', '#c1b2dd')">
                         <label for="eleves">Elèves, Enseignants</label>
                     </div>
                     <div class="radio radio-lime">
-                        <input id="diplome" name="pond" type="radio" onclick="ponderate(this, '#82de16')">
+                        <input id="diplome" name="pond" type="radio" onclick="ponderate(this, '#1d2c05', '#84de1c', '#dbe5cf')">
                         <label for="diplome">Diplôme, Formation</label>
                     </div>
                 </div>
@@ -112,7 +112,7 @@
             <div id="collapse5" class="accordion-body collapse">
                 <div class="accordion-inner">
                     <div class="radio radio-orange">
-                        <input id="prodAgricoles" name="pond" type="radio" onclick="ponderate(this, '#ea9722')">
+                        <input id="prodAgricoles" name="pond" type="radio" onclick="ponderate(this, '#52140f', '#e28d19', '#e2dbc1')">
                         <label for="prodAgricoles">Revenus et productions agricoles</label>
                     </div>
                 </div>
