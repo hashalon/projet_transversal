@@ -16,7 +16,7 @@
             <div id="collapse0" class="accordion-body collapse">
                 <div class="accordion-inner">
                     <div class="radio radio-blue">
-                        <input id="travailleurs" name="pond" type="radio" onclick="ponderate(this, '#112458', '#1885e3', '#d6e9fa')">
+                        <input id="travailleurs" name="pond" type="radio" onclick="ponderate(this, 'blue', 'green', 'red')">
                         <label for="travailleurs">Travailleurs</label>
                     </div>
                     <div class="radio radio-red">

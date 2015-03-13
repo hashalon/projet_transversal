@@ -12,26 +12,16 @@
                 <span class="icon-bar"></span>
             </button>
             <!-- Texte du bouton principal du menu -->
-            <a class="navbar-brand" href="#">Accueil</a>
+            <a class="navbar-brand" href="#">France</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-main">
             <ul class="nav navbar-nav">
-                <li><a href="#">France</a></li>
                 <?php if( TRUE ){ ?>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Regions <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Nord pas de Calais</a></li>
-                        <li><a href="#">Haute Normandie</a></li>
-                        <li><a href="#">Basse Normandie</a></li>
-                        <li><a href="#">Picardie</a></li>
-                        <li><a href="#">Centre</a></li>
-                    </ul>
-                </li>
-                <?php }else{ ?>
-                <li><a href="#">Nord pas de Calais</a></li>
+                <li><a href="#">Graphiques</a></li>
+                <?php }elseif ( TRUE ) { ?>
+                <li><a href="#">Cartes</a></li>
                 <?php } ?>
             </ul>
             <form class="navbar-form navbar-right" role="search">
