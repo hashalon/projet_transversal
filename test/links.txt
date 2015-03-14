@@ -1,4 +1,0 @@
-
-System d'onglet par sparkling labs
-
-https://bitbucket.org/sparklinlabs/tab-strip/src
