@@ -1,5 +1,5 @@
--- CREATE DATABASE IF NOT EXISTS projet_transversal;
-use yii2basic;
+CREATE DATABASE IF NOT EXISTS dynamismeFR;
+use dynamismeFR;
 
 drop table if exists formation;
 drop table if exists diplome;

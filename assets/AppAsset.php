@@ -27,6 +27,7 @@ class AppAsset extends AssetBundle
         'js/snap.svg.min.js',
         'js/tinycolor.min.js',
         'js/mapColor.min.js',
+        'js/dbGetter.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

@@ -95,7 +95,7 @@ class SiteController extends Controller
     }
     
     // TODO create a map controller and put this unction in it
-    public function actionMap(){
+    /*public function actionMap(){
         return $this->render('map');
-    }
+    }*/
 }

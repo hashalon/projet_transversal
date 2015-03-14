@@ -27,7 +27,7 @@ AppAsset::register($this);
         <?php
             NavBar::begin([
                 'brandLabel' => 'France',
-                'brandUrl' => Yii::$app->homeUrl,
+                'brandUrl' => ['/map/index'],
                 'options' => [
                     'class' => 'navbar-inverse navbar-fixed-top',
                 ],
@@ -36,15 +36,15 @@ AppAsset::register($this);
                 'options' => ['class' => 'navbar-nav navbar-left'],
                 'items' => [
                     TRUE /* si affichage de la carte */ ?
-                        ['label' => 'Graphes', 'url' => ['/site/graph']] :
-                        ['label' => 'Carte', 'url' => ['/site/map']],
+                        ['label' => 'Graphes', 'url' => ['/graph/index']] :
+                        ['label' => 'Carte', 'url' => ['/map/index']],
                 ],
             ]);
             // TODO set search bar
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
-                    ['label' => 'Home', 'url' => ['/site/map']],
+                    ['label' => 'Home', 'url' => ['/site/index']],
                     ['label' => 'About', 'url' => ['/site/about']],
                     ['label' => 'Contact', 'url' => ['/site/contact']],
                     Yii::$app->user->isGuest ?
@@ -65,12 +65,12 @@ AppAsset::register($this);
         </div>
     </div>
 
-    <footer class="footer">
+    <!-- footer class="footer">
         <div class="container">
             <p class="pull-left">&copy; Université François Rabelais <?= date('Y') ?></p>
             <p class="pull-right"><?= Yii::powered() ?></p>
         </div>
-    </footer>
+    </footer -->
 
 <?php $this->endBody() ?>
 </body>
