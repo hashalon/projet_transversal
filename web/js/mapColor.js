@@ -4,6 +4,8 @@ var mapColor = {};
 
 mapColor.map; // the map to be colored
 mapColor.legend; // the gradient of color which presents the lowest and highest values
+mapColor.x = 386;
+mapColor.y = 295;
 
 // we shouldn't have to change the value given to this function
 // but yet we can if we want to.
@@ -13,6 +15,31 @@ mapColor.legend; // the gradient of color which presents the lowest and highest 
  */
 mapColor.init = function( map_id, legend_id ){
     mapColor.map = Snap.select( map_id );
+    
+    if( map_id != "#Map" ){
+        var bbox = mapColor.map.getBBox();
+        
+        if( bbox['height'] >= bbox['width'] ){
+            var htr = (mapColor.x/2)-bbox['cx'];
+            var vtr = (mapColor.y/2)-bbox['cy'];
+            var scale = mapColor.x / bbox['height'];
+            mapColor.map.transform(
+                "t"+htr+","+vtr+
+                "s"+scale
+            );
+                
+        }else{
+            var htr = (mapColor.x/2)-bbox['cx'];
+            var vtr = (mapColor.y/2)-bbox['cy'];
+            var scale = mapColor.y / bbox['width'];
+            mapColor.map.transform(
+                "t"+htr+","+vtr+
+                "s"+scale
+            );
+            
+        }
+    }
+                
     mapColor.legend = Snap.select( legend_id );
 };
 

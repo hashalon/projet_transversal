@@ -25,42 +25,21 @@ use yii\helpers\Html;
             'Revenus et productions agricoles' => [ 'orange', '#e2dbc1', '#e28d19', '#52140f' ],
         ],
     ];
-
+    
+    $map_id = "Nord-Pas-de-Calais";
+    $detail = "departements";
+    
 ?>
 <script>
     window.onload = function () {
         // TODO rename the id of the g group of each svg file to "Map"
         //mapColor.init("#Map");
-        mapColor.init("#Regions", "#Legend");
+        mapColor.init(<%= "#".$map_id %>, "#Legend");
     };
     
+    // TODO, make a function to load data
     var data = {};
-    data["Nord-pas-de-calais"] = -100;
-    data["Haute-normandie"] = -90;
-    data["Basse-normandie"] = -80;
-    data["Picardie"] = -70;
-    data["Centre"] = -60;
-    data["Bretagne"] = -50;
-    data["Poitou-charente"] = -40;
-    data["Aquitaine"] = -30;
-    data["Lorraine"] = -20;
-    data["Limousin"] = -10;
-    data["Bourgogne"] = 0;
-    data["Pays-de-la-loire"] = 10;
-    data["Champagne-ardenne"] = 20;
-    data["Ile-de-france"] = 30;
-    data["Auvergne"] = 40;
-    data["Franche-comte"] = 50;
-    data["Alsace"] = 60;
-    data["Corse"] = 70;
-    data["Midi-pyrenees"] = 80;
-    data["Languedoc-roussillon"] = 90;
-    data["Provence-alpes-cote-d_azur"] = 100;
-    data["Rhone-alpes"] = 110;
-    data["Guadeloupe"] = 120;
-    data["Guyane"] = 130;
-    data["Martinique"] = 140;
-    data["Reunion"] = 150;
+    data["Nord-Pas-de-Calais"] = -100;
 
     function ponderate(input, start, middle, end){
         //var color;
@@ -89,7 +68,21 @@ use yii\helpers\Html;
         </svg>
         
         <!-- Affichage de la carte -->
-        <?php include("maps/france_regions.svg"); ?>
+        <?php
+            switch( $detail ){
+                case "regions":
+                    include("maps/france_regions.php");
+                    break;
+                case "departements":
+                    include("maps/france_departements.php");
+                    break;
+                case "arrondissements":
+                    include("maps/france_arrondissements.php");
+                    break;
+            }
+            include("maps/france_departements.php");
+            initMap($map_id);
+        ?>
         
     </div>
     <div class="col-sm-3">
