@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\bootstrap\Dropdown;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
@@ -35,28 +36,33 @@ AppAsset::register($this);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-left'],
                 'items' => [
-                    TRUE /* si affichage de la carte */ ?
-                        ['label' => 'Graphes', 'url' => ['/graph/index']] :
-                        ['label' => 'Carte', 'url' => ['/map/index']],
+                    TRUE ?
+                    ['label' => 'Graphes', 'url' => ['/graph/index']] :
+                    ['label' => 'Carte', 'url' => ['/map/index']],
+                    ['label' => 'Affichage',
+                        'items' => [
+                            ['label' => 'regions', 'url' => '#'],
+                            ['label' => 'departements', 'url' => '#'],
+                            ['label' => 'arrondissements', 'url' => '#'],
+                        ],
+                    ],
                 ],
             ]);
-            // TODO set search bar
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
-                    ['label' => 'Home', 'url' => ['/site/index']],
-                    ['label' => 'About', 'url' => ['/site/about']],
-                    ['label' => 'Contact', 'url' => ['/site/contact']],
-                    Yii::$app->user->isGuest ?
-                        ['label' => 'Login', 'url' => ['/site/login']] :
-                        ['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-                            'url' => ['/site/logout'],
-                            'linkOptions' => ['data-method' => 'post']],
+                    '<div class="input-group">'.
+                        '<input type="text" class="form-control" placeholder="Search for...">'.
+                        '<span class="input-group-btn">'.
+                            '<button class="btn btn-default" type="button">Go!</button>'.
+                        '</span>'.
+                    '</div>',
                 ],
             ]);
             NavBar::end();
+        
         ?>
-
+        
         <div class="container">
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],

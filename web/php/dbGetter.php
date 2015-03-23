@@ -4,33 +4,30 @@
 
 if(
     isset($_POST['map']) &&
-    isset($_POST['level']) &&
     isset($_POST['detail']) &&
     isset($_POST['criteria'])
 ){
     if(
         !empty($_POST['map']) &&
-        !empty($_POST['level']) &&
         !empty($_POST['detail']) &&
         !empty($_POST['criteria'])
     ){
         if(
             is_string($_POST['map']) &&
-            is_string($_POST['level']) &&
             is_string($_POST['detail']) &&
             is_string($_POST['criteria'])
         ){
             // we make sure that level is higher than detail and that both are valid
-            if( checkLevelDetail( $_POST['level'], $_POST['detail'] ) ){
+            if( checkLevelDetail( $_POST['map'], $_POST['detail'] ) ){
                 
                 // we check if year is setted or not
                 if( isset($_POST['year']) ){
                     if( !empty($_POST['year']) ){
                         $year = (int) $_POST['year'];
-                        getData( $_POST['map'], $_POST['level'], $_POST['detail'], $_POST['criteria'], $_POST['year'] );
+                        getData( $_POST['map'], $_POST['detail'], $_POST['criteria'], $_POST['year'] );
                     }
                 }else{
-                    getData( $_POST['map'], $_POST['level'], $_POST['detail'], $_POST['criteria'] );
+                    getData( $_POST['map'], $_POST['detail'], $_POST['criteria'] );
                 }
                 
             }
@@ -39,7 +36,7 @@ if(
 }
 
 // TODO complete the function once we have the database filled
-function getData( $map, $level, $detail, $criteria, $year = null ){
+function getData( $map, $detail, $criteria, $year = null ){
     $conn = connect();
     $query = "";
     
@@ -80,12 +77,13 @@ function getDB(){
     require("../../config/db.php");
 }
 
-function checkLevelDetail( $level, $detail ){
+function checkLevelDetail( $map, $detail ){
+    // TODO check if $map is pays, regions, dep or arr
     if(
-        detailValue($level) != -1 &&
+        detailValue($map) != -1 &&
         detailValue($detail) != -1
     ){
-        if( detailValue($level) > detailValue($detail) ){
+        if( detailValue($map) > detailValue($detail) ){
             return true;
         }
     }
@@ -108,4 +106,8 @@ function detailValue($detail){
             break;
     }
     return $value;
+}
+
+function stripAccents($str) {
+    return strtr(utf8_decode($str), utf8_decode("àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ '()"), "aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY____");
 }

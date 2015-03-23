@@ -39,6 +39,42 @@ mapColor.init = function( map_id, legend_id ){
             
         }
     }
+    
+    // on ajoute des evenements sur les éléments pour changer de page
+    var paths = mapColor.map.selectAll("path");
+    for( var i=0; i<paths.length; ++i ){
+        
+        var text = mapColor.map.text(10,10,"");
+        text.attr({
+            fill: "#fff"
+        });
+        
+        paths[i].click(function(){
+            alert('clicked: '+this.attr("id"));
+        });
+        
+        paths[i].hover(
+            function(){
+                this.attr({
+                    stroke: "#fff",
+                    strokeWidth: 2
+                });
+                text.attr({
+                    text: this.attr("id")
+                });
+            },
+            function(){
+                this.attr({
+                    strokeWidth: 0
+                });
+                text.attr({
+                    text: ''
+                });
+            }
+        );
+        
+    }
+    
                 
     mapColor.legend = Snap.select( legend_id );
 };

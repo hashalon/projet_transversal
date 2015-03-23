@@ -7,10 +7,13 @@ use app\models\Map;
 
 class MapController extends Controller {
     
-    public function actionIndex(){
+    // available arguments are: region, departement, arrondissement
+    public function actionIndex($map = 'Map', $detail = 'regions' ){
         
-        $mapname = 'france_regions.svg';
-        return $this->render( 'index' );
+        return $this->render( 'index', [
+            'map' => $map,
+            'detail' => $detail,
+        ]);
     }
     
 }

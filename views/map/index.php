@@ -26,15 +26,12 @@ use yii\helpers\Html;
         ],
     ];
     
-    $map_id = "Nord-Pas-de-Calais";
-    $detail = "departements";
-    
 ?>
 <script>
     window.onload = function () {
         // TODO rename the id of the g group of each svg file to "Map"
         //mapColor.init("#Map");
-        mapColor.init(<%= "#".$map_id %>, "#Legend");
+        mapColor.init("<?= "#".$map ?>", "#Legend");
     };
     
     // TODO, make a function to load data
@@ -80,8 +77,7 @@ use yii\helpers\Html;
                     include("maps/france_arrondissements.php");
                     break;
             }
-            include("maps/france_departements.php");
-            initMap($map_id);
+            initMap($map);
         ?>
         
     </div>
