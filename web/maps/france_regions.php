@@ -1,6 +1,5 @@
 <?php function initMap( $map = "Map" ){ ?>
 
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg width="100%" height="100%" viewBox="0 0 386 295" >
     <g id="Map"> 
         <path

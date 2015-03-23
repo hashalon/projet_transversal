@@ -42,10 +42,10 @@ CREATE TABLE IF NOT EXISTS `region` (
 -- 
 
 INSERT INTO `region` (`reg_no`, `reg_name`) VALUES
-(1, 'Guadeloupe'),
-(2, 'Martinique'),
-(3, 'Guyane'),
-(4, 'La Reunion'),
+(1, 'Guadeloupe '),
+(2, 'Martinique '),
+(3, 'Guyane '),
+(4, 'La Reunion '),
 (11, 'Ile-de-France'),
 (21, 'Champagne-Ardenne'),
 (22, 'Picardie'),
@@ -61,7 +61,7 @@ INSERT INTO `region` (`reg_no`, `reg_name`) VALUES
 (53, 'Bretagne'),
 (54, 'Poitou-Charentes'),
 (72, 'Aquitaine'),
-(73, 'Midi-Pyrenees'),
+(73, 'Midi-Pyrenees '),
 (74, 'Limousin'),
 (82, 'Rhone-Alpes'),
 (83, 'Auvergne'),
@@ -548,9 +548,9 @@ INSERT INTO `arrondissement` (`arr_code`, `arr_name`, `departement_dep_no`) VALU
 ('9731', 'Arrondissement de Cayenne', '973'),
 ('9732', 'Arrondissement de Saint-Laurent-du-Maroni', '973'),
 ('9741', 'Arrondissement de Saint-Benoît', '974'),
-('9742', 'Arrondissement de Saint-Denis', '974'),
+('9742', 'Arrondissement de Saint-Denis ', '974'),
 ('9743', 'Arrondissement de Saint-Paul', '974'),
-('9744', 'Arrondissement de Saint-Pierre', '974');
+('9744', 'Arrondissement de Saint-Pierre ', '974');
 
 -- --------------------------------------------------------
 
