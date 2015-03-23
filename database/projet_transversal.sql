@@ -1,6 +1,8 @@
 CREATE DATABASE IF NOT EXISTS dynamismeFR;
 use dynamismeFR;
 
+SET FOREIGN_KEY_CHECKS = 0;
+
 drop table if exists formation;
 drop table if exists diplome;
 drop table if exists revenue_fisc;
@@ -211,3 +213,4 @@ create table formation(		-- par departement
     FOREIGN KEY (pop_type_pt_id) REFERENCES pop_type(pt_id)
 );
 
+SET FOREIGN_KEY_CHECKS = 1;
