@@ -3,6 +3,7 @@
 
 var dbGetter = {};
 dbGetter.results = {};
+dbGetter.colors = {};
 
 /**
  * Recover data from the database
@@ -23,10 +24,11 @@ dbGetter.getData = function ( m, d, crit, y ){
     posting.done(function(json){
         // we store the collected data in a array
         var data = JSON.parse(json);
-        dbGetter.results = {};
+        var results = {};
         for( var i in data ){
-            dbGetter.results[i] = data[i];
+            results[i] = data[i];
         }
+        mapColor.apply( results, dbGetter.colors[0], dbGetter.colors[1], dbGetter.colors[2] );
     });
     
     posting.fail(function(){

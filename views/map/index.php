@@ -5,7 +5,7 @@ use yii\helpers\Html;
         'Population active' => [
             'Travailleurs' => [ 'blue', '#59c6e6', '#112aea', '#030b1f' ],
             'Chômeurs' => [ 'red', '#edc2be', '#e61f18', '#4e0f0f' ],
-            'Rapport Travailleurs/Chômeurs' => [ 'magenta', '#be1919', "#be4bb9", "#1b1bd9" ],
+            'Rapport Travailleurs/Chômeurs' => [ 'magenta', '#1b1bd9', '#be4bb9', '#be1919' ],
         ],
         'Population' => [
             'Natalité' => [ 'yellow', '#e5e5c7', '#e6e618', '#332207' ],
@@ -40,8 +40,8 @@ use yii\helpers\Html;
         // we get data for the right map, with the right detail mode
         $(document).ready(function(){
             var criteria = input.id;
+            dbGetter.colors = [ start, middle, end ];
             dbGetter.getData( "<?= $map ?>", "<?= $detail ?>", criteria, year );
-            mapColor.apply( dbGetter.results, start, middle, end );
         });
     };
 </script>
