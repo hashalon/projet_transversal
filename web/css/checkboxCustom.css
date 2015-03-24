@@ -30,7 +30,7 @@ colbat    #3a49ff
 purple    #8544ff
 magenta   #d62fb0
 crimson   #e31a60
-brown     #392108
+brown     #ac7947
 grey      #777777
 black     #0b0b0b
 
@@ -180,16 +180,16 @@ black     #0b0b0b
 }
 
 .radio-brown input[type="radio"]+label::after {
-    background-color: #392108
+    background-color: #ac7947
 }
 .radio-brown input[type="radio"]:checked+label::before {
-    border-color: #392108
+    border-color: #ac7947
 }
 .radio-brown input[type="radio"]:checked+label::after {
-    background-color: #392108
+    background-color: #ac7947
 }
 .radio-brown label {
-    color: #392108
+    color: #ac7947
 }
 
 .radio-grey input[type="radio"]+label::after {

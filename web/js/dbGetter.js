@@ -2,8 +2,7 @@
 // Côté client
 
 var dbGetter = {};
-
-dbGetter.result = {};
+dbGetter.results = {};
 
 /**
  * Recover data from the database
@@ -14,16 +13,20 @@ dbGetter.result = {};
  */
 dbGetter.getData = function ( m, d, crit, y ){
     // CAUTION this script is setted for a local server currently
-    var posting = $.post("web/php/dbGetter.php", {
+    var posting = $.post("/projet_transversal/web/php/dbGetter.php", {
         map: m,
         detail: d,
         criteria: crit,
         year: y
     });
     
-    posting.done(function(data){
-        // TODO verifier qu'on récupère bien un array js et non un string
-        dbGetter.result = data;
+    posting.done(function(json){
+        // we store the collected data in a array
+        var data = JSON.parse(json);
+        dbGetter.results = {};
+        for( var i in data ){
+            dbGetter.results[i] = data[i];
+        }
     });
     
     posting.fail(function(){
@@ -41,7 +44,7 @@ dbGetter.stripAccents = function(str) {
  * example of how to call the function dbGetter.getData();
  * 
  * $(document).ready(function(){
- *     dbGetter.getData("critère", année);
+ *     dbGetter.getData(map, niveau de detail, critère, année);
  * });
  * 
  */
