@@ -74,18 +74,19 @@ function getData( $map, $detail, $criteria, $year = null ){
             $col_match = "reg_no = region_reg_no and dep_no = departement_dep_no and arr_code = arrondissement_arr_code";
             break;
         case 2:
-            $col_map = 'and reg_name = "'.$map.'"';
+            $col_map = ' and reg_name = "'.$map.'"';
             $table = "region, departement, arrondissement, commune";
-            $col_match = "dep_no = departement_dep_no and arr_code = arrondissement_arr_code";
+            $col_match = " reg_no = region_reg_no and dep_no = departement_dep_no and arr_code = arrondissement_arr_code";
             break;
         case 1:
-            $col_map = 'and dep_name = "'.$map.'"';
+            $col_map = ' and dep_name = "'.$map.'"';
             $table = "departement, arrondissement, commune";
-            $col_match = "arr_code = arrondissement_arr_code";
+            $col_match = " dep_no = departement_dep_no and arr_code = arrondissement_arr_code";
             break;
         case 0:
-            $col_map = 'and arr_name = "'.$map.'"';
+            $col_map = ' and arr_name = "'.$map.'"';
             $table = "arrondissement, commune";
+            $col_match = "arr_code = arrondissement_arr_code";
             break;
     }
     
@@ -116,12 +117,13 @@ function getData( $map, $detail, $criteria, $year = null ){
     $query =
          " SELECT ".$col_name.", ".$col_crit
         ." FROM ".$table
-        ." WHERE ".$col_match." ".$col_map;
+        ." WHERE ".$col_match.$col_map;
     if( isset($year) ){
         $query .= ' and date = '.$year;
     }
     $query .= " group by ".$col_name.";";
     
+    // echo $query;
     // we execute the query
     $q = $conn->query($query);
     

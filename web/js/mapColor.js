@@ -120,9 +120,12 @@ mapColor.apply = function( data, start, middle, end ){
     
     // we loop all the elements of the map to color them
     for( var i in data){
-        mapColor.map.select( "#".concat(i) ).attr({
-            fill: gradient( data[i], minValue, maxValue ) 
-        });
+        var e;
+        if( e = mapColor.map.select( "#"+i ) ){
+            e.attr({
+                fill: gradient( data[i], minValue, maxValue ) 
+            });
+        }
     }
     
     mapColor.legend.gradient.attr({

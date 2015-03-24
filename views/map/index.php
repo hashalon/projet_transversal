@@ -32,7 +32,6 @@ use yii\helpers\Html;
 <script>
     window.onload = function () {
         // TODO rename the id of the g group of each svg file to "Map"
-        //mapColor.init("#Map");
         mapColor.init("<?= "#".$map ?>");
     };
     

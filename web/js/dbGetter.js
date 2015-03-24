@@ -23,6 +23,7 @@ dbGetter.getData = function ( m, d, crit, y ){
     
     posting.done(function(json){
         // we store the collected data in a array
+        // alert(json);
         var data = JSON.parse(json);
         var results = {};
         for( var i in data ){
