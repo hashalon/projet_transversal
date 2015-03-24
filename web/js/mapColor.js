@@ -3,7 +3,12 @@
 var mapColor = {};
 
 mapColor.map; // the map to be colored
-mapColor.legend; // the gradient of color which presents the lowest and highest values
+mapColor.legend = {}; 
+mapColor.legend.gradient;// the gradient of color which presents the lowest and highest values
+mapColor.legend.minValue;// the minimum value to be displayed
+mapColor.legend.maxValue;// the maximum value to be displayed
+mapColor.legend.label;// the name of the element hovered
+mapColor.data = {};
 mapColor.x = 386;
 mapColor.y = 295;
 
@@ -13,7 +18,7 @@ mapColor.y = 295;
  * set the map to be used
  * @param {String} map_id id of the map to be used
  */
-mapColor.init = function( map_id, legend_id ){
+mapColor.init = function( map_id ){
     mapColor.map = Snap.select( map_id );
     
     if( map_id != "#Map" ){
@@ -39,15 +44,14 @@ mapColor.init = function( map_id, legend_id ){
             
         }
     }
+    mapColor.legend.gradient = Snap.select( "#Legend_gradient" );
+    mapColor.legend.minValue = Snap.select( "#Legend_minValue" );
+    mapColor.legend.maxValue = Snap.select( "#Legend_maxValue" );
+    mapColor.legend.label = Snap.select( "#Legend_label" );
     
     // on ajoute des evenements sur les éléments pour changer de page
     var paths = mapColor.map.selectAll("path");
     for( var i=0; i<paths.length; ++i ){
-        
-        var text = mapColor.map.text(10,10,"");
-        text.attr({
-            fill: "#fff"
-        });
         
         paths[i].click(function(){
             alert('clicked: '+this.attr("id"));
@@ -55,28 +59,32 @@ mapColor.init = function( map_id, legend_id ){
         
         paths[i].hover(
             function(){
+                var currentValue = mapColor.data[this.attr("id")];
                 this.attr({
                     stroke: "#fff",
-                    strokeWidth: 2
+                    strokeWidth: 0.3
                 });
-                text.attr({
-                    text: this.attr("id")
-                });
+                if( currentValue != null ){
+                    mapColor.legend.label.attr({
+                        text: this.attr("id")+" : "+currentValue
+                    });
+                }else{
+                    mapColor.legend.label.attr({
+                        text: this.attr("id")
+                    });
+                }
             },
             function(){
                 this.attr({
                     strokeWidth: 0
                 });
-                text.attr({
-                    text: ''
+                mapColor.legend.label.attr({
+                    text: '???'
                 });
             }
         );
         
     }
-    
-                
-    mapColor.legend = Snap.select( legend_id );
 };
 
 /**
@@ -88,6 +96,7 @@ mapColor.init = function( map_id, legend_id ){
  * @param   {String} end    end color to apply to the elements
  */
 mapColor.apply = function( data, start, middle, end ){
+    mapColor.data = data;
     
     // we will search for the minimal and maximal values
     var minValue = Number.MAX_VALUE;
@@ -106,15 +115,17 @@ mapColor.apply = function( data, start, middle, end ){
             maxValue = data[i];
         }
     }
+    mapColor.legend.minValue.attr({ text: minValue });
+    mapColor.legend.maxValue.attr({ text: maxValue });
     
     // we loop all the elements of the map to color them
     for( var i in data){
         mapColor.map.select( "#".concat(i) ).attr({
-            fill: gradient( data[i], minValue, maxValue )  
+            fill: gradient( data[i], minValue, maxValue ) 
         });
     }
     
-    mapColor.legend.attr({
+    mapColor.legend.gradient.attr({
         fill: "l(0,0,1,0)"+start+"-"+middle+"-"+end
     });
     
