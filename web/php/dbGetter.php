@@ -2,6 +2,8 @@
 // script de connection à la base de données
 // Côté serveur
 
+// http://www.memorandom.fr/php/modifier-les-modeles-dans-yii/
+
 if(
     isset($_POST['map']) &&
     isset($_POST['detail']) &&
@@ -47,7 +49,7 @@ function getData( $map, $detail, $criteria, $year = null ){
     $table     = ""; // the name of the tables we have to retrieve data from
     $col_match = ""; // parameters to make tables match
     $col_map   = ""; // parameter to limit the number of data to the currently selected map
-    $keys = []; // names of the columns of values
+    $operator = "";
     
     // we select the right column name
     switch( $detail ){
@@ -92,25 +94,53 @@ function getData( $map, $detail, $criteria, $year = null ){
     
     // we find the columns' name corresponding to our criteria
     switch( $criteria ){
-        case 'Travailleurs' :
-            $col_crit = "emploi";
+        case 'travailleurs' :
+            $col_crit = "sum(emploi)";
             $table .= ", zone_demploi";
             $col_match .= " and zone_demploi_zone_no = zone_no";
-            $key[0] = 'emploi';
             break;
-        case 'Chômeurs' :
-            $col_crit = "emploi, taux_chomage";
+        case 'chomeurs' :
+            $col_crit = "sum(emploi), avg(taux_chomage)";
             $table .= ", zone_demploi";
             $col_match .= " and zone_demploi_zone_no = zone_no";
-            $key[0] = 'emploi';
-            $key[1] = 'taux_chomage';
+            $operator = "multiply percent";
             break;
-        case 'Rapport Travailleurs/Chômeurs' :
-            $col_crit = "taux_chomage";
+        case 'taux chomage' :
+            $col_crit = "avg(taux_chomage)";
             $table .= ", zone_demploi";
             $col_match .= " and zone_demploi_zone_no = zone_no";
-            $key[0] = 'taux_chomage';
             break;
+        case 'habitants' :
+            $col_crit = "sum(ph_num)";
+            $table .= ", population";
+            $col_match .= " and commune_com_code = com_code";
+            break;
+        case 'natalite' :
+            $col_crit = "sum(naiss_num)";
+            $table .= ", naissance";
+            $col_match .= " and commune_com_code = com_code";
+            break;
+        case 'deces' :
+            $col_crit = "sum(deces_num)";
+            $table .= ", deces";
+            $col_match .= " and commune_com_code = com_code";
+            break;
+        case 'naissances morts' :
+            $col_crit = "sum(naiss_num), sum(deces_num)";
+            $table .= ", naissance natural join deces";
+            $col_match .= " and commune_com_code = com_code";
+            $operator = "substract";
+            break;
+        case 'menages fiscaux' :
+            $col_crit = "sum(nomb_men_fc)";
+            $table .= ", revenue_fisc";
+            $col_match .= " and commune_com_code = com_code";
+            break;
+        case 'personnes menages fiscaux' :
+            $col_crit = "sum(nomb_pers_fc)";
+            $table .= ", revenue_fisc";
+            $col_match .= " and commune_com_code = com_code";
+            break;    
     }
     
     // we create the query
@@ -130,11 +160,24 @@ function getData( $map, $detail, $criteria, $year = null ){
     $data = [];
     while( $row = $q->fetch(PDO::FETCH_ASSOC) ){
         $value = 0;
+        $keys = array_keys( $row );
         if( sizeof($row) <= 2 ){
-            $value = floatval($row[$key[0]]);
+            $value = floatval($row[$keys[1]]);
         }else{ // if we have two values in our array, we must merge them into one
-            
-            $value = floatval($row[$key[0]]) * floatval($row[$key[1]]) / 100;
+            switch( $operator ){
+                case "multiply percent" :
+                    $value = floatval($row[$keys[1]]) * floatval($row[$keys[2]]) / 100;
+                    break;
+                case "multiply" :
+                    $value = floatval($row[$keys[1]]) * floatval($row[$keys[2]]);
+                    break;
+                case "substract" :
+                    $value = floatval($row[$keys[1]]) - floatval($row[$keys[2]]);
+                    break;
+                case "add" :
+                    $value = floatval($row[$keys[1]]) + floatval($row[$keys[2]]);
+                    break;
+            }
         }
         $data[stripAccents($row[$col_name])] = $value;
     }

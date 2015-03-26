@@ -2,29 +2,30 @@
 use yii\helpers\Html;
 
     $sideMenu = [
-        'Population active' => [
-            'Travailleurs' => [ 'blue', '#59c6e6', '#112aea', '#030b1f' ],
-            'Chômeurs' => [ 'red', '#edc2be', '#e61f18', '#4e0f0f' ],
-            'Rapport Travailleurs/Chômeurs' => [ 'magenta', '#1b1bd9', '#be4bb9', '#be1919' ],
-        ],
         'Population' => [
-            'Natalité' => [ 'yellow', '#e5e5c7', '#e6e618', '#332207' ],
-            'Mortalité' => [ 'grey', '#dedede', '#585858', '#292929' ],
-            'Rapport Natalité/Mortalité' => [ 'brown', '#2a2a2a', '#ffffff', '#e0e018' ],
+            'Nombre d\'habitants' => [ 'habitants', 'cyan', '#bbe2e0', '#00fff6', '#1a3835' ],
+            'Natalité' => [ 'natalite', 'yellow', '#e5e5c7', '#e6e618', '#332207' ],
+            'Mortalité' => [ 'mortalite', 'grey', '#dedede', '#585858', '#292929' ],
+            'Rapport Natalité/Mortalité' => [ 'naissances morts', 'brown', '#2a2a2a', '#ffffff', '#e0e018' ],
+        ],
+        'Population active' => [
+            'Travailleurs' => [ 'travailleurs', 'blue', '#59c6e6', '#112aea', '#030b1f' ],
+            'Chômeurs' => [ 'chomeurs', 'red', '#edc2be', '#e61f18', '#4e0f0f' ],
+            'Taux de Chômage' => [ 'taux chomage', 'magenta', '#1b1bd9', '#be4bb9', '#be1919' ],
         ],
         'Revenus (Salaire)' => [
-            'Nombre de ménages' => [ 'cyan', '#bbe2e0', '#00fff6', '#1a3835' ],
-            'Revenus fiscaux' => [ 'green', '#9bdea1', '#1ddd2b', '#04210b' ],
+            'Nombre de ménages fiscaux' => [ 'menages fiscaux', 'green', '#9bdea1', '#1ddd2b', '#04210b' ],
+            'Nombre de personnes dans les ménages fiscaux' => [ 'personnes menages fiscaux', 'crimson', '#de9bb7', '#dd1d7d', '#210404' ],
         ],
         'Etablissement actifs' => [
-            'Grandes entreprises et établissement' => [ 'colbat', '#b9c0db', '#1b2add', '#05082c' ],
+            'Grandes entreprises et établissement' => [ 'entreprises', 'colbat', '#b9c0db', '#1b2add', '#05082c' ],
         ],
         'Education et Recherche' => [
-            'Elèves, Enseignants' => [ 'purple', '#c1b2dd', '#5e19de', '#160426' ],
-            'Diplôme, Formation' => [ 'lime', '#dbe5cf', '#84de1c', '#1d2c05' ],
+            'Elèves, Enseignants' => [ 'eleves', 'purple', '#c1b2dd', '#5e19de', '#160426' ],
+            'Diplôme, Formation' => [ 'diplomes', 'lime', '#dbe5cf', '#84de1c', '#1d2c05' ],
         ],
         'Agriculture' => [
-            'Revenus et productions agricoles' => [ 'orange', '#e2dbc1', '#e28d19', '#52140f' ],
+            'Revenus et productions agricoles' => [ 'agriculture', 'orange', '#e2dbc1', '#e28d19', '#52140f' ],
         ],
     ];
     
@@ -38,9 +39,8 @@ use yii\helpers\Html;
     function ponderate(input, year, start, middle, end){
         // we get data for the right map, with the right detail mode
         $(document).ready(function(){
-            var criteria = input.id;
             dbGetter.colors = [ start, middle, end ];
-            dbGetter.getData( "<?= $map ?>", "<?= $detail ?>", criteria, year );
+            dbGetter.getData( "<?= $map ?>", "<?= $detail ?>", input, year );
         });
     };
 </script>
@@ -81,9 +81,9 @@ use yii\helpers\Html;
                 foreach( $sideMenu as $category => &$elements ){
             ?>
             <strong><?= $category ?></strong>
-                <?php foreach( $elements as $element => &$colors ){ ?>
-            <div class="radio radio-<?= $colors[0] ?>">
-                <input id="<?= $element ?>" name="critere" value="<?= $count++ ?>" type="radio" onchange="ponderate(this, null,'<?= $colors[1] ?>', '<?= $colors[2] ?>', '<?= $colors[3] ?>' )" />
+                <?php foreach( $elements as $element => &$attr ){ ?>
+            <div class="radio radio-<?= $attr[1] ?>">
+                <input id="<?= $element ?>" name="critere" value="<?= $count++ ?>" type="radio" onchange="ponderate('<?= $attr[0] ?>', null,'<?= $attr[2] ?>', '<?= $attr[3] ?>', '<?= $attr[4] ?>' )" />
                 <label for="<?= $element ?>" ><?= $element ?></label>
             </div>
                 <?php } ?>

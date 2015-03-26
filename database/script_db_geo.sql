@@ -559,7 +559,7 @@ INSERT INTO `arrondissement` (`arr_code`, `arr_name`, `departement_dep_no`) VALU
 -- 
 
 CREATE TABLE IF NOT EXISTS `commune` (
-  `com_code` varchar(50) NOT NULL,
+  `com_code` varchar(50) PRIMARY KEY NOT NULL,
   `com_name` varchar(50) NOT NULL,
   `epci` varchar(50) NOT NULL,
   `arrondissement_arr_code` varchar(50) DEFAULT NULL,
