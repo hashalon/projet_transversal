@@ -3,6 +3,8 @@
 // Côté serveur
 
 // http://www.memorandom.fr/php/modifier-les-modeles-dans-yii/
+// http://zenprog.fr/post/view/3/introduction-a-yii-framework
+// http://www.yiiframework.com/doc-2.0/guide-structure-models.html
 
 if(
     isset($_POST['map']) &&

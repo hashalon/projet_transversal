@@ -37,11 +37,6 @@ dbGetter.getData = function ( m, d, crit, y ){
     });
 }
 
-dbGetter.stripAccents = function(str) {
-    var php = require('phpjs');
-    return php.strtr(php.utf8_decode(str), php.utf8_decode("àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ '()"), "aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY____");
-}
-
 /*
  * 
  * example of how to call the function dbGetter.getData();
