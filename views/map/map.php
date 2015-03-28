@@ -1,5 +1,11 @@
 <?php
 
+require_once ($RootDir.'controllers/map/MapChecker.php');
+
+if( $_mapChecker->isInvalid() ){
+    //header('Location: '.$RootURL);
+}
+
 $sideMenu = [
     'Population active' => [
         'Actifs' => [ 'pop active', 'grey', '#fff', '#444', '#000' ],

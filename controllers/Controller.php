@@ -3,7 +3,7 @@
 // We use this class as a namespace to contains all of the functions necessary for the whole website
 
 // session_start();
-
+require_once($RootDir.'database/database.php');
 require_once($RootDir.'models/map/France.php');
 // on importe les managers
 require_once($RootDir.'managers/map/RegionManager.php');
@@ -26,8 +26,8 @@ class Controller {
     
     public function __construct(){
         // first we create a connection to the database
-        
-        $this->_db = new PDO('mysql:host=localhost; dbname=dynamismeFR; charset=utf8', 'root', '');
+        global $_DATABASE;
+        $this->_db = $_DATABASE;
         // then we create the managers
         $this->_regMan = new RegionManager($this->_db);
         $this->_depMan = new DepartementManager($this->_db);

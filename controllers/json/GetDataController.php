@@ -5,20 +5,26 @@ $RootDir = '../../';
 
 // we include the main controller
 require_once ($RootDir.'controllers/Controller.php');
-require_once ($RootDir.'controllers/json/DataChecker.php');
+require_once ($RootDir.'controllers/map/MapChecker.php');
 
-$dataChecker = new DataChecker(); // check POSTED parameters
-
-if( $dataChecker->isValid() ){
+if( $_mapChecker->isValidPOST() ){
     if( isset($_POST['criteria']) ){
         if( !empty($_POST['criteria']) ){
-            getData( $_POST['map'], $_POST['detail'], $_POST['criteria'], $_POST['year'] );
+            if( isset($_POST['year']) ){
+                getData( $_POST['map'], $_POST['detail'], $_POST['criteria'], $_POST['year'] );
+            }else{
+                getData( $_POST['map'], $_POST['detail'], $_POST['criteria'] );
+            }
         }
     }
 }
 
 else{ // TODO TO REMOVE
-    getData( $_GET['map'], $_GET['detail'], $_GET['criteria'], $_GET['year'] );
+    if( isset($_GET['year']) ){
+        getData( $_GET['map'], $_GET['detail'], $_GET['criteria'], $_GET['year'] );
+    }else{
+        getData( $_GET['map'], $_GET['detail'], $_GET['criteria'] );
+    }
 }
 
 // dataChecker will launch the function if values are valid
