@@ -4,6 +4,7 @@
 
 // session_start();
 
+require_once($RootDir.'models/map/France.php');
 // on importe les managers
 require_once($RootDir.'managers/map/RegionManager.php');
 require_once($RootDir.'managers/map/DepartementManager.php');

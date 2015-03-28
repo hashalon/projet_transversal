@@ -1,6 +1,7 @@
 <?php
 
 require_once($RootDir.'models/abstract/MapElementSvg.php');
+require_once($RootDir.'models/map/Commune.php');
 
 class Arrondissement extends MapElementSvg{
 
@@ -13,5 +14,5 @@ class Arrondissement extends MapElementSvg{
         $this->hmatch( $data, 'setSvg', 'arr_svg' );
         $this->hmatch( $data, 'setChildren', '_children' );
     }
-
+    
 }

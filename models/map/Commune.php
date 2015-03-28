@@ -149,8 +149,41 @@ class Commune extends MapElement{
         return avgCriteria($this->_fisc, $year);
     }
     
-    protected function avgCriteria( array $criterias, $year ){
-        $year = (int) $year;
+    protected function avgCriteria( array &$criterias, $year = null ){
+        $c = $this->countCriteria( $criterias, $year );
+        if( $c['counter'] != 0 ){
+            return $c['result'] / $c['counter'];
+        }
+        return 0;
+    }
+    
+    // those function return an array with the 'result' and 'counter' as keys
+    public function countDeces( $year = null ){
+        return countCriteria($this->_deces, $year);
+    }
+    public function countNaissances( $year = null ){
+        return countCriteria($this->_naissances, $year);
+    }
+    public function countDemandeursEmploi( $year = null ){
+        return countCriteria($this->_defm, $year);
+    }
+    public function countEtablissements( $year = null ){
+        return countCriteria($this->_etablissements, $year);
+    }
+    public function countLogements( $year = null ){
+        return countCriteria($this->_logs, $year);
+    }
+    public function countMenages( $year = null ){
+        return countCriteria($this->_menages, $year);
+    }
+    public function countPopulation( $year = null ){
+        return countCriteria($this->_pops, $year);
+    }
+    public function countRevenusFiscaux( $year = null ){
+        return countCriteria($this->_fisc, $year);
+    }
+    
+    protected function countCriteria( array &$criterias, $year = null ){
         $counter = 0;
         $result = 0;
         foreach( $criterias as &$crit ){
@@ -160,9 +193,9 @@ class Commune extends MapElement{
             }
         }
         if( $counter != 0 ){
-            return $result / $counter;
+            return [ 'result' => $result, 'counter' => $counter ];
         }
-        return 0;
+        return [ 'result' => 0, 'counter' => 0 ];
     }
     
 }

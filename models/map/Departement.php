@@ -1,6 +1,7 @@
 <?php
 
 require_once($RootDir.'models/abstract/MapElementSvg.php');
+require_once($RootDir.'models/map/Arrondissement.php');
 
 class Departement extends MapElementSvg{
     

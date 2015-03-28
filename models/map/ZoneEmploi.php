@@ -79,5 +79,5 @@ class ZoneEmploi extends MapElement{
     public function settravailleurs( array $trav ){
         $this->_travailleurs = $trav;
     }
-
+    
 }
