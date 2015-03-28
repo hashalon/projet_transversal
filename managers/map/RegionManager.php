@@ -1,10 +1,11 @@
 <?php
 
-require_once ($RootDir.'managers/abstract/MapElementSvgManager.php');
+require_once ($RootDir.'managers/abstract/BaseManager.php');
+require_once ($RootDir.'managers/interface/MapSvgInterface.php');
 require_once ($RootDir.'models/map/Region.php');
 require_once ($RootDir.'models/map/Departement.php');
 
-class RegionManager extends MapElementSvgManager{
+class RegionManager extends BaseManager implements MapSvgInterface{
     
     // add a region entry to the database
     public function add( $region ){
@@ -18,10 +19,6 @@ class RegionManager extends MapElementSvgManager{
         $q->bindValue(':name', $user->getName());
         $q->bindValue(':svg', $user->getSvg());
         $q->execute();
-    }
-
-    // not necessary
-    public function delete( $id ){
     }
 
     // get the region object from the database based on its reg_no

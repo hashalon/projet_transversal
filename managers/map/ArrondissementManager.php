@@ -1,11 +1,12 @@
 <?php
 
-require_once ($RootDir.'managers/abstract/MapElementSvgManager.php');
+require_once ($RootDir.'managers/abstract/BaseManager.php');
+require_once ($RootDir.'managers/interface/MapSvgInterface.php');
 require_once ($RootDir.'models/map/Departement.php');
 require_once ($RootDir.'models/map/Arrondissement.php');
 require_once ($RootDir.'models/map/Commune.php');
 
-class ArrondissementManager extends MapElementSvgManager{
+class ArrondissementManager extends BaseManager implements MapSvgInterface{
 
     // add a arrondissement entry to the database
     public function add( $arr ){
@@ -21,10 +22,6 @@ class ArrondissementManager extends MapElementSvgManager{
         $q->bindValue(':svg', $dep->getSvg());
         $q->bindValue(':reg', $dep->getParent());
         $q->execute();
-    }
-
-    // not necessary
-    public function delete( $id ){
     }
 
     // get the arrondissement object from the database based on its arr_code

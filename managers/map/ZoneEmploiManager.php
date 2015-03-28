@@ -1,10 +1,14 @@
 <?php
 
-require_once ($RootDir.'managers/abstract/MapElementManager.php');
+require_once ($RootDir.'managers/abstract/BaseManager.php');
+require_once ($RootDir.'managers/interface/MapInterface.php');
 require_once ($RootDir.'models/map/ZoneEmploi.php');
 require_once ($RootDir.'models/map/Commune.php');
 
-class ZoneEmploiManager extends MapElementManager{
+require_once ($RootDir.'models/criteria/Chomage.php');
+require_once ($RootDir.'models/criteria/Travailleurs.php');
+
+class ZoneEmploiManager extends BaseManager implements MapInterface{
 
     // add a arrondissement entry to the database
     public function add( $zone ){
@@ -22,14 +26,11 @@ class ZoneEmploiManager extends MapElementManager{
         $q->execute();
     }
 
-    // not necessary
-    public function delete( $id ){
-    }
-
     // get the zone_demploi object from the database based on its zone_no
     public function get( $id ){
         $q = $this->_db->query('SELECT * FROM `zone_demploi` WHERE `zone_code` = '.$id);
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
+            $this->getCriterias($data, $id);
             return new ZoneEmploi($data);
         }
     }
@@ -37,6 +38,7 @@ class ZoneEmploiManager extends MapElementManager{
     public function getByName( string $name ){
         $q = $this->_db->query('SELECT * FROM `zone_demploi` WHERE `zone_name` = '.$name);
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
+            $this->getCriterias($data, $data['zone_no']);
             return new ZoneEmploi($data);
         }
     }
@@ -44,6 +46,7 @@ class ZoneEmploiManager extends MapElementManager{
     public function getByCommune( Commune $com ){
         $q = $this->_db->query('SELECT * FROM `zone_demploi` NATURAL JOIN `commune` WHERE `com_code`="'.$com->getId().'"');
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
+            $this->getCriterias($data, $data['zone_no']);
             return new ZoneEmploi($data);
         }
     }
@@ -52,6 +55,7 @@ class ZoneEmploiManager extends MapElementManager{
         $name = (string) $name;
         $q = $this->_db->query('SELECT * FROM `zone_demploi` NATURAL JOIN `commune` WHERE `com_name`="'.$name.'"');
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
+            $this->getCriterias($data, $data['zone_no']);
             return new ZoneEmploi($data);
         }
     }
@@ -61,9 +65,14 @@ class ZoneEmploiManager extends MapElementManager{
         $zones = [];
         $q = $this->_db->query('SELECT * FROM `zone_demploi` ORDER BY `zone_name`');
         while ($data = $q->fetch(PDO::FETCH_ASSOC)){
+            $this->getCriterias($data, $data['zone_no']);
             $zones[] = new ZoneEmploi($data);
         }
         return $zones;
+    }
+    // in this case getListByParent = getList
+    public function getListByParent( $object ){
+        return getList();
     }
 
     // update the arrondissement object in the database
@@ -82,4 +91,32 @@ class ZoneEmploiManager extends MapElementManager{
         $q->execute();
     }
 
+    protected function getCriterias(array &$data, string $id){
+        $data['_chom'] = $this->getChomage($id);
+        $data['_trav'] = $this->getTravailleurs($id);
+    }
+    
+    public function getChomage($zone){
+        $chom = [];
+        $q = $this->_db->query('SELECT * FROM `chomage` WHERE `zone_no` = '.$zone);
+        while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
+            $chom[] = new Chomage($data);
+        }
+        return $chom;
+    }
+    public function getTravailleurs($zone){
+        $trav = [];
+        $q = $this->_db->query('SELECT * FROM `travailleurs` WHERE `zone_no` = '.$zone);
+        while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
+
+            $data['_cats'] = [];
+            $q2 = $this->_db->query('SELECT * FROM `categorie_age` WHERE `cat_id` = '.$data['cat_id']);
+            while( $data2 = $q2->fetch(PDO::FETCH_ASSOC) ){
+                $data['_cats'][] = $data2['cat_name'];
+            }
+            $trav[] = new Travailleurs($data);
+        }
+        return $trav;
+    }
+    
 }

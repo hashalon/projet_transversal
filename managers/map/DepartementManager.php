@@ -1,11 +1,12 @@
 <?php
 
-require_once ($RootDir.'managers/abstract/MapElementSvgManager.php');
+require_once ($RootDir.'managers/abstract/BaseManager.php');
+require_once ($RootDir.'managers/interface/MapSvgInterface.php');
 require_once ($RootDir.'models/map/Region.php');
 require_once ($RootDir.'models/map/Departement.php');
 require_once ($RootDir.'models/map/Arrondissement.php');
 
-class DepartementManager extends MapElementSvgManager{
+class DepartementManager extends BaseManager implements MapSvgInterface{
 
     // add a departement entry to the database
     public function add( $dep ){
@@ -21,10 +22,6 @@ class DepartementManager extends MapElementSvgManager{
         $q->bindValue(':svg', $dep->getSvg());
         $q->bindValue(':reg', $dep->getParent());
         $q->execute();
-    }
-
-    // not necessary
-    public function delete( $id ){
     }
 
     // get the departement object from the database based on its dep_no

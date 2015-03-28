@@ -9,6 +9,9 @@ class ZoneEmploi extends MapElement{
     
     private $_emploi;
     private $_taux_chomage;
+    
+    private $_chomage = array();
+    private $_travailleurs = array();
 
     protected function hydrate( array $data ){
         $this->hmatch( $data, 'setId', 'zone_no' );
@@ -16,6 +19,8 @@ class ZoneEmploi extends MapElement{
         $this->setParent("France");
         $this->hmatch( $data, 'setEmploi', 'emploi' );
         $this->hmatch( $data, 'setTauxChomage', 'taux_chomage' );
+        $this->hmatch( $data, 'setChomage', '_chom' );
+        $this->hmatch( $data, 'setTravailleurs', '_trav' );
     }
 
     // decrepeated
@@ -59,6 +64,20 @@ class ZoneEmploi extends MapElement{
     // utilise le nombre de travailleurs et le taux de chomage pour estimer le nombre de chomeurs
     public function getChomeurs(){
         return $this->getActifs() * $this->getTauxChomageNonPercent();
+    }
+    
+    public function getChomage(){
+        return $this->_chomage;
+    }
+    public function setChomage( array $chom ){
+        $this->_chomage = $chom;
+    }
+    
+    public function getTravailleurs(){
+        return $this->_travailleurs;
+    }
+    public function settravailleurs( array $trav ){
+        $this->_travailleurs = $trav;
     }
 
 }

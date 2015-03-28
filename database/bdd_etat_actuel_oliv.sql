@@ -105,10 +105,10 @@ CREATE TABLE IF NOT EXISTS `defm` (
   `defm_id` int(11) NOT NULL AUTO_INCREMENT,
   `defm_year` int(11) DEFAULT NULL,
   `defm_num` int(11) DEFAULT NULL,
-  `defm_category_defmcat_id` int(11) DEFAULT NULL,
+  `defmcat_id` int(11) DEFAULT NULL,
   `com_code` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`defm_id`),
-  KEY `defmcat_fk_idx` (`defm_category_defmcat_id`)
+  KEY `defmcat_fk_idx` (`defmcat_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
