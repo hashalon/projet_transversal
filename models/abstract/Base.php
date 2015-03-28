@@ -4,13 +4,13 @@ abstract class Base {
 
     protected $_id;
 
-    public function __contruct( array $data ){
+    public function __contruct( array &$data ){
         $this->hydrate($data);
     }
 
-    protected abstract function hydrate( array $data );
+    protected abstract function hydrate( array &$data );
 
-    protected function hmatch( array $data, $method, $attributes ){
+    protected function hmatch( array &$data, $method, $attributes ){
         if( isset($data[$attribute]) ){
             if( method_exists($this, $method) ){
                 $this->$method($data[$attribute]);

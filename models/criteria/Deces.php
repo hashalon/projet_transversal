@@ -6,7 +6,7 @@ class Deces extends CriteriaDemo{
     
     // id, year, num, commune_code, place
     
-    protected function hydrate( array $data ){
+    protected function hydrate( array &$data ){
         $this->hmatch( $data, 'setId', 'deces_id' );
         $this->hmatch( $data, 'setYear', 'deces_year' );
         $this->hmatch( $data, 'setNum', 'deces_num' );

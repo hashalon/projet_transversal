@@ -4,13 +4,6 @@
 
 // session_start();
 
-// on importe le model de données
-require_once($RootDir.'models/map/Region.php');
-require_once($RootDir.'models/map/Departement.php');
-require_once($RootDir.'models/map/Arrondissement.php');
-require_once($RootDir.'models/map/Commune.php');
-require_once($RootDir.'models/map/ZoneEmploi.php');
-
 // on importe les managers
 require_once($RootDir.'managers/map/RegionManager.php');
 require_once($RootDir.'managers/map/DepartementManager.php');

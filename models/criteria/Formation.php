@@ -10,7 +10,7 @@ class Formation extends Criteria implements Types{
     protected $_categories_age = array(); // list of categories of age
     protected $_population_types = array();
     
-    protected function hydrate( array $data ){
+    protected function hydrate( array &$data ){
         $this->hmatch( $data, 'setId', 'form_id' );
         $this->hmatch( $data, 'setYear', 'dipl_year' );
         $this->hmatch( $data, 'setNum', 'dipl_num' );

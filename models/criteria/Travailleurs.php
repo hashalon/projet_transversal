@@ -1,14 +1,14 @@
 <?php
 
 require_once ($RootDir.'models/abstract/CriteriaZone.php');
-require_once ($RootDir.'models/interface/CategoryAge.php');
+require_once ($RootDir.'models/interface/CategoriesAge.php');
 
 class Travailleurs extends CriteriaZone implements CategoriesAge{
 
     // id, year, num, zone_no
     protected $_categories_age = array();
     
-    protected function hydrate( array $data ){
+    protected function hydrate( array &$data ){
         $this->hmatch( $data, 'setId', 'tr_id' );
         $this->hmatch( $data, 'setYear', 'tr_year' );
         $this->hmatch( $data, 'setNum', 'tr_number' );

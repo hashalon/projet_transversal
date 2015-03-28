@@ -13,7 +13,7 @@ class ZoneEmploi extends MapElement{
     private $_chomage = array();
     private $_travailleurs = array();
 
-    protected function hydrate( array $data ){
+    protected function hydrate( array &$data ){
         $this->hmatch( $data, 'setId', 'zone_no' );
         $this->hmatch( $data, 'setName', 'zone_name' );
         $this->setParent("France");

@@ -2,6 +2,7 @@
 
 require_once ($RootDir.'managers/abstract/BaseManager.php');
 require_once ($RootDir.'managers/interface/MapInterface.php');
+
 require_once ($RootDir.'models/map/ZoneEmploi.php');
 require_once ($RootDir.'models/map/Commune.php');
 
@@ -59,7 +60,7 @@ class ZoneEmploiManager extends BaseManager implements MapInterface{
             return new ZoneEmploi($data);
         }
     }
-
+    
     // get list of all zone_demplois
     public function getList(){
         $zones = [];
@@ -73,6 +74,22 @@ class ZoneEmploiManager extends BaseManager implements MapInterface{
     // in this case getListByParent = getList
     public function getListByParent( $object ){
         return getList();
+    }
+    public function getListByParentId( $id ){
+        return getList();
+    }
+    
+    // return the number of communes in the given zone
+    public function getNumberOfCommunes( $zone ){
+        return $this->getNumberOfCommunesById( $zone->getId() );
+    }
+    public function getNumberOfCommunesById( $zone_id ){
+        $count = 0;
+        $q = $this->_db->query('SELECT * FROM `commune` WHERE `zone_no`="'.$zone_id.'" ORDER BY `com_name`');
+        while ($data = $q->fetch(PDO::FETCH_ASSOC)){
+            ++$count;
+        }
+        return $count;
     }
 
     // update the arrondissement object in the database

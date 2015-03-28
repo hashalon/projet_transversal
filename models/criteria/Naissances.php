@@ -6,7 +6,7 @@ class Naissances extends CriteriaDemo{
 
     // id, year, num, commune_code, place
 
-    protected function hydrate( array $data ){
+    protected function hydrate( array &$data ){
         $this->hmatch( $data, 'setId', 'naiss_id' );
         $this->hmatch( $data, 'setYear', 'naiss_year' );
         $this->hmatch( $data, 'setNum', 'naiss_num' );

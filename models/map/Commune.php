@@ -28,7 +28,7 @@ class Commune extends MapElement{
     private $_pops = array();
     private $_fisc = array();
 
-    protected function hydrate( array $data ){
+    protected function hydrate( array &$data ){
         $this->hmatch( $data, 'setId', 'com_code' );
         $this->hmatch( $data, 'setName', 'com_name' );
         $this->hmatch( $data, 'setParent', 'arr_code' );
@@ -119,4 +119,50 @@ class Commune extends MapElement{
         $this->_fisc = $fisc;
     }
 
+    /* UTILS */
+    
+    // Les fonctions suivantes renvoient le nombre de X moyen pour l'année spécifié
+    // (nombre moyen sur toutes les années si aucune année n'est spécifié)
+    
+    public function avgDeces( $year = null ){
+        return avgCriteria($this->_deces, $year);
+    }
+    public function avgNaissances( $year = null ){
+        return avgCriteria($this->_naissances, $year);
+    }
+    public function avgDemandeursEmploi( $year = null ){
+        return avgCriteria($this->_defm, $year);
+    }
+    public function avgEtablissements( $year = null ){
+        return avgCriteria($this->_etablissements, $year);
+    }
+    public function avgLogements( $year = null ){
+        return avgCriteria($this->_logs, $year);
+    }
+    public function avgMenages( $year = null ){
+        return avgCriteria($this->_menages, $year);
+    }
+    public function avgPopulation( $year = null ){
+        return avgCriteria($this->_pops, $year);
+    }
+    public function avgRevenusFiscaux( $year = null ){
+        return avgCriteria($this->_fisc, $year);
+    }
+    
+    protected function avgCriteria( array $criterias, $year ){
+        $year = (int) $year;
+        $counter = 0;
+        $result = 0;
+        foreach( $criterias as &$crit ){
+            if( $year == null || $crit->getYear() == $year ){
+                $result += $crit->getNum();
+                ++$counter;
+            }
+        }
+        if( $counter != 0 ){
+            return $result / $counter;
+        }
+        return 0;
+    }
+    
 }

@@ -2,6 +2,7 @@
 
 require_once ($RootDir.'managers/abstract/BaseManager.php');
 require_once ($RootDir.'managers/interface/MapInterface.php');
+
 require_once ($RootDir.'models/map/Arrondissement.php');
 require_once ($RootDir.'models/map/Commune.php');
 require_once ($RootDir.'models/map/ZoneEmploi.php');
@@ -62,16 +63,30 @@ class CommuneManager extends BaseManager implements MapInterface{
         }
         return $communes;
     }
-    // get list of all arrondissements in the given departement
+    // get list of all communes in the given arrondissement
     public function getListByParent( $arr ){
+        return $this->getListByParentId( $arr->getId() );
+    }
+    public function getListByParentId( $arr_id ){
         $communes = [];
-        $q = $this->_db->query('SELECT * FROM `commune` WHERE `arr_code`="'.$arr->getId().'" ORDER BY `com_name`');
+        $q = $this->_db->query('SELECT * FROM `commune` WHERE `arr_code`="'.$arr_id.'" ORDER BY `com_name`');
         while ($data = $q->fetch(PDO::FETCH_ASSOC)){
             $this->getCriterias($data, $data['com_code']);
             $communes[] = new Commune($data);
         }
         return $communes;
     }
+    // get list of all communes in the given zone
+    public function getListByZoneEmploi( $zone ){
+        $communes = [];
+        $q = $this->_db->query('SELECT * FROM `commune` WHERE `zone_no`="'.$zone->getId().'" ORDER BY `com_name`');
+        while ($data = $q->fetch(PDO::FETCH_ASSOC)){
+            $this->getCriterias($data, $data['com_code']);
+            $communes[] = new Commune($data);
+        }
+        return $communes;
+    }
+    
 
     // update the arrondissement object in the database
     public function update( $com ){

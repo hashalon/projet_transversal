@@ -7,7 +7,7 @@ class Population extends CriteriaTyped implements CategoriesAge{
     
     // here types match population_types
     
-    protected function hydrate( array $data ){
+    protected function hydrate( array &$data ){
         $this->hmatch( $data, 'setId', 'pop_id' );
         $this->hmatch( $data, 'setYear', 'ph_year' );
         $this->hmatch( $data, 'setNum', 'ph_num' );
