@@ -21,7 +21,7 @@ mapColor.y = 295;
 mapColor.init = function( map_id ){
     mapColor.map = Snap.select( map_id );
     
-    if( map_id != "#Map" ){
+    if( map_id != "#France" ){
         var bbox = mapColor.map.getBBox();
         
         if( bbox['height'] >= bbox['width'] ){
