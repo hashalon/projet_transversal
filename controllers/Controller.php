@@ -58,7 +58,7 @@ class Controller {
     
     /* Arrondissement Manager */
     public function getArrondissementManager(){
-        return $this->_demandMan;
+        return $this->_arrMan;
     }
     public function getArrMan(){ // short version
         return $this->_arrMan;

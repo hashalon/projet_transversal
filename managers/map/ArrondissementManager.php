@@ -86,7 +86,7 @@ class ArrondissementManager extends BaseManager implements MapSvgInterface{
         $arrondissements = [];
         $q = $this->_db->query('SELECT * FROM `arrondissement` WHERE `dep_no`="'.$dep_id.'" ORDER BY `arr_name`');
         while ($data = $q->fetch(PDO::FETCH_ASSOC)){
-            $data['_children'] = getChildren( $data['arr_code'] );
+            $data['_children'] = $this->getChildren( $data['arr_code'] );
             $arrondissements[] = new Arrondissement($data);
         }
         return $arrondissements;

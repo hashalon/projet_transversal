@@ -70,7 +70,7 @@ class RegionManager extends BaseManager implements MapSvgInterface{
         $regions = [];
         $q = $this->_db->query('SELECT * FROM `region` ORDER BY `reg_name`');
         while ($data = $q->fetch(PDO::FETCH_ASSOC)){
-            $data['_children'] = getChildren( $data['reg_no'] );
+            $data['_children'] = $this->getChildren( $data['reg_no'] );
             $regions[] = new Region($data);
         }
         return $regions;

@@ -4,7 +4,7 @@ require_once ($RootDir.'models/abstract/Base.php');
 
 abstract class BaseManager {
     
-    private $_db;
+    protected $_db;
     
     public function __construct(PDO $db){
         $this->setDatabase($db);

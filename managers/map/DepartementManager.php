@@ -86,7 +86,7 @@ class DepartementManager extends BaseManager implements MapSvgInterface{
         $departements = [];
         $q = $this->_db->query('SELECT * FROM `departement` WHERE `reg_no`="'.$reg_id.'" ORDER BY `dep_name`');
         while ($data = $q->fetch(PDO::FETCH_ASSOC)){
-            $data['_children'] = getChildren( $data['dep_no'] );
+            $data['_children'] = $this->getChildren( $data['dep_no'] );
             $departements[] = new Departement($data);
         }
         return $departements;
