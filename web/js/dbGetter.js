@@ -4,6 +4,7 @@
 var dbGetter = {};
 dbGetter.results = {};
 dbGetter.colors = {};
+dbGetter.RootURL = "/";
 
 /**
  * Recover data from the database
@@ -14,7 +15,7 @@ dbGetter.colors = {};
  */
 dbGetter.getData = function ( m, d, crit, y ){
     // CAUTION this script is setted for a local server currently
-    var posting = $.post("/projet_transversal/web/php/dbGetter.php", {
+    var posting = $.post(dbGetter.RootURL+"controllers/json/GetDataController.php", {
         map: m,
         detail: d,
         criteria: crit,

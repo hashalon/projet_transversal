@@ -36,65 +36,47 @@
         
         <main class="container">
             <?php
-
-                $page = '';
-                $map = '';
-                $detail = '';
-
-                if( checkGET('r') ){
-                    $page = $_GET['r'];
-                }else{
-                    $page = "map";
-                }
-                if( checkGET('map') ){
-                    $map = $_GET['map'];
-                }else{
-                    $map = "France";
-                }
-                if( checkGET('detail') ){
-                    $detail = $_GET['detail'];
-                }else{
-                    $detail = "regions";
-                }
-
-                // we add the main menu to the page
-                include_once('views/menu.php');
+                require_once ($RootDir.'controllers/map/MapChecker.php');
                 
-                switch ($page){
-                    case 'welcome' :
-                        include_once ('views/navigation/welcome.php');
-                        break;
-                    case 'site_map' :
-                        include_once ('views/navigation/site_map.php');
-                        break;
-                    case 'map' :
-                        include_once ('views/map/map.php');
-                        break;
-                    case 'graph' :
-                        include_once ('views/graph/graph.php');
-                        break;
-                    case 'search_results' :
-                        include_once ('views/search/results.php');
-                        break;
-                    default :
-                        include_once ('views/map/map.php');
-                        break;
+                if( $_mapChecker->isInvalid() ){
+                    header('Location: '.$RootURL.'?map=France&detail=regions');
+                    die;
+                }else{
+                    
+                    $page = 'map';
+                    if( isset($_GET['r']) ){
+                        if( !empty($_GET['r']) ){
+                            $page = $_GET['r'];
+                        }
+                    }
+                    
+                    // we add the main menu to the page
+                    include_once('views/menu.php');
+                    
+                    switch ($page){
+                        case 'welcome' :
+                            include_once ('views/navigation/welcome.php');
+                            break;
+                        case 'site_map' :
+                            include_once ('views/navigation/site_map.php');
+                            break;
+                        case 'map' :
+                            include_once ('views/map/map.php');
+                            break;
+                        case 'graph' :
+                            include_once ('views/graph/graph.php');
+                            break;
+                        case 'search_results' :
+                            include_once ('views/search/results.php');
+                            break;
+                        default :
+                            include_once ('views/map/map.php');
+                            break;
+                    }
                 }
+                
             ?>
         </main>
         
     </body>
 </html>
-
-<?php 
-
-function checkGET( $var ){
-    if( isset($_GET[$var]) ){
-        if( !empty($_GET[$var]) ){
-            return true;
-        }
-    }
-    return false;
-}
-
-?>

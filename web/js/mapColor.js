@@ -3,6 +3,7 @@
 var mapColor = {};
 
 mapColor.map; // the map to be colored
+mapColor.detail;
 mapColor.legend = {}; 
 mapColor.legend.gradient;// the gradient of color which presents the lowest and highest values
 mapColor.legend.minValue;// the minimum value to be displayed
@@ -11,6 +12,7 @@ mapColor.legend.label;// the name of the element hovered
 mapColor.data = {};
 mapColor.x = 386;
 mapColor.y = 295;
+mapColor.RootURL = "/";
 
 // we shouldn't have to change the value given to this function
 // but yet we can if we want to.
@@ -18,9 +20,9 @@ mapColor.y = 295;
  * set the map to be used
  * @param {String} map_id id of the map to be used
  */
-mapColor.init = function( map_id ){
-    mapColor.map = Snap.select( map_id );
+mapColor.init = function( map_id, detail ){
     
+    mapColor.map = Snap.select( map_id );
     if( map_id != "#France" ){
         var bbox = mapColor.map.getBBox();
         
@@ -44,6 +46,8 @@ mapColor.init = function( map_id ){
             
         }
     }
+    mapColor.detail = detail;
+    
     mapColor.legend.gradient = Snap.select( "#Legend_gradient" );
     mapColor.legend.minValue = Snap.select( "#Legend_minValue" );
     mapColor.legend.maxValue = Snap.select( "#Legend_maxValue" );
@@ -54,7 +58,20 @@ mapColor.init = function( map_id ){
     for( var i=0; i<paths.length; ++i ){
         
         paths[i].click(function(){
-            alert('clicked: '+this.attr("id"));
+            var detail = "regions";
+            switch( mapColor.detail ){
+                case "regions":
+                    detail = "departements";
+                    break;
+                case "departements":
+                    detail = "arrondissements";
+                    break;
+                case "arrondissements":
+                    detail = "communes";
+                    break;
+            }
+            // on click we chage of page view
+            window.location = mapColor.RootURL+"?r=map&map="+encodeURIComponent(this.attr("id"))+"&detail="+detail;
         });
         
         paths[i].hover(

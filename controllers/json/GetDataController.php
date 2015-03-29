@@ -1,5 +1,7 @@
 <?php // echo and html content is prohibited in this class because must only return json data
 
+// http://localhost:8080/projet_transversal/controllers/json/GetDataController.php?map=France&detail=regions&criteria=pop
+
 // we set the $RootDir variable back to the root directory
 $RootDir = '../../';
 
@@ -8,6 +10,7 @@ require_once ($RootDir.'controllers/Controller.php');
 require_once ($RootDir.'controllers/map/MapChecker.php');
 
 if( $_mapChecker->isValidPOST() ){
+    
     if( isset($_POST['criteria']) ){
         if( !empty($_POST['criteria']) ){
             if( isset($_POST['year']) ){
@@ -17,6 +20,7 @@ if( $_mapChecker->isValidPOST() ){
             }
         }
     }
+    
 }
 
 else{ // TODO TO REMOVE
