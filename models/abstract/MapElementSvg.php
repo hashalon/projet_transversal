@@ -1,9 +1,10 @@
 <?php
 
 require_once($RootDir.'models/abstract/MapElement.php');
-require_once($RootDir.'models/interface/AvgAndCount.php');
 
-abstract class MapElementSvg extends MapElement implements AvgAndCount{
+require_once($RootDir.'models/interface/CountCriteria.php');
+
+abstract class MapElementSvg extends MapElement implements CountCriteria{
     
     private $_svg;
     private $_children = array();
@@ -34,68 +35,77 @@ abstract class MapElementSvg extends MapElement implements AvgAndCount{
         return false;
     }
     
-    /* UTILS */
+    /* GETTERS */
 
-    // Les fonctions suivantes renvoient le nombre de X moyen pour l'année spécifié
-    // (nombre moyen sur toutes les années si aucune année n'est spécifié)
-
-    public function avgDeces( $year = null ){
-        return avgCriteria('countDeces', $year);
+    public function getDeces(){
+        return $this->getInChildren('getDeces');
     }
-    public function avgNaissances( $year = null ){
-        return avgCriteria('countNaissanes', $year);
+    public function getNaissances(){
+        return $this->getInChildren('getNaissances');
     }
-    public function avgDemandeursEmploi( $year = null ){
-        return avgCriteria('countNaissanes', $year);
+    public function getTravailleurs(){
+        return $this->getInChildren('getTravailleurs');
     }
-    public function avgEtablissements( $year = null ){
-        return avgCriteria('countNaissanes', $year);
+    public function getDefm(){
+        return $this->getInChildren('getDefm');
     }
-    public function avgLogements( $year = null ){
-        return avgCriteria('countNaissanes', $year);
+    public function getEtablissements(){
+        return $this->getInChildren('getEtablissements');
     }
-    public function avgMenages( $year = null ){
-        return avgCriteria('countNaissanes', $year);
+    public function getLogements(){
+        return $this->getInChildren('getLogements');
     }
-    public function avgPopulation( $year = null ){
-        return avgCriteria('countNaissanes', $year);
+    public function getMenages(){
+        return $this->getInChildren('getMenages');
     }
-    public function avgRevenusFiscaux( $year = null ){
-        return avgCriteria('countNaissanes', $year);
+    public function getPopulation(){
+        return $this->getInChildren('getPopulation');
     }
-
-    protected function avgCriteria( $method, $year = null ){
-        $c = $this->countCriteria( $criterias, $year );
-        if( $c['counter'] != 0 ){
-            return $c['result'] / $c['counter'];
+    public function getRevenusFiscaux(){
+        return $this->getInChildren('getRevenusFiscaux');
+    }
+    protected function getInChildren( $method ){
+        $result = [];
+        foreach( $this->_children as &$child ){
+            if( method_exists($this, $method) ){
+                $result = array_merge( $result, $child->$method() );
+            }
         }
-        return 0;
+        return $result;
     }
+    
+/***** UTILS *****/
 
-    // those function return an array with the 'result' and 'counter' as keys
+    /* COUNT */
+    // les fonctions suivantes renvoit le nombre de X par années
+    // un nombre moyen est renvoyé si aucune année n'est spécifiée
+    
     public function countDeces( $year = null ){
         return countCriteria('countDeces', $year);
     }
     public function countNaissances( $year = null ){
         return countCriteria('countNaissanes', $year);
     }
+    public function countTravailleurs( $year = null ){
+        return countCriteria('countTravailleurs', $year);
+    }
     public function countDemandeursEmploi( $year = null ){
-        return countCriteria('countNaissanes', $year);
+        return countCriteria('countDemandeursEmploi', $year);
     }
     public function countEtablissements( $year = null ){
-        return countCriteria('countNaissanes', $year);
+        return countCriteria('countEtablissements', $year);
     }
     public function countLogements( $year = null ){
-        return countCriteria('countNaissanes', $year);
+        return countCriteria('countLogements', $year);
     }
     public function countMenages( $year = null ){
-        return countCriteria('countNaissanes', $year);
+        return countCriteria('countMenages', $year);
     }
     public function countPopulation( $year = null ){
-        return countCriteria('countNaissanes', $year);
+        return countCriteria('countPopulation', $year);
     }
     public function countRevenusFiscaux( $year = null ){
-        return countCriteria('countNaissanes', $year);
+        return countCriteria('countRevenusFiscaux', $year);
     }
 
     protected function countCriteria( $method, $year = null ){
@@ -103,15 +113,40 @@ abstract class MapElementSvg extends MapElement implements AvgAndCount{
         $result = 0;
         foreach( $this->_children as &$child ){
             if( method_exists($child, $method) ){
-                $c = $child->$method( $year );
-                $result += $c['result'];
-                $counter += $c['counter'];
+                $result += $child->$method( $year );
             }
         }
-        if( $counter != 0 ){
-            return [ 'result' => $result, 'counter' => $counter ];
-        }
-        return [ 'result' => 0, 'counter' => 0 ];
+        return $result;
+    }
+    
+    /* GET YEARS IN */
+
+    public function getYearsInDeces(){
+        $this->getInChildren('getYearsInDeces');
+    }
+    public function getYearsInNaissances(){
+        $this->getInChildren('getYearsInNaissances');
+    }
+    public function getYearsInTravailleurs(){
+        $this->getInChildren('getYearsInTravailleurs');
+    }
+    public function getYearsInDefm(){
+        $this->getInChildren('getYearsInDefm');
+    }
+    public function getYearsInEtablissements(){
+        $this->getInChildren('getYearsInEtablissements');
+    }
+    public function getYearsInLogements(){
+        $this->getInChildren('getYearsInLogements');
+    }
+    public function getYearsInMenages(){
+        $this->getInChildren('getYearsInMenages');
+    }
+    public function getYearsInPopulation(){
+        $this->getInChildren('getYearsInPopulation');
+    }
+    public function getYearsInRevenusFiscaux(){
+        $this->getInChildren('getYearsInRevenusFiscaux');
     }
     
 }

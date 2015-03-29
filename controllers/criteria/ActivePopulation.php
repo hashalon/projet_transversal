@@ -3,6 +3,8 @@
 // script de retranchement des données
 // pour estimer le nombre de travailleurs par commune
 
+/* DECREPATED */
+
 require_once($RootDir.'database/database.php');
 
 require_once($RootDir.'models/map/Commune.php');

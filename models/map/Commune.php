@@ -1,9 +1,10 @@
 <?php
 
-require_once($RootDir.'models/abstract/MapElement.php');
+require_once($RootDir.'models/abstract/MapElementCrit.php');
 
 require_once($RootDir.'models/criteria/Deces.php');
 require_once($RootDir.'models/criteria/Naissances.php');
+require_once($RootDir.'models/criteria/Travailleurs.php');
 require_once($RootDir.'models/criteria/Defm.php');
 require_once($RootDir.'models/criteria/EtablissementsActifs.php');
 require_once($RootDir.'models/criteria/Logements.php');
@@ -11,9 +12,9 @@ require_once($RootDir.'models/criteria/Menages.php');
 require_once($RootDir.'models/criteria/Population.php');
 require_once($RootDir.'models/criteria/RevenusFiscaux.php');
 
-require_once($RootDir.'models/interface/AvgAndCount.php');
+require_once($RootDir.'models/interface/CountCriteria.php');
 
-class Commune extends MapElement implements AvgAndCount{
+class Commune extends MapElementCrit implements CountCriteria{
 
     // id, name, parent
     // commune doesn't need a svg identifier
@@ -23,6 +24,7 @@ class Commune extends MapElement implements AvgAndCount{
     
     private $_deces = array();
     private $_naissances = array();
+    private $_travailleurs = array();
     private $_defm = array();
     private $_etablissements = array();
     private $_logs = array();
@@ -39,6 +41,7 @@ class Commune extends MapElement implements AvgAndCount{
         
         $this->hmatch( $data, 'setDeces', '_deces' );
         $this->hmatch( $data, 'setNaissances', '_naiss' );
+        $this->hmatch( $data, 'setTravailleurs', '_trav' );
         $this->hmatch( $data, 'setDefm', '_defm' );
         $this->hmatch( $data, 'setEtablissements', '_etab' );
         $this->hmatch( $data, 'setLogements', '_loge' );
@@ -64,106 +67,84 @@ class Commune extends MapElement implements AvgAndCount{
         $this->_zone_emploi_id = $zone_emploi;
     }
     
-    public function getDeces(){
-        return $this->_deces;
-    }
+    
+/***** CRITERES *****/
+    
+    /* SETTERS */
+    
     public function setDeces( array &$deces ){
         $this->_deces = $deces;
-    }
-    
-    public function getNaissances(){
-        return $this->_naissances;
     }
     public function setNaissances(array &$naiss){
         $this->_naissances = $naiss;
     }
-    
-    public function getDefm(){
-        return $this->_defm;
+    public function settravailleurs( array &$trav ){
+        $this->_travailleurs = $trav;
     }
     public function setDefm(array &$defm){
         $this->_defm = $defm;
     }
-    
-    public function getEtablissements(){
-        return $this->_etablissements;
-    }
     public function setEtablissements(array &$eta){
         $this->_etablissements = $eta;
-    }
-    
-    public function getLogements(){
-        return $this->_logs;
     }
     public function setLogements(array &$logs){
         $this->_logs = $logs;
     }
-    
-    public function getMenages(){
-        return $this->_menages;
-    }
     public function setMenages(array &$men){
         $this->_menages = $men;
-    }
-    
-    public function getPopulation(){
-        return $this->_pops;
     }
     public function setPopulation(array &$pops){
         $this->_pops = $pops;
     }
-    
-    public function getRevenusFiscaux(){
-        return $this->_fisc;
-    }
     public function setRevenusFiscaux(array &$fisc){
         $this->_fisc = $fisc;
     }
-
-    /* UTILS */
     
-    // Les fonctions suivantes renvoient le nombre de X moyen pour l'année spécifié
-    // (nombre moyen sur toutes les années si aucune année n'est spécifié)
+    /* GETTERS */
     
-    public function avgDeces( $year = null ){
-        return avgCriteria($this->_deces, $year);
+    public function getDeces(){
+        return $this->_deces;
     }
-    public function avgNaissances( $year = null ){
-        return avgCriteria($this->_naissances, $year);
+    public function getNaissances(){
+        return $this->_naissances;
     }
-    public function avgDemandeursEmploi( $year = null ){
-        return avgCriteria($this->_defm, $year);
+    public function getTravailleurs(){
+        return $this->_travailleurs;
     }
-    public function avgEtablissements( $year = null ){
-        return avgCriteria($this->_etablissements, $year);
+    public function getDefm(){
+        return $this->_defm;
     }
-    public function avgLogements( $year = null ){
-        return avgCriteria($this->_logs, $year);
+    public function getEtablissements(){
+        return $this->_etablissements;
     }
-    public function avgMenages( $year = null ){
-        return avgCriteria($this->_menages, $year);
+    public function getLogements(){
+        return $this->_logs;
     }
-    public function avgPopulation( $year = null ){
-        return avgCriteria($this->_pops, $year);
+    public function getMenages(){
+        return $this->_menages;
     }
-    public function avgRevenusFiscaux( $year = null ){
-        return avgCriteria($this->_fisc, $year);
+    public function getPopulation(){
+        return $this->_pops;
     }
-    
-    protected function avgCriteria( array &$criterias, $year = null ){
-        $c = $this->countCriteria( $criterias, $year );
-        if( $c['counter'] != 0 ){
-            return $c['result'] / $c['counter'];
-        }
-        return 0;
+    public function getRevenusFiscaux(){
+        return $this->_fisc;
     }
     
-    // those function return an array with the 'result' and 'counter' as keys
+    
+/***** UTILS *****/
+    
+    /* COUNT */
+    // les fonctions suivantes renvoit le nombre de X par années
+    // un nombre moyen est renvoyé si aucune année n'est spécifiée
+    
     public function countDeces( $year = null ){
         return countCriteria($this->_deces, $year);
     }
     public function countNaissances( $year = null ){
         return countCriteria($this->_naissances, $year);
+    }
+    public function countTravailleurs( $year = null ){
+        return countCriteria($this->_travailleurs, $year);
     }
     public function countDemandeursEmploi( $year = null ){
         return countCriteria($this->_defm, $year);
@@ -184,19 +165,36 @@ class Commune extends MapElement implements AvgAndCount{
         return countCriteria($this->_fisc, $year);
     }
     
-    protected function countCriteria( array &$criterias, $year = null ){
-        $counter = 0;
-        $result = 0;
-        foreach( $criterias as &$crit ){
-            if( $year == null || $crit->getYear() == $year ){
-                $result += $crit->getNum();
-                ++$counter;
-            }
-        }
-        if( $counter != 0 ){
-            return [ 'result' => $result, 'counter' => $counter ];
-        }
-        return [ 'result' => 0, 'counter' => 0 ];
+    /* GET YEARS IN */
+
+    public function getYearsInDeces(){
+        $this->getYearsInCriteria( $this->_deces );
     }
+    public function getYearsInNaissances(){
+        $this->getYearsInCriteria( $this->_naissances );
+    }
+    public function getYearsInTravailleurs(){
+        $this->getYearsInCriteria( $this->_travailleurs );
+    }
+    public function getYearsInDefm(){
+        $this->getYearsInCriteria( $this->_defm );
+    }
+    public function getYearsInEtablissements(){
+        $this->getYearsInCriteria( $this->_etablissements );
+    }
+    public function getYearsInLogements(){
+        $this->getYearsInCriteria( $this->_logs );
+    }
+    public function getYearsInMenages(){
+        $this->getYearsInCriteria( $this->_menages );
+    }
+    public function getYearsInPopulation(){
+        $this->getYearsInCriteria( $this->_pops );
+    }
+    public function getYearsInRevenusFiscaux(){
+        $this->getYearsInCriteria( $this->_fisc );
+    }
+    
+    
     
 }

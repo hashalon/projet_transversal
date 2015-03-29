@@ -2,6 +2,10 @@
 // script de connection à la base de données
 // Côté serveur
 
+/* DECREPATED */
+
+// TODO remove !
+
 if(
     isset($_POST['map']) &&
     isset($_POST['detail']) &&

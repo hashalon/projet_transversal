@@ -9,6 +9,7 @@ require_once ($RootDir.'models/map/ZoneEmploi.php');
 
 require_once($RootDir.'models/criteria/Deces.php');
 require_once($RootDir.'models/criteria/Naissances.php');
+require_once($RootDir.'models/criteria/Travailleurs.php');
 require_once($RootDir.'models/criteria/Defm.php');
 require_once($RootDir.'models/criteria/EtablissementsActifs.php');
 require_once($RootDir.'models/criteria/Logements.php');
@@ -109,6 +110,7 @@ class CommuneManager extends BaseManager implements MapInterface{
     protected function getCriterias(array &$data, string $id){
         $data['_deces'] = $this->getDeces($id);
         $data['_naiss'] = $this->getNaissances($id);
+        $data['_trav'] = $this->getTravailleurs($id);
         $data['_defm'] = $this->getDefm($id);
         $data['_etab'] = $this->getEtablissements($id);
         $data['_loge'] = $this->getLogements($id);
@@ -132,6 +134,20 @@ class CommuneManager extends BaseManager implements MapInterface{
             $naiss[] = new Naissances($data);
         }
         return $naiss;
+    }
+    public function getTravailleurs( $com ){
+        $trav = [];
+        $q = $this->_db->query('SELECT * FROM `travailleurs` WHERE `com_code` = '.$com);
+        while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
+
+            $data['_cats'] = [];
+            $q2 = $this->_db->query('SELECT * FROM `categorie_age` WHERE `cat_id` = '.$data['cat_id']);
+            while( $data2 = $q2->fetch(PDO::FETCH_ASSOC) ){
+                $data['_cats'][] = $data2['cat_name'];
+            }
+            $trav[] = new Travailleurs($data);
+        }
+        return $trav;
     }
     public function getDefm( $com ){
         $defms = [];
