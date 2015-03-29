@@ -28,7 +28,6 @@ abstract class Criteria extends Base{
         return $this->_num;
     }
     public function setNum($num){
-        $num = (int) $num;
         $this->_num = $num;
     }
 

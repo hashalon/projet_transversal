@@ -8,6 +8,7 @@ $RootDir = '../../';
 // we include the main controller
 require_once ($RootDir.'controllers/Controller.php');
 require_once ($RootDir.'controllers/map/MapChecker.php');
+require_once ($RootDir.'controllers/criteria/ActivePopulation.php');
 
 if( $_mapChecker->isValidPOST() ){
     

@@ -1,8 +1,9 @@
 <?php
 
 require_once($RootDir.'models/abstract/MapElement.php');
+require_once($RootDir.'models/interface/AvgAndCount.php');
 
-abstract class MapElementSvg extends MapElement{
+abstract class MapElementSvg extends MapElement implements AvgAndCount{
     
     private $_svg;
     private $_children = array();
@@ -63,7 +64,7 @@ abstract class MapElementSvg extends MapElement{
         return avgCriteria('countNaissanes', $year);
     }
 
-    public function avgCriteria( $method, $year = null ){
+    protected function avgCriteria( $method, $year = null ){
         $c = $this->countCriteria( $criterias, $year );
         if( $c['counter'] != 0 ){
             return $c['result'] / $c['counter'];
@@ -97,7 +98,7 @@ abstract class MapElementSvg extends MapElement{
         return countCriteria('countNaissanes', $year);
     }
 
-    public function countCriteria( $method, $year = null ){
+    protected function countCriteria( $method, $year = null ){
         $counter = 0;
         $result = 0;
         foreach( $this->_children as &$child ){

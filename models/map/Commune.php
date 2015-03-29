@@ -11,7 +11,9 @@ require_once($RootDir.'models/criteria/Menages.php');
 require_once($RootDir.'models/criteria/Population.php');
 require_once($RootDir.'models/criteria/RevenusFiscaux.php');
 
-class Commune extends MapElement{
+require_once($RootDir.'models/interface/AvgAndCount.php');
+
+class Commune extends MapElement implements AvgAndCount{
 
     // id, name, parent
     // commune doesn't need a svg identifier
@@ -59,63 +61,62 @@ class Commune extends MapElement{
         return $this->_zone_emploi_id;
     }
     public function setZoneEmploi($zone_emploi){
-        $zone_emploi = (string) $zone_emploi;
         $this->_zone_emploi_id = $zone_emploi;
     }
     
     public function getDeces(){
         return $this->_deces;
     }
-    public function setDeces( array $deces ){
+    public function setDeces( array &$deces ){
         $this->_deces = $deces;
     }
     
     public function getNaissances(){
         return $this->_naissances;
     }
-    public function setNaissances(array $naiss){
+    public function setNaissances(array &$naiss){
         $this->_naissances = $naiss;
     }
     
     public function getDefm(){
         return $this->_defm;
     }
-    public function setDefm(array $defm){
+    public function setDefm(array &$defm){
         $this->_defm = $defm;
     }
     
     public function getEtablissements(){
         return $this->_etablissements;
     }
-    public function setEtablissements(array $eta){
+    public function setEtablissements(array &$eta){
         $this->_etablissements = $eta;
     }
     
     public function getLogements(){
         return $this->_logs;
     }
-    public function setLogements(array $logs){
+    public function setLogements(array &$logs){
         $this->_logs = $logs;
     }
     
     public function getMenages(){
         return $this->_menages;
     }
-    public function setMenages(array $men){
+    public function setMenages(array &$men){
         $this->_menages = $men;
     }
     
     public function getPopulation(){
         return $this->_pops;
     }
-    public function setPopulation(array $pops){
+    public function setPopulation(array &$pops){
         $this->_pops = $pops;
     }
     
     public function getRevenusFiscaux(){
         return $this->_fisc;
     }
-    public function setRevenusFiscaux(array $fisc){
+    public function setRevenusFiscaux(array &$fisc){
         $this->_fisc = $fisc;
     }
 

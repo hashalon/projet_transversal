@@ -26,7 +26,6 @@ abstract class Base {
         return $this->_id;
     }
     public function setId($id){
-        $id = (string) $id;
         $this->_id = $id;
     }
 
