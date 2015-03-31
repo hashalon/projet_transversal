@@ -6,8 +6,8 @@ require_once($RootDir.'models/interface/CountCriteria.php');
 
 abstract class MapElementSvg extends MapElement implements CountCriteria{
     
-    private $_svg;
-    private $_children = array();
+    // id, name, parent, svg
+    protected $_svg;
     
     public function getSvg(){
         return $this->_svg;
@@ -17,22 +17,10 @@ abstract class MapElementSvg extends MapElement implements CountCriteria{
         $this->_svg = $svg;
     }
     
-    public function getChildren(){
-        return $this->_children;
-    }
-    public function setChildren( array $children ){
-        $this->_children = $children;
-    }
-    public function addChild( $child ){
-        if( $this->containsChild($child) ){
-            $this->_children[] = $child;
-        }
-    }
-    public function containsChild( $child ){
-        if( in_array($child, $this->_children) ){
-            return true;
-        }
-        return false;
+    abstract public function getChildren();
+    
+    public function countChildren(){
+        return sizeof( $this->getChildren() );
     }
     
     /* GETTERS */
@@ -66,7 +54,7 @@ abstract class MapElementSvg extends MapElement implements CountCriteria{
     }
     protected function getInChildren( $method ){
         $result = [];
-        foreach( $this->_children as &$child ){
+        foreach( $this->getChildren() as &$child ){
             if( method_exists($this, $method) ){
                 $result = array_merge( $result, $child->$method() );
             }
@@ -111,7 +99,7 @@ abstract class MapElementSvg extends MapElement implements CountCriteria{
     protected function countCriteria( $method, $year = null ){
         $counter = 0;
         $result = 0;
-        foreach( $this->_children as &$child ){
+        foreach( $this->getChildren() as &$child ){
             if( method_exists($child, $method) ){
                 $result += $child->$method( $year );
             }
