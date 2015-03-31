@@ -16,7 +16,7 @@
  * 
  */
 
-/* Contains custom colors for radio inputs */
+/* Contains custom colors for checkbox and radio inputs */
 /*
 
 red       #e0211b
@@ -36,6 +36,10 @@ black     #0b0b0b
 
 */
 
+.checkbox-red input[type="checkbox"]:checked+label::before {
+    background-color: #e0211b;
+    border-color: #e0211b
+}
 .radio-red input[type="radio"]+label::after {
     background-color: #e0211b
 }
@@ -49,6 +53,10 @@ black     #0b0b0b
     color: #e0211b
 }
 
+.checkbox-red input[type="checkbox"]:checked+label::before {
+    background-color: #ea9722;
+    border-color: #ea9722
+}
 .radio-orange input[type="radio"]+label::after {
     background-color: #ea9722
 }
@@ -62,6 +70,10 @@ black     #0b0b0b
     color: #ea9722
 }
 
+.checkbox-red input[type="checkbox"]:checked+label::before {
+    background-color: #d1d12e;
+    border-color: #d1d12e
+}
 .radio-yellow input[type="radio"]+label::after {
     background-color: #d1d12e
 }
@@ -75,6 +87,10 @@ black     #0b0b0b
     color: #d1d12e
 }
 
+.checkbox-red input[type="checkbox"]:checked+label::before {
+    background-color: #82de16;
+    border-color: #82de16
+}
 .radio-lime input[type="radio"]+label::after {
     background-color: #82de16
 }
@@ -88,6 +104,10 @@ black     #0b0b0b
     color: #82de16
 }
 
+.checkbox-red input[type="checkbox"]:checked+label::before {
+    background-color: #17aa22;
+    border-color: #17aa22
+}
 .radio-green input[type="radio"]+label::after {
     background-color: #17aa22
 }
@@ -101,6 +121,10 @@ black     #0b0b0b
     color: #17aa22
 }
 
+.checkbox-red input[type="checkbox"]:checked+label::before {
+    background-color: #14ebe3;
+    border-color: #14ebe3
+}
 .radio-cyan input[type="radio"]+label::after {
     background-color: #14ebe3
 }
@@ -114,6 +138,10 @@ black     #0b0b0b
     color: #14ebe3
 }
 
+.checkbox-red input[type="checkbox"]:checked+label::before {
+    background-color: #2177c1;
+    border-color: #2177c1
+}
 .radio-blue input[type="radio"]+label::after {
     background-color: #2177c1
 }
@@ -127,6 +155,10 @@ black     #0b0b0b
     color: #2177c1
 }
 
+.checkbox-red input[type="checkbox"]:checked+label::before {
+    background-color: #3a49ff;
+    border-color: #3a49ff
+}
 .radio-colbat input[type="radio"]+label::after {
     background-color: #3a49ff
 }
@@ -140,6 +172,10 @@ black     #0b0b0b
     color: #3a49ff
 }
 
+.checkbox-red input[type="checkbox"]:checked+label::before {
+    background-color: #8544ff;
+    border-color: #8544ff
+}
 .radio-purple input[type="radio"]+label::after {
     background-color: #8544ff
 }
@@ -153,6 +189,10 @@ black     #0b0b0b
     color: #8544ff
 }
 
+.checkbox-red input[type="checkbox"]:checked+label::before {
+    background-color: #d62fb0;
+    border-color: #d62fb0
+}
 .radio-magenta input[type="radio"]+label::after {
     background-color: #d62fb0
 }
@@ -166,6 +206,10 @@ black     #0b0b0b
     color: #d62fb0
 }
 
+.checkbox-red input[type="checkbox"]:checked+label::before {
+    background-color: #e31a60;
+    border-color: #e31a60
+}
 .radio-crimson input[type="radio"]+label::after {
     background-color: #e31a60
 }
@@ -179,6 +223,10 @@ black     #0b0b0b
     color: #e31a60
 }
 
+.checkbox-red input[type="checkbox"]:checked+label::before {
+    background-color: #ac7947;
+    border-color: #ac7947
+}
 .radio-brown input[type="radio"]+label::after {
     background-color: #ac7947
 }
@@ -192,6 +240,10 @@ black     #0b0b0b
     color: #ac7947
 }
 
+.checkbox-red input[type="checkbox"]:checked+label::before {
+    background-color: #777777;
+    border-color: #777777
+}
 .radio-grey input[type="radio"]+label::after {
     background-color: #777777
 }
@@ -205,6 +257,10 @@ black     #0b0b0b
     color: #777777
 }
 
+.checkbox-red input[type="checkbox"]:checked+label::before {
+    background-color: #0b0b0b;
+    border-color: #0b0b0b
+}
 .radio-black input[type="radio"]+label::after {
     background-color: #0b0b0b
 }
