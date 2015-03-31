@@ -1,0 +1,9 @@
+Tout les données
+---------------------
+http://www.insee.fr/fr/bases-de-donnees/default.asp?page=statistiques-locales/donnees-detaillees_tableau.htm
+
+
+Données avec les cartes
+------------------------
+
+http://franceo3.geoclip.fr/#v=map12;i=pop.p12_pop;l=fr

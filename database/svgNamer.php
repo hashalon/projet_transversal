@@ -3,25 +3,36 @@
 // script pour remplir les colonnes svg automatiquement
 $RootDir = '../';
 
-require_once($RootDir.'controllers/Controller.php');
+require_once($RootDir.'database/database.php');
 
-$regs = $_controller->getRegionManager()->getList();
-$deps = $_controller->getDepartementManager()->getList();
-$arrs = $_controller->getArrondissementManager()->getList();
+$q = $_DATABASE->query('select * from `region`');
 
-foreach( $regs as &$reg ){
-    $reg->setSvg( stripChars($reg->getName()) );
-    $_controller->getRegionManager()->update( $reg );
+while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
+    $svg = stripChars( $data['reg_name'] );
+    $q2 = $_DATABASE->prepare('update `region` set `reg_svg` = :svg where `reg_no` = :no ');
+    $q2->bindValue(':no', $data['reg_no']);
+    $q2->bindValue(':svg', $svg);
+    $q2->execute();
 }
 
-foreach( $deps as &$dep ){
-    $dep->setSvg( stripChars($dep->getName()) );
-    $_controller->getDepartementManager()->update( $dep );
+$q = $_DATABASE->query('select * from `departement`');
+
+while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
+    $svg = stripChars( $data['dep_name'] );
+    $q2 = $_DATABASE->prepare('update `departement` set `dep_svg` = :svg where `dep_no` = :no ');
+    $q2->bindValue(':no', $data['dep_no']);
+    $q2->bindValue(':svg', $svg);
+    $q2->execute();
 }
 
-foreach( $arrs as &$arr ){
-    $arr->setSvg( stripChars($arr->getName()) );
-    $_controller->getArrondissementManager()->update( $arr );
+$q = $_DATABASE->query('select * from `arrondissement`');
+
+while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
+    $svg = stripChars( $data['arr_name'] );
+    $q2 = $_DATABASE->prepare('update `arrondissement` set `arr_svg` = :svg where `arr_code` = :code ');
+    $q2->bindValue(':code', $data['arr_code']);
+    $q2->bindValue(':svg', $svg);
+    $q2->execute();
 }
 
 function stripChars($str) {
