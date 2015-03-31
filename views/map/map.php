@@ -11,7 +11,7 @@ if( $_mapChecker->canDisplaySVG() ){
     
 }elseif( $_mapChecker->canDisplayOneCommune() ){
     
-    //header( 'Location: '.$RootURL.'?r=graph&map='.$_mapChecker->getMap() );    
+    include_once( $RootDir.'views/map/map_one_commune.php' );    
     
 }
 

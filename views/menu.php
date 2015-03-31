@@ -12,7 +12,7 @@
             
     <div class="navbar-collapse collapse navbar-responsive-collapse" aria-expanded="true">
         <ul class="nav navbar-nav">
-            <li><a href="<?= $RootURL ?>?r=site_map">Plan du site</a></li>
+            <li <?php if($page=="site_map")echo'class="active"'; ?>><a href="<?= $RootURL ?>?r=site_map">Plan du site</a></li>
             <!-- Pour faire plaisir à Rudi -->
 <?php 
     // lien pour afficher les graphiques

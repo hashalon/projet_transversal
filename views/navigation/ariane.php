@@ -30,7 +30,7 @@ require_once($RootDir.'controllers/Controller.php');
     <li class="active"><?= $arr->getName() ?></li>
     <?php
 }elseif( $_mapChecker->getLevel() == 0 ){
-    $com = $_controller->getCommuneManager()->getById( $_mapChecker->getMap() ); // commune are identified by there id
+    $com = $_controller->getCommuneManager()->get( $_mapChecker->getMap() ); // commune are identified by there id
     $arr = $_controller->getArrondissementManager()->getByCommune( $com );
     $dep = $_controller->getDepartementManager()->getByArrondissement( $arr );
     $reg = $_controller->getRegionManager()->getByDepartement( $dep );
