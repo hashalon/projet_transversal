@@ -12,7 +12,7 @@ $regs = $_controller->getRegionManager()->getList();
 </div>
 <div class="row">
 <?php
-$counter = 0;
+$counter = 1;
 foreach( $regs as &$reg ){
 ?>
     <div class="col-lg-3 col-sm-6">
@@ -30,8 +30,8 @@ foreach( $regs as &$reg ){
         </div>
     </div>
 <?php
-    if( $counter == 3 ){
-        $counter = 0;
+    if( $counter == 4 ){
+        $counter = 1;
         echo '</div><div class="row">';
     }else{
         ++$counter;

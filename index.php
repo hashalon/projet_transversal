@@ -66,8 +66,8 @@
                         case 'graph' :
                             include_once ('views/graph/graph.php');
                             break;
-                        case 'search_results' :
-                            include_once ('views/search/results.php');
+                        case 'search' :
+                            include_once ('views/search/search.php');
                             break;
                         default :
                             include_once ('views/map/map.php');

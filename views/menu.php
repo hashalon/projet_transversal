@@ -108,9 +108,9 @@
         </ul>    
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <form action="controller/search/SearchController.php" class="navbar-form">
+                <form action="<?= $RootURL.'?r=search' ?>" method="post" class="navbar-form">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Rechercher...">
+                        <input type="text" name="request" id="request" class="form-control" placeholder="Rechercher...">
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
                         </span>
