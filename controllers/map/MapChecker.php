@@ -164,10 +164,10 @@ class MapChecker {
     /* Check if the map id match the detail level */
     private function levelValue( $map ){
         global $_DATABASE;
-        $reg = $_DATABASE->query('SELECT * FROM `region` WHERE `reg_svg` = '.$map);
-        $dep = $_DATABASE->query('SELECT * FROM `departement` WHERE `dep_svg` = '.$map);
-        $arr = $_DATABASE->query('SELECT * FROM `arrondissement` WHERE `arr_svg` = '.$map);
-        $com = $_DATABASE->query('SELECT * FROM `commune` WHERE `com_code` = '.$map);
+        $reg = $_DATABASE->query('SELECT * FROM `region` WHERE `reg_svg` = "'.$map.'";');
+        $dep = $_DATABASE->query('SELECT * FROM `departement` WHERE `dep_svg` = "'.$map.'";');
+        $arr = $_DATABASE->query('SELECT * FROM `arrondissement` WHERE `arr_svg` = "'.$map.'";');
+        $com = $_DATABASE->query('SELECT * FROM `commune` WHERE `com_code` = "'.$map.'";');
         
         // 3 means we want to see all the regions of france
         $level = -1;
