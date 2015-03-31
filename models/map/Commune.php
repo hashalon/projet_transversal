@@ -1,6 +1,8 @@
 <?php
 
 require_once($RootDir.'models/abstract/MapElementCrit.php');
+require_once($RootDir.'models/interface/CountCriteria.php');
+require_once($RootDir.'controllers/Controller.php');
 
 require_once($RootDir.'models/criteria/Deces.php');
 require_once($RootDir.'models/criteria/Naissances.php');
@@ -12,42 +14,18 @@ require_once($RootDir.'models/criteria/Menages.php');
 require_once($RootDir.'models/criteria/Population.php');
 require_once($RootDir.'models/criteria/RevenusFiscaux.php');
 
-require_once($RootDir.'models/interface/CountCriteria.php');
-
 class Commune extends MapElementCrit implements CountCriteria{
 
     // id, name, parent
     // commune doesn't need a svg identifier
     
     private $_epci;
-    private $_zone_emploi_id;
-    
-    private $_deces = array();
-    private $_naissances = array();
-    private $_travailleurs = array();
-    private $_defm = array();
-    private $_etablissements = array();
-    private $_logs = array();
-    private $_menages = array();
-    private $_pops = array();
-    private $_fisc = array();
 
-    protected function hydrate( array &$data ){
+    public function __construct( array $data ){
         $this->hmatch( $data, 'setId', 'com_code' );
         $this->hmatch( $data, 'setName', 'com_name' );
         $this->hmatch( $data, 'setParent', 'arr_code' );
         $this->hmatch( $data, 'setEpci', 'epci' );
-        $this->hmatch( $data, 'setZoneEmploi', 'zone_no' );
-        
-        $this->hmatch( $data, 'setDeces', '_deces' );
-        $this->hmatch( $data, 'setNaissances', '_naiss' );
-        $this->hmatch( $data, 'setTravailleurs', '_trav' );
-        $this->hmatch( $data, 'setDefm', '_defm' );
-        $this->hmatch( $data, 'setEtablissements', '_etab' );
-        $this->hmatch( $data, 'setLogements', '_loge' );
-        $this->hmatch( $data, 'setMenages', '_mena' );
-        $this->hmatch( $data, 'setPopulation', '_popu' );
-        $this->hmatch( $data, 'setRevenusFiscaux', '_fisc' );
     }
     
     // Numéro : établissement public de coopération intercommunale
@@ -59,75 +37,46 @@ class Commune extends MapElementCrit implements CountCriteria{
         $this->_epci = $epci;
     }
     
-    // zone emploi works as a second parent (arrondissement being the first one)
-    public function getZoneEmploi(){
-        return $this->_zone_emploi_id;
-    }
-    public function setZoneEmploi($zone_emploi){
-        $this->_zone_emploi_id = $zone_emploi;
-    }
-    
     
 /***** CRITERES *****/
-    
-    /* SETTERS */
-    
-    public function setDeces( array &$deces ){
-        $this->_deces = $deces;
-    }
-    public function setNaissances(array &$naiss){
-        $this->_naissances = $naiss;
-    }
-    public function settravailleurs( array &$trav ){
-        $this->_travailleurs = $trav;
-    }
-    public function setDefm(array &$defm){
-        $this->_defm = $defm;
-    }
-    public function setEtablissements(array &$eta){
-        $this->_etablissements = $eta;
-    }
-    public function setLogements(array &$logs){
-        $this->_logs = $logs;
-    }
-    public function setMenages(array &$men){
-        $this->_menages = $men;
-    }
-    public function setPopulation(array &$pops){
-        $this->_pops = $pops;
-    }
-    public function setRevenusFiscaux(array &$fisc){
-        $this->_fisc = $fisc;
-    }
     
     /* GETTERS */
     
     public function getDeces(){
-        return $this->_deces;
+        global $_controller;
+        return $_controller->getCommuneManager()->getDeces($this);
     }
     public function getNaissances(){
-        return $this->_naissances;
+        global $_controller;
+        return $_controller->getCommuneManager()->getNaissances($this);
     }
     public function getTravailleurs(){
-        return $this->_travailleurs;
+        global $_controller;
+        return $_controller->getCommuneManager()->getTravailleurs($this);
     }
     public function getDefm(){
-        return $this->_defm;
+        global $_controller;
+        return $_controller->getCommuneManager()->getDefm($this);
     }
     public function getEtablissements(){
-        return $this->_etablissements;
+        global $_controller;
+        return $_controller->getCommuneManager()->getEtablissements($this);
     }
     public function getLogements(){
-        return $this->_logs;
+        global $_controller;
+        return $_controller->getCommuneManager()->getLogements($this);
     }
     public function getMenages(){
-        return $this->_menages;
+        global $_controller;
+        return $_controller->getCommuneManager()->getMenages($this);
     }
     public function getPopulation(){
-        return $this->_pops;
+        global $_controller;
+        return $_controller->getCommuneManager()->getPopulation($this);
     }
     public function getRevenusFiscaux(){
-        return $this->_fisc;
+        global $_controller;
+        return $_controller->getCommuneManager()->getRevenusFiscaux($this);
     }
     
     
@@ -138,61 +87,61 @@ class Commune extends MapElementCrit implements CountCriteria{
     // un nombre moyen est renvoyé si aucune année n'est spécifiée
     
     public function countDeces( $year = null ){
-        return countCriteria($this->_deces, $year);
+        return countCriteria($this->getDeces(), $year);
     }
     public function countNaissances( $year = null ){
-        return countCriteria($this->_naissances, $year);
+        return countCriteria($this->getNaissances(), $year);
     }
     public function countTravailleurs( $year = null ){
-        return countCriteria($this->_travailleurs, $year);
+        return countCriteria($this->getTravailleurs(), $year);
     }
     public function countDemandeursEmploi( $year = null ){
-        return countCriteria($this->_defm, $year);
+        return countCriteria($this->getDefm(), $year);
     }
     public function countEtablissements( $year = null ){
-        return countCriteria($this->_etablissements, $year);
+        return countCriteria($this->getEtablissements(), $year);
     }
     public function countLogements( $year = null ){
-        return countCriteria($this->_logs, $year);
+        return countCriteria($this->getLogements(), $year);
     }
     public function countMenages( $year = null ){
-        return countCriteria($this->_menages, $year);
+        return countCriteria($this->getMenages(), $year);
     }
     public function countPopulation( $year = null ){
-        return countCriteria($this->_pops, $year);
+        return countCriteria($this->getPopulation(), $year);
     }
     public function countRevenusFiscaux( $year = null ){
-        return countCriteria($this->_fisc, $year);
+        return countCriteria($this->getRevenusFiscaux(), $year);
     }
     
     /* GET YEARS IN */
 
     public function getYearsInDeces(){
-        $this->getYearsInCriteria( $this->_deces );
+        $this->getYearsInCriteria( $this->getDeces() );
     }
     public function getYearsInNaissances(){
-        $this->getYearsInCriteria( $this->_naissances );
+        $this->getYearsInCriteria( $this->getNaissances() );
     }
     public function getYearsInTravailleurs(){
-        $this->getYearsInCriteria( $this->_travailleurs );
+        $this->getYearsInCriteria( $this->getTravailleurs() );
     }
     public function getYearsInDefm(){
-        $this->getYearsInCriteria( $this->_defm );
+        $this->getYearsInCriteria( $this->getDefm() );
     }
     public function getYearsInEtablissements(){
-        $this->getYearsInCriteria( $this->_etablissements );
+        $this->getYearsInCriteria( $this->getEtablissements() );
     }
     public function getYearsInLogements(){
-        $this->getYearsInCriteria( $this->_logs );
+        $this->getYearsInCriteria( $this->getLogements() );
     }
     public function getYearsInMenages(){
-        $this->getYearsInCriteria( $this->_menages );
+        $this->getYearsInCriteria( $this->getMenages() );
     }
     public function getYearsInPopulation(){
-        $this->getYearsInCriteria( $this->_pops );
+        $this->getYearsInCriteria( $this->getPopulation() );
     }
     public function getYearsInRevenusFiscaux(){
-        $this->getYearsInCriteria( $this->_fisc );
+        $this->getYearsInCriteria( $this->getRevenusFiscaux() );
     }
     
     

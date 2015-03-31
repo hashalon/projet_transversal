@@ -18,7 +18,7 @@ class ZoneEmploi extends MapElementCrit{
     private $_chomage = array();
     private $_travailleurs = array();
 
-    protected function hydrate( array &$data ){
+    public function __construct( array $data ){
         $this->hmatch( $data, 'setId', 'zone_no' );
         $this->hmatch( $data, 'setName', 'zone_name' );
         $this->setParent("France");
