@@ -13,7 +13,7 @@ class Travailleurs extends CriteriaCom implements CategoriesAge{
         $this->hmatch( $data, 'setId', 'tr_id' );
         $this->hmatch( $data, 'setYear', 'tr_year' );
         $this->hmatch( $data, 'setNum', 'tr_number' );
-        $this->hmatch( $data, 'setZoneEmploi', 'zone_no' );
+        $this->hmatch( $data, 'setZoneEmploi', 'zone_demploi_zone_no' );
         $this->hmatch( $data, 'setCategoriesAge', 'cat_id' );
     }
 
