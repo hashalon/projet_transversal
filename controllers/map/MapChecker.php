@@ -110,6 +110,9 @@ class MapChecker {
     public function getLevel(){
         return $this->_level;
     }
+    public function getDetail(){
+        return $this->_detail;
+    }
     
     public function getLowerDetail(){
         $detail = "#";

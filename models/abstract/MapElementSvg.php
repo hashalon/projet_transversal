@@ -57,6 +57,8 @@ abstract class MapElementSvg extends MapElement implements CountCriteria{
         foreach( $this->getChildren() as &$child ){
             if( method_exists($this, $method) ){
                 $result = array_merge( $result, $child->$method() );
+            }else{
+                throw new Exception("Method does not exist in class");
             }
         }
         return $result;
@@ -69,31 +71,31 @@ abstract class MapElementSvg extends MapElement implements CountCriteria{
     // un nombre moyen est renvoyé si aucune année n'est spécifiée
     
     public function countDeces( $year = null ){
-        return countCriteria('countDeces', $year);
+        return $this->countCriteria('countDeces', $year);
     }
     public function countNaissances( $year = null ){
-        return countCriteria('countNaissanes', $year);
+        return $this->countCriteria('countNaissanes', $year);
     }
     public function countTravailleurs( $year = null ){
-        return countCriteria('countTravailleurs', $year);
+        return $this->countCriteria('countTravailleurs', $year);
     }
     public function countDemandeursEmploi( $year = null ){
-        return countCriteria('countDemandeursEmploi', $year);
+        return $this->countCriteria('countDemandeursEmploi', $year);
     }
     public function countEtablissements( $year = null ){
-        return countCriteria('countEtablissements', $year);
+        return $this->countCriteria('countEtablissements', $year);
     }
     public function countLogements( $year = null ){
-        return countCriteria('countLogements', $year);
+        return $this->countCriteria('countLogements', $year);
     }
     public function countMenages( $year = null ){
-        return countCriteria('countMenages', $year);
+        return $this->countCriteria('countMenages', $year);
     }
     public function countPopulation( $year = null ){
-        return countCriteria('countPopulation', $year);
+        return $this->countCriteria('countPopulation', $year);
     }
     public function countRevenusFiscaux( $year = null ){
-        return countCriteria('countRevenusFiscaux', $year);
+        return $this->countCriteria('countRevenusFiscaux', $year);
     }
 
     protected function countCriteria( $method, $year = null ){
@@ -102,6 +104,8 @@ abstract class MapElementSvg extends MapElement implements CountCriteria{
         foreach( $this->getChildren() as &$child ){
             if( method_exists($child, $method) ){
                 $result += $child->$method( $year );
+            }else{
+                throw new Exception("Method does not exist in class");
             }
         }
         return $result;

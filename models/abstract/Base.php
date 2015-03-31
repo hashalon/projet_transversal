@@ -12,7 +12,7 @@ abstract class Base {
                 throw new Exception("Method does not exist in class");
             }
         }else{
-            throw new Exception("Attribute not present in data array");
+            throw new Exception("Attribute not present in data array: ".$attribute);
         }
     }
 

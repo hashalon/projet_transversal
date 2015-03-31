@@ -4,7 +4,7 @@ require_once($RootDir.'models/abstract/MapElement.php');
 
 abstract class MapElementCrit extends MapElement{
     
-    protected function getYearsInCriteria( array &$criterias ){
+    protected function getYearsInCriteria( array $criterias ){
         $years = [];
         foreach( $criterias as &$crit ){
             if( in_array( $crit->getYear(), $years ) ){
@@ -14,7 +14,7 @@ abstract class MapElementCrit extends MapElement{
         return $years;
     }
     
-    protected function avgCriteria( array &$criterias, $year = null ){
+    protected function avgCriteria( array $criterias, $year = null ){
         $result = 0;
         $perYear = [];
 
@@ -27,7 +27,7 @@ abstract class MapElementCrit extends MapElement{
         }
 
         // for each year we recover the average criteria value
-        foreach( $years as &$y ){
+        foreach( $years as $y ){
             $value = 0;
             $count = 0;
             foreach( $criterias as &$crit ){
@@ -36,17 +36,25 @@ abstract class MapElementCrit extends MapElement{
                     ++$count;
                 }
             }
-            $perYear[] = $value / $count;
+            if( $count != 0 ){
+                $perYear[] = $value / $count;
+            }else{
+                $perYear[] = 0;
+            }
         }
 
         // we return the average value of taux de criteria per year
-        foreach( $perYear as &$p ){
+        foreach( $perYear as $p ){
             $result += $p;
         }
-        return $result / sizeof($perYear);
+        if( sizeof($perYear) != 0 ){
+            return $result / sizeof($perYear);
+        }else{
+            return 0;
+        }
     }
     
-    protected function countCriteria( array &$criterias, $year = null ){
+    protected function countCriteria( array $criterias, $year = null ){
         $result = 0;
         $perYear = [];
 
@@ -59,7 +67,7 @@ abstract class MapElementCrit extends MapElement{
         }
 
         // for each year we recover the number of the elements
-        foreach( $years as &$y ){
+        foreach( $years as $y ){
             $num = 0;
             foreach( $criterias as &$crit ){
                 if( $crit->getYear() == $y ){
@@ -73,7 +81,11 @@ abstract class MapElementCrit extends MapElement{
         foreach( $perYear as &$p ){
             $result += $p;
         }
-        return (int)($result / sizeof($perYear));
+        if( sizeof($perYear) != 0 ){
+            return (int)($result / sizeof($perYear));
+        }else{
+            return 0;
+        }
     }
     
 }

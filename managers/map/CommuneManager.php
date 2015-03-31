@@ -195,7 +195,7 @@ class CommuneManager extends BaseManager implements MapInterface{
                 $data['_cats'][] = $data2['cat_type'];
             }
             
-            $pops[] = new Menages($data);
+            $pops[] = new Population($data);
         }
         return $pops;
     }
@@ -203,7 +203,7 @@ class CommuneManager extends BaseManager implements MapInterface{
         $fiscs = [];
         $q = $this->_db->query( 'SELECT * FROM `revenue_fisc` WHERE `com_code` = "'.$com->getId().'";' );
         while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
-            $fiscs[] = new Naissances($data);
+            $fiscs[] = new RevenusFiscaux($data);
         }
         return $fiscs;
     }

@@ -87,31 +87,31 @@ class Commune extends MapElementCrit implements CountCriteria{
     // un nombre moyen est renvoyé si aucune année n'est spécifiée
     
     public function countDeces( $year = null ){
-        return countCriteria($this->getDeces(), $year);
+        return $this->countCriteria($this->getDeces(), $year);
     }
     public function countNaissances( $year = null ){
-        return countCriteria($this->getNaissances(), $year);
+        return $this->countCriteria($this->getNaissances(), $year);
     }
     public function countTravailleurs( $year = null ){
-        return countCriteria($this->getTravailleurs(), $year);
+        return $this->countCriteria($this->getTravailleurs(), $year);
     }
     public function countDemandeursEmploi( $year = null ){
-        return countCriteria($this->getDefm(), $year);
+        return $this->countCriteria($this->getDefm(), $year);
     }
     public function countEtablissements( $year = null ){
-        return countCriteria($this->getEtablissements(), $year);
+        return $this->countCriteria($this->getEtablissements(), $year);
     }
     public function countLogements( $year = null ){
-        return countCriteria($this->getLogements(), $year);
+        return $this->countCriteria($this->getLogements(), $year);
     }
     public function countMenages( $year = null ){
-        return countCriteria($this->getMenages(), $year);
+        return $this->countCriteria($this->getMenages(), $year);
     }
     public function countPopulation( $year = null ){
-        return countCriteria($this->getPopulation(), $year);
+        return $this->countCriteria($this->getPopulation(), $year);
     }
     public function countRevenusFiscaux( $year = null ){
-        return countCriteria($this->getRevenusFiscaux(), $year);
+        return $this->countCriteria($this->getRevenusFiscaux(), $year);
     }
     
     /* GET YEARS IN */

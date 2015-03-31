@@ -11,7 +11,7 @@ $sideMenu = [
         'Habitants' => [ 'pop', 'green', '#bfe2bc', '#2ea729', '#10410c' ],
         'Natalité' => [ 'naiss', 'crimson', '#ffffff', '#b53164', '#4a0e2a' ],
         'Mortalité' => [ 'deces', 'brown', '#d3ae84', '#71401c', '#451f0f' ],
-        'Croissance Demographique' => [ 'var_demo', 'white', '#71401c', '#cccccc', '#b53164' ],
+        'Variation Demographique' => [ 'var_demo', 'white', '#71401c', '#cccccc', '#b53164' ],
     ],
     'Logements' => [
         'Logements' => [ 'loge', 'yellow', '#fff', '#b4a324', '#433f0c' ],
