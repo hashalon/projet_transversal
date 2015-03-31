@@ -2,31 +2,23 @@
 
 $sideMenu = [
     'Population active' => [
-        'Actifs' => [ 'pop active', 'grey', '#fff', '#444', '#000' ],
+        'Actifs' => [ 'pop_active', 'grey', '#fff', '#444', '#000' ],
         'Travailleurs' => [ 'trav', 'grey', '#fff', '#444', '#000' ],
         'Chômeurs' => [ 'chom', 'grey', '#fff', '#444', '#000' ],
-        'Taux de Chômage' => [ 'taux chom', 'grey', '#fff', '#444', '#000' ],
+        'Taux de Chômage' => [ 'taux_chom', 'grey', '#fff', '#444', '#000' ],
     ],
     'Population' => [
         'Habitants' => [ 'pop', 'grey', '#fff', '#444', '#000' ],
         'Natalité' => [ 'naiss', 'grey', '#fff', '#444', '#000' ],
         'Mortalité' => [ 'deces', 'grey', '#fff', '#444', '#000' ],
-        'Croissance Demographique' => [ 'var demo', 'grey', '#fff', '#444', '#000' ],
+        'Croissance Demographique' => [ 'var_demo', 'grey', '#fff', '#444', '#000' ],
     ],
     'Logements' => [
         'Logements' => [ 'loge', 'grey', '#fff', '#444', '#000' ],
         'Ménages' => [ 'mena', 'grey', '#fff', '#444', '#000' ],
     ],
-    'Fiscalité' => [
-        'Ménages fiscaux' => [ 'mena fisc', 'grey', '#fff', '#444', '#000' ],
-        'Personnes dans les ménages fiscaux' => [ 'pers in mena fisc', 'grey', '#fff', '#444', '#000' ],
-        'Personnes par ménage fiscal' => [ 'pers in mena fisc', 'grey', '#fff', '#444', '#000' ],
-    ],
     'Etablissement actifs' => [
         'Grandes entreprises et établissement' => [ 'etabl', 'grey', '#fff', '#444', '#000' ],
-    ],
-    'Education et Recherche' => [
-        'Diplôme, Formation' => [ 'dipl', 'grey', '#fff', '#444', '#000' ],
     ],
 ];
 

@@ -2,6 +2,7 @@
 
 require_once($RootDir.'models/abstract/MapElementSvg.php');
 require_once($RootDir.'models/map/Region.php');
+require_once($RootDir.'controllers/Controller.php');
 
 class France extends MapElementSvg{
     
@@ -13,6 +14,11 @@ class France extends MapElementSvg{
         $this->setName("France");
         $this->setParent("France");
         $this->setSvg( "France" );
+    }
+    
+    public function getChildren(){
+        global $_controller;
+        return $_controller->getRegionManager()->getList();
     }
     
 }

@@ -35,6 +35,29 @@ class MapChecker {
         }
     }
     
+    public function postConstruct(){
+        $map = "France";
+        if( isset($_POST['map']) ){
+            if( !empty($_POST['map']) ){
+                $map = (string) $_POST['map'];
+            }
+        }
+        $this->_map = $map;
+        $this->_level = $this->levelValue( $map );
+
+        $detail = "regions";
+        if( isset($_POST['detail']) ){
+            if( !empty($_POST['detail']) ){
+                $detail = (string) $_POST['detail'];
+            }
+        }
+        $this->_detail = $this->detailValue( $detail );
+
+        while( $this->_level < $this->_detail ){
+            --$this->_detail;
+        }
+    }
+    
     public function getMap(){
         return $this->_map;
     }
@@ -209,44 +232,6 @@ class MapChecker {
                 break;
         }
         return $value;
-    }
-    
-    /* Check validity of POST parameters */
-    public function isValidPOST(){
-        $map = "#";
-        $detail = "#";
-        if( isset($_POST['map']) ){
-            if( !empty($_POST['map']) ){
-                $map = $_POST['map'];
-            }
-        }
-        if( isset($_POST['detail']) ){
-            if( !empty($_POST['detail']) ){
-                $map = $_POST['detail'];
-            }
-        }
-        if( $this->checkLevelDetail( $map, $detail ) ){
-            return true;
-        }
-        return false;
-    }
-    public function isInvalidPOST(){
-        return !$this->isValidPOST();
-    }
-    
-    private function checkLevelDetail( $map, $d ){
-        // we search for the table where the map is stored
-        $level = $this->levelValue( $map );
-        $detail = $this->detailValue($d);
-        if( 
-            $level != -1 &&
-            $detail != -1
-        ){
-            if( $level >= $detail ){
-                return true;
-            }
-        }
-        return false;
     }
     
 }
