@@ -1,5 +1,4 @@
 <?php
-
 require_once( $RootDir.'controllers/Controller.php' );
 
 function getYearsIn( $criteria ){
@@ -46,3 +45,23 @@ function getYearsIn( $criteria ){
     }
     return $years;
 }
+?>
+
+<div id="year_selector" >
+
+<?php
+foreach( $sideMenu as $category => &$elements ){
+    foreach( $elements as $element => &$attr ){
+        $years = getYearsIn($attr[0]);
+?>
+    <div id="<?= $attr[0] ?>" style="display:none" class="year-selector btn-group-vertical" role="group" aria-label="year">
+        <?php foreach( $years as &$year ){ ?>
+        <button type="button" class="btn btn-default" onclick="ponderate('<?= $attr[0] ?>', '<?= $year ?>','<?= $attr[2] ?>', '<?= $attr[3] ?>', '<?= $attr[4] ?>' )"><?= $year ?></button>
+        <?php } ?>
+    </div>
+<?php
+    }
+}
+?>
+
+</div>
