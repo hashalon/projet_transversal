@@ -34,9 +34,8 @@ ALTER TABLE `deces`
 -- Contraintes pour la table `defm`
 --
 ALTER TABLE `defm`
-  ADD CONSTRAINT `defm_ibfk_1` FOREIGN KEY (`com_code`) REFERENCES `commune` (`com_code`),
-  ADD CONSTRAINT `defm_ibfk_2` FOREIGN KEY (`defmcat_id`) REFERENCES `defm_category` (`defmcat_id`);
-
+  ADD CONSTRAINT `defm_ibfk_1` FOREIGN KEY (`com_code`) REFERENCES `commune` (`com_code`);
+  
 --
 -- Contraintes pour la table `departement`
 --

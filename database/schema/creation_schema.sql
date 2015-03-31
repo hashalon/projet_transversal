@@ -115,27 +115,13 @@ CREATE TABLE IF NOT EXISTS `defm` (
   `defm_id` int(11) NOT NULL AUTO_INCREMENT,
   `defm_year` int(11) DEFAULT NULL,
   `defm_num` int(11) DEFAULT NULL,
-  `defmcat_id` int(11) DEFAULT NULL,
   `com_code` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`defm_id`),
-  KEY `defmcat_fk_idx` (`defmcat_id`),
   KEY `defm_ibfk_1` (`com_code`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
---
--- Structure de la table `defm_category`
---
-
-DROP TABLE IF EXISTS `defm_category`;
-CREATE TABLE IF NOT EXISTS `defm_category` (
-  `defmcat_id` int(11) NOT NULL AUTO_INCREMENT,
-  `defm_cat` varchar(10) NOT NULL,
-  PRIMARY KEY (`defmcat_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
 
 --
 -- Structure de la table `departement`
