@@ -6,7 +6,7 @@ abstract class BaseManager {
     
     protected $_db;
     
-    public function __construct(PDO $db){
+    public function __construct(PDO &$db){
         $this->setDatabase($db);
     }
 
@@ -14,8 +14,11 @@ abstract class BaseManager {
 
     public abstract function getList();
 
-    public function setDatabase(PDO $database){
-        $this->_db = $database;
+    public function getDatabase(){
+        return $this->_db;
+    }
+    public function setDatabase(PDO $db){
+        $this->_db = $db;
     }
     
 }
