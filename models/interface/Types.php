@@ -1,10 +1,11 @@
 <?php
 
+require_once($RootDir.'database/database.php');
+
 interface Types{
     
     public function getTypes();
-    public function setTypes(array $types);
-    public function addType($type);
+    public function setTypes($types);
     public function isType($type);
     
 }

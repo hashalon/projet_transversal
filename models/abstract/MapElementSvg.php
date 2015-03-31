@@ -74,13 +74,13 @@ abstract class MapElementSvg extends MapElement implements CountCriteria{
         return $this->countCriteria('countDeces', $year);
     }
     public function countNaissances( $year = null ){
-        return $this->countCriteria('countNaissanes', $year);
+        return $this->countCriteria('countNaissances', $year);
     }
     public function countTravailleurs( $year = null ){
         return $this->countCriteria('countTravailleurs', $year);
     }
-    public function countDemandeursEmploi( $year = null ){
-        return $this->countCriteria('countDemandeursEmploi', $year);
+    public function countDefm( $year = null ){
+        return $this->countCriteria('countDefm', $year);
     }
     public function countEtablissements( $year = null ){
         return $this->countCriteria('countEtablissements', $year);
@@ -105,7 +105,7 @@ abstract class MapElementSvg extends MapElement implements CountCriteria{
             if( method_exists($child, $method) ){
                 $result += $child->$method( $year );
             }else{
-                throw new Exception("Method does not exist in class");
+                throw new Exception("Method does not exist in class: ".$method);
             }
         }
         return $result;

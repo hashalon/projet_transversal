@@ -19,7 +19,7 @@ interface CountCriteria{
     /* COUNT */
     public function countDeces( $year = null );
     public function countNaissances( $year = null );
-    public function countDemandeursEmploi( $year = null );
+    public function countDefm( $year = null );
     public function countEtablissements( $year = null );
     public function countLogements( $year = null );
     public function countMenages( $year = null );

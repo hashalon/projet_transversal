@@ -61,6 +61,16 @@ class MapChecker {
     public function getMap(){
         return $this->_map;
     }
+    public function getLevel(){
+        return $this->_level;
+    }
+    public function getDetail(){
+        return $this->_detail;
+    }
+    
+    public function getLevelOf( $map ){
+        return $this->levelValue( $map );
+    }
     
     public function canDisplayRegions(){
         if( $this->_level >= 4 ){
@@ -105,13 +115,6 @@ class MapChecker {
             return true;
         }
         return false;
-    }
-    
-    public function getLevel(){
-        return $this->_level;
-    }
-    public function getDetail(){
-        return $this->_detail;
     }
     
     public function getLowerDetail(){

@@ -7,7 +7,7 @@ abstract class MapElementCrit extends MapElement{
     protected function getYearsInCriteria( array $criterias ){
         $years = [];
         foreach( $criterias as &$crit ){
-            if( in_array( $crit->getYear(), $years ) ){
+            if( !in_array( $crit->getYear(), $years ) ){
                 $years[] = $crit->getYear();
             }
         }

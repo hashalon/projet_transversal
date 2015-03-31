@@ -1,10 +1,11 @@
 <?php
 
+require_once($RootDir.'database/database.php');
+
 interface CategoriesAge{
     
     public function getCategoriesAge();
-    public function setCategoriesAge(array $cats);
-    public function addCategoryAge($cat);
+    public function setCategoriesAge($cats);
     public function isCategoryAge($cat);
     
 }

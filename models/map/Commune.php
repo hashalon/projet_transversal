@@ -95,7 +95,7 @@ class Commune extends MapElementCrit implements CountCriteria{
     public function countTravailleurs( $year = null ){
         return $this->countCriteria($this->getTravailleurs(), $year);
     }
-    public function countDemandeursEmploi( $year = null ){
+    public function countDefm( $year = null ){
         return $this->countCriteria($this->getDefm(), $year);
     }
     public function countEtablissements( $year = null ){

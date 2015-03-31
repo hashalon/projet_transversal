@@ -9,7 +9,7 @@ abstract class Base {
             if( method_exists($this, $method) ){
                 $this->$method($data[$attribute]);
             }else{
-                throw new Exception("Method does not exist in class");
+                throw new Exception("Method does not exist in class: ".$method);
             }
         }else{
             throw new Exception("Attribute not present in data array: ".$attribute);
