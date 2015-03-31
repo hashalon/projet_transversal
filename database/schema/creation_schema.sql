@@ -337,13 +337,13 @@ CREATE TABLE IF NOT EXISTS `travailleurs` (
   `tr_id` int(11) NOT NULL AUTO_INCREMENT,
   `tr_year` int(11) DEFAULT NULL,
   `tr_number` int(11) DEFAULT NULL,
-  `zone_no` int(11) DEFAULT NULL,
+  `categorie_age_cat_id` int(11) DEFAULT NULL,
+  `zone_demploi_zone_no` int(11) DEFAULT NULL,
   `com_code` varchar(50) DEFAULT NULL,
-  `cat_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`tr_id`),
   KEY `com_code` (`com_code`),
   KEY `travailleurs_ibfk_1` (`zone_no`),
-  KEY `travailleurs_ibfk_3` (`cat_id`)
+  KEY `travailleurs_ibfk_3` (`categorie_age_cat_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
