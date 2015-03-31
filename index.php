@@ -38,10 +38,10 @@
             <?php
                 require_once ($RootDir.'controllers/map/MapChecker.php');
                 
-                //if( $_mapChecker->isInvalid() ){
-                //    header('Location: '.$RootURL.'?map=France&detail=regions');
-                //    die;
-                //}else{
+                if( $_mapChecker->isInvalid() ){
+                    header('Location: '.$RootURL.'?map=France&detail=regions');
+                    die;
+                }else{
                     
                     $page = 'map';
                     if( isset($_GET['r']) ){
@@ -73,7 +73,7 @@
                             include_once ('views/map/map.php');
                             break;
                     }
-                //}
+                }
                 
             ?>
         </main>
