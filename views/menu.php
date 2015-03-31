@@ -12,6 +12,7 @@
             
     <div class="navbar-collapse collapse navbar-responsive-collapse" aria-expanded="true">
         <ul class="nav navbar-nav">
+            <li><a href="<?= $RootURL ?>?r=site_map">Plan du site</a></li>
             <!-- Pour faire plaisir à Rudi -->
 <?php 
     // lien pour afficher les graphiques
@@ -21,7 +22,7 @@
         echo '<li>';
     }
     echo '<a href="'.$RootURL
-        ."?r=graph&map=".urlencode($_mapChecker->getMap())
+        .'?r=graph&map='.urlencode($_mapChecker->getMap())
         .'">Graphiques</a></li>';
 
     // lien pour afficher la carte
@@ -33,8 +34,8 @@
             echo '<li>';
         }
         echo '<a href="'.$RootURL
-            .'"?r=map&map="'.urlencode($_mapChecker->getMap())
-            .'"&detail="'.urlencode($_mapChecker->getCurrentDetail())
+            .'?r=map&map='.urlencode($_mapChecker->getMap())
+            .'&detail='.urlencode($_mapChecker->getCurrentDetail())
             .'">Carte</a></li>';
         if($page=="map"){
     }
