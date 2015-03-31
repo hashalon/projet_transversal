@@ -4,15 +4,16 @@
 
 // session_start();
 require_once($RootDir.'database/database.php');
-require_once($RootDir.'models/map/France.php');
 // on importe les managers
 require_once($RootDir.'managers/map/RegionManager.php');
 require_once($RootDir.'managers/map/DepartementManager.php');
 require_once($RootDir.'managers/map/ArrondissementManager.php');
 require_once($RootDir.'managers/map/CommuneManager.php');
-require_once($RootDir.'managers/map/ZoneEmploiManager.php');
 
 $_controller = new Controller();
+
+/* DECREPATED */
+// too heavy for the server
 
 class Controller {
     
@@ -22,18 +23,16 @@ class Controller {
     private $_depMan;
     private $_arrMan;
     private $_comMan;
-    private $_zoneMan;
     
     public function __construct(){
         // first we create a connection to the database
         global $_DATABASE;
         $this->_db = $_DATABASE;
         // then we create the managers
-        $this->_regMan = new RegionManager($this->_db);
-        $this->_depMan = new DepartementManager($this->_db);
-        $this->_arrMan = new ArrondissementManager($this->_db);
-        $this->_comMan = new CommuneManager($this->_db);
-        $this->_zoneMan = new ZoneEmploiManager($this->_db);
+        $this->_regMan = new RegionManager($_DATABASE);
+        $this->_depMan = new DepartementManager($_DATABASE);
+        $this->_arrMan = new ArrondissementManager($_DATABASE);
+        $this->_comMan = new CommuneManager($_DATABASE);
     }
     
     public function getDatabase(){
@@ -70,14 +69,6 @@ class Controller {
     }
     public function getComMan(){ // short version
         return $this->_comMan;
-    }
-    
-    /* ZoneEmploi Manager */
-    public function getZoneEmploiManager(){
-        return $this->_zoneMan;
-    }
-    public function getZoneMan(){ // short version
-        return $this->_zoneMan;
     }
 }
 
