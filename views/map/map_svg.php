@@ -37,6 +37,8 @@ $sideMenu = [
             dbGetter.colors = [ start, middle, end ];
             dbGetter.getData( "<?= $_mapChecker->getMap() ?>", "<?= $_mapChecker->getCurrentDetail() ?>", input, year );
         });
+        $(".year-selector").hide();
+        $("#"+input).show();
     };
 </script>
 
@@ -86,16 +88,31 @@ $sideMenu = [
                             foreach( $elements as $element => &$attr ){
                     ?>
                     <div class="radio radio-<?= $attr[1] ?>">
-                        <input id="<?= $element ?>" name="critere" value="<?= $count++ ?>" type="radio" onchange="ponderate('<?= $attr[0] ?>', null,'<?= $attr[2] ?>', '<?= $attr[3] ?>', '<?= $attr[4] ?>' )" />
-                        <label for="<?= $element ?>" ><?= $element ?></label>
+                        <input id="<?= 'radio'.$count ?>" name="critere" value="<?= $count ?>" type="radio" onchange="ponderate('<?= $attr[0] ?>', null,'<?= $attr[2] ?>', '<?= $attr[3] ?>', '<?= $attr[4] ?>' )" />
+                        <label for="<?= 'radio'.$count ?>" ><?= $element ?></label>
                     </div>
                     <?php 
+                        ++$count;
                             }
                         }
                     ?>
-                    <!--div id="year_selector" class="btn-group" role="group" aria-label="year">
-                        <button type="button" id="test" class="btn btn-default" onclick="ponderate(this, null,'#59c6e6', '#112aea', '#030b1f' )">Travail</button>
-                    </div-->
+                    <div id="year_selector" >
+                        <?php
+                            require_once($RootDir.'controllers/map/getYears.php');
+                            foreach( $sideMenu as $category => &$elements ){
+                                foreach( $elements as $element => &$attr ){
+                                    $years = getYearsIn($attr[0]);
+                        ?>
+                        <div id="<?= $attr[0] ?>" style="display:none" class="year-selector btn-group-vertical" role="group" aria-label="year">
+                            <?php foreach( $years as &$year ){ ?>
+                            <button type="button" class="btn btn-default" onclick="ponderate('<?= $attr[0] ?>', '<?= $year ?>','<?= $attr[2] ?>', '<?= $attr[3] ?>', '<?= $attr[4] ?>' )"><?= $year ?></button>
+                            <?php } ?>
+                        </div>
+                        <?php
+                                }
+                            }
+                        ?>
+                    </div>
                 </form>
 
             </div>

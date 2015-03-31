@@ -170,7 +170,9 @@ class CommuneManager extends BaseManager implements MapInterface{
         $years = [];
         $q = $this->_db->query( 'SELECT DISTINCT `deces_year` FROM `deces`;' );
         while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
-            $years[] = $data['deces_years'];
+            if( $data['deces_year'] != 0 ){
+                $years[] = $data['deces_year'];
+            }
         }
         return $years;
     }
@@ -178,7 +180,9 @@ class CommuneManager extends BaseManager implements MapInterface{
         $years = [];
         $q = $this->_db->query( 'SELECT DISTINCT `naiss_year` FROM `naissance`;' );
         while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
-            $years[] = $data['naiss_year'];
+            if( $data['naiss_year'] != 0 ){
+                $years[] = $data['naiss_year'];
+            }
         }
         return $years;
     }
@@ -186,7 +190,9 @@ class CommuneManager extends BaseManager implements MapInterface{
         $years = [];
         $q = $this->_db->query( 'SELECT DISTINCT `tr_year` FROM `travailleurs`;' );
         while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
-            $years[] = $data['tr_year'];
+            if( $data['tr_year'] != 0 ){
+                $years[] = $data['tr_year'];
+            }
         }
         return $years;
     }
@@ -194,7 +200,9 @@ class CommuneManager extends BaseManager implements MapInterface{
         $years = [];
         $q = $this->_db->query( 'SELECT DISTINCT `defm_year` FROM `defm`;' );
         while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
-            $years[] = $data['defm_year'];
+            if( $data['defm_year'] != 0 ){
+                $years[] = $data['defm_year'];
+            }
         }
         return $years;
     }
@@ -202,7 +210,9 @@ class CommuneManager extends BaseManager implements MapInterface{
         $years = [];
         $q = $this->_db->query( 'SELECT DISTINCT `ea_year` FROM `etabl_activ`;' );
         while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
-            $years[] = $data['ea_year'];
+            if( $data['ea_year'] != 0 ){
+                $years[] = $data['ea_year'];
+            }
         }
         return $years;
     }
@@ -210,7 +220,9 @@ class CommuneManager extends BaseManager implements MapInterface{
         $years = [];
         $q = $this->_db->query( 'SELECT DISTINCT `log_year` FROM `logements`;' );
         while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
-            $years[] = $data['log_year'];
+            if( $data['log_year'] != 0 ){
+                $years[] = $data['log_year'];
+            }
         }
         return $years;
     }
@@ -218,7 +230,9 @@ class CommuneManager extends BaseManager implements MapInterface{
         $years = [];
         $q = $this->_db->query( 'SELECT DISTINCT `menag_year` FROM `menages`;' );
         while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
-            $years[] = $data['menag_year'];
+            if( $data['menag_year'] != 0 ){
+                $years[] = $data['menag_year'];
+            }
         }
         return $years;
     }
@@ -226,7 +240,9 @@ class CommuneManager extends BaseManager implements MapInterface{
         $years = [];
         $q = $this->_db->query( 'SELECT DISTINCT `ph_year` FROM `population`;' );
         while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
-            $years[] = $data['ph_year'];
+            if( $data['ph_year'] != 0 ){
+                $years[] = $data['ph_year'];
+            }
         }
         return $years;
     }
@@ -234,7 +250,9 @@ class CommuneManager extends BaseManager implements MapInterface{
         $years = [];
         $q = $this->_db->query( 'SELECT DISTINCT `rf_year` FROM `revenue_fisc`;' );
         while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
-            $years[] = $data['rf_year'];
+            if( $data['rf_year'] != 0 ){
+                $years[] = $data['rf_year'];
+            }
         }
         return $years;
     }
