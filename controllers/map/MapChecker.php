@@ -35,7 +35,7 @@ class MapChecker {
         }
     }
     
-    public function postConstruct(){
+    public function postMode(){
         $map = "France";
         if( isset($_POST['map']) ){
             if( !empty($_POST['map']) ){

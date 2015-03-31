@@ -10,7 +10,9 @@ require_once ($RootDir.'controllers/Controller.php');
 require_once ($RootDir.'controllers/map/MapChecker.php');
 require_once ($RootDir.'controllers/criteria/ActivePopulation.php');
 
-if( $_mapChecker->isValidPOST() ){
+$_mapChecker->postMode(); // we change the mode of mapChecker to check data sent by POST and not GET
+
+if( $_mapChecker->isValid() ){
     
     if( isset($_POST['criteria']) ){
         if( !empty($_POST['criteria']) ){
@@ -39,7 +41,7 @@ function getData( $map, $detail, $criteria, $year = null ){
     
     switch( $criteria ){
         // Population active
-        case 'pop active' :
+        case 'pop_active' :
             
             break;
         case 'trav' :
@@ -48,7 +50,7 @@ function getData( $map, $detail, $criteria, $year = null ){
         case 'chom' :
             
             break;
-        case 'taux chom' :
+        case 'taux_chom' :
             
             break;
         // Population
@@ -61,7 +63,7 @@ function getData( $map, $detail, $criteria, $year = null ){
         case 'deces' :
             
             break;
-        case 'var demo' :
+        case 'var_demo' :
             
             break;
         // Logements
@@ -71,29 +73,54 @@ function getData( $map, $detail, $criteria, $year = null ){
         case 'mena' :
             
             break;
-        // Fiscalité
-        case 'mena fisc' :
-            
-            break;
-        case 'pers in mena fisc' :
-            
-            break;
-        case 'pers per mena fisc' :
-            
-            break;
         // Entreprises
         case 'etabl' :
-            
-            break;
-        // Education
-        case 'dipl' :
             
             break;
     }
     echo json_encode($data);
 }
 
-function PopActive(){
+function PopulationActive(){
     
 }
 
+function Travailleurs(){
+    
+}
+
+function Chomeurs(){
+    
+}
+
+function TauxChomage(){
+    
+}
+
+function Population(){
+    
+}
+
+function Naissances(){
+    
+}
+
+function Deces(){
+    
+}
+
+function VariationDemographique(){
+    
+}
+
+function Logements(){
+    
+}
+
+function Menages(){
+    
+}
+
+function Etablissements(){
+    
+}

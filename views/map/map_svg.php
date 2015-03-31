@@ -2,23 +2,23 @@
 
 $sideMenu = [
     'Population active' => [
-        'Actifs' => [ 'pop_active', 'grey', '#fff', '#444', '#000' ],
-        'Travailleurs' => [ 'trav', 'grey', '#fff', '#444', '#000' ],
-        'Chômeurs' => [ 'chom', 'grey', '#fff', '#444', '#000' ],
-        'Taux de Chômage' => [ 'taux_chom', 'grey', '#fff', '#444', '#000' ],
+        'Actifs' => [ 'pop_active', 'colbat', '#a297d9', '#2e209d', '#110e4e' ],
+        'Travailleurs' => [ 'trav', 'blue', '#c1d1e2', '#1446b7', '#10255d' ],
+        'Chômeurs' => [ 'chom', 'orange', '#d0b8a1', '#db841d', '#65440f' ],
+        'Taux de Chômage' => [ 'taux_chom', 'white', '#1446b7', '#ffffff', '#db841d' ],
     ],
     'Population' => [
-        'Habitants' => [ 'pop', 'grey', '#fff', '#444', '#000' ],
-        'Natalité' => [ 'naiss', 'grey', '#fff', '#444', '#000' ],
-        'Mortalité' => [ 'deces', 'grey', '#fff', '#444', '#000' ],
-        'Croissance Demographique' => [ 'var_demo', 'grey', '#fff', '#444', '#000' ],
+        'Habitants' => [ 'pop', 'green', '#bfe2bc', '#2ea729', '#10410c' ],
+        'Natalité' => [ 'naiss', 'crimson', '#ffffff', '#b53164', '#4a0e2a' ],
+        'Mortalité' => [ 'deces', 'brown', '#d3ae84', '#71401c', '#451f0f' ],
+        'Croissance Demographique' => [ 'var_demo', 'white', '#71401c', '#cccccc', '#b53164' ],
     ],
     'Logements' => [
-        'Logements' => [ 'loge', 'grey', '#fff', '#444', '#000' ],
-        'Ménages' => [ 'mena', 'grey', '#fff', '#444', '#000' ],
+        'Logements' => [ 'loge', 'yellow', '#fff', '#b4a324', '#433f0c' ],
+        'Ménages' => [ 'mena', 'red', '#d4a6a6', '#cc2020', '#530c0c' ],
     ],
     'Etablissement actifs' => [
-        'Grandes entreprises et établissement' => [ 'etabl', 'grey', '#fff', '#444', '#000' ],
+        'Grandes entreprises et établissement' => [ 'etabl', 'cyan', '#fff', '#30a283', '#0d402e' ],
     ],
 ];
 
