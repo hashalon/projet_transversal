@@ -12,7 +12,7 @@ class RegionTest extends \PHPUnit_Framework_TestCase{
         $this->hmatch( $data, 1, 1 );
         $this->hmatch( $data, 'Guadeloupe', 'reg_Guadeloupe' );
         $this->setParent("France");
-        $this->hmatch( $data, 'setSvg', 'reg_svg' );
+        $this->hmatch( $data, 'setSvg', 'fhfllkj' );
         $this->hmatch( $data, 'setChildren', '_children' );
     }
    
