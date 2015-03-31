@@ -12,7 +12,7 @@ require_once ($RootDir.'models/criteria/Travailleurs.php');
 class ZoneEmploiManager extends BaseManager implements MapInterface{
 
     // add a arrondissement entry to the database
-    public function add( $zone ){
+    public function add( &$zone ){
         $q = $this->_db->prepare(
             'INSERT INTO `zone_demploi` SET '
             .'`zone_no` = :no, '
@@ -44,7 +44,7 @@ class ZoneEmploiManager extends BaseManager implements MapInterface{
         }
     }
     // gives the parent zone_demploi of this commune object
-    public function getByCommune( Commune $com ){
+    public function getByCommune( Commune &$com ){
         $q = $this->_db->query('SELECT * FROM `zone_demploi` NATURAL JOIN `commune` WHERE `com_code`="'.$com->getId().'"');
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
             $this->getCriterias($data, $data['zone_no']);
@@ -72,7 +72,7 @@ class ZoneEmploiManager extends BaseManager implements MapInterface{
         return $zones;
     }
     // in this case getListByParent = getList
-    public function getListByParent( $object ){
+    public function getListByParent( &$object ){
         return getList();
     }
     public function getListByParentId( $id ){
@@ -80,7 +80,7 @@ class ZoneEmploiManager extends BaseManager implements MapInterface{
     }
     
     // return the number of communes in the given zone
-    public function getNumberOfCommunes( $zone ){
+    public function getNumberOfCommunes( &$zone ){
         return $this->getNumberOfCommunesById( $zone->getId() );
     }
     public function getNumberOfCommunesById( $zone_id ){
@@ -93,7 +93,7 @@ class ZoneEmploiManager extends BaseManager implements MapInterface{
     }
 
     // update the arrondissement object in the database
-    public function update( $zone ){
+    public function update( &$zone ){
         $q = $this->_db->prepare(
             'UPDATE `zone_demploi` SET '
             .'`zone_name` = :name, '

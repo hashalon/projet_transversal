@@ -2,16 +2,15 @@
 
 require_once ($RootDir.'managers/abstract/BaseManager.php');
 require_once ($RootDir.'managers/interface/MapSvgInterface.php');
-require_once ($RootDir.'managers/map/CommuneManager.php');
 
 require_once ($RootDir.'models/map/Departement.php');
 require_once ($RootDir.'models/map/Arrondissement.php');
 require_once ($RootDir.'models/map/Commune.php');
 
 class ArrondissementManager extends BaseManager implements MapSvgInterface{
-
+    
     // add a arrondissement entry to the database
-    public function add( $arr ){
+    public function add( &$arr ){
         $q = $this->_db->prepare(
             'INSERT INTO `departement` SET '
             .'`arr_code` = :code, '
@@ -30,7 +29,6 @@ class ArrondissementManager extends BaseManager implements MapSvgInterface{
     public function get( $id ){
         $q = $this->_db->query('SELECT * FROM `arrondissement` WHERE `arr_code` = '.$id);
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
-            $data['_children'] = getChildren( $id );
             return new Arrondissement($data);
         }
     }
@@ -38,7 +36,6 @@ class ArrondissementManager extends BaseManager implements MapSvgInterface{
     public function getByName( string $name ){
         $q = $this->_db->query('SELECT * FROM `arrondissement` WHERE `arr_name` = '.$name);
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
-            $data['_children'] = getChildren( $data['arr_code'] );
             return new Arrondissement($data);
         }
     }
@@ -46,15 +43,13 @@ class ArrondissementManager extends BaseManager implements MapSvgInterface{
     public function getBySvg( string $svg ){
         $q = $this->_db->query('SELECT * FROM `arrondissement` WHERE `arr_svg` = '.$svg);
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
-            $data['_children'] = getChildren( $data['arr_code'] );
             return new Arrondissement($data);
         }
     }
     // gives the parent arrondissement of this commune object
-    public function getByCommune( Commune $com ){
+    public function getByCommune( Commune &$com ){
         $q = $this->_db->query('SELECT * FROM `arrondissement` NATURAL JOIN `commune` WHERE `com_code`="'.$com->getId().'"');
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
-            $data['_children'] = getChildren( $data['arr_code'] );
             return new Arrondissement($data);
         }
     }
@@ -63,7 +58,6 @@ class ArrondissementManager extends BaseManager implements MapSvgInterface{
         $name = (string) $name;
         $q = $this->_db->query('SELECT * FROM `arrondissement` NATURAL JOIN `commune` WHERE `com_name`="'.$name.'"');
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
-            $data['_children'] = getChildren( $data['arr_code'] );
             return new Arrondissement($data);
         }
     }
@@ -73,27 +67,25 @@ class ArrondissementManager extends BaseManager implements MapSvgInterface{
         $arrondissements = [];
         $q = $this->_db->query('SELECT * FROM `arrondissement` ORDER BY `arr_name`');
         while ($data = $q->fetch(PDO::FETCH_ASSOC)){
-            $data['_children'] = getChildren( $data['arr_code'] );
             $arrondissements[] = new Arrondissement($data);
         }
         return $arrondissements;
     }
     // get list of all arrondissements in the given departement
-    public function getListByParent( $dep ){
+    public function getListByParent( &$dep ){
         return $this->getListByParentId( $dep->getId() );
     }
     public function getListByParentId( $dep_id ){
         $arrondissements = [];
         $q = $this->_db->query('SELECT * FROM `arrondissement` WHERE `dep_no`="'.$dep_id.'" ORDER BY `arr_name`');
         while ($data = $q->fetch(PDO::FETCH_ASSOC)){
-            $data['_children'] = $this->getChildren( $data['arr_code'] );
             $arrondissements[] = new Arrondissement($data);
         }
         return $arrondissements;
     }
 
     // update the arrondissement object in the database
-    public function update( $arr ){
+    public function update( &$arr ){
         $q = $this->_db->prepare(
             'UPDATE `arrondissement` SET '
             .'`arr_name` = :name, '
@@ -106,12 +98,6 @@ class ArrondissementManager extends BaseManager implements MapSvgInterface{
         $q->bindValue(':svg', $dep->getSvg());
         $q->bindValue(':dep', $dep->getParent());
         $q->execute();
-    }
-
-    // return the communes in this arrondissement
-    public function getChildren( $arr_id ){
-        $comMan = new CommuneManager($this->_db);
-        return $comMan->getListByParentId( $arr_id );
     }
     
 }

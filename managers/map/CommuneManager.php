@@ -5,7 +5,6 @@ require_once ($RootDir.'managers/interface/MapInterface.php');
 
 require_once ($RootDir.'models/map/Arrondissement.php');
 require_once ($RootDir.'models/map/Commune.php');
-require_once ($RootDir.'models/map/ZoneEmploi.php');
 
 require_once($RootDir.'models/criteria/Deces.php');
 require_once($RootDir.'models/criteria/Naissances.php');
@@ -20,7 +19,7 @@ require_once($RootDir.'models/criteria/RevenusFiscaux.php');
 class CommuneManager extends BaseManager implements MapInterface{
 
     // add a commune entry to the database
-    public function add( $com ){
+    public function add( &$com ){
         $q = $this->_db->prepare(
             'INSERT INTO `departement` SET '
             .'`com_code` = :code, '
@@ -41,7 +40,6 @@ class CommuneManager extends BaseManager implements MapInterface{
     public function get( $id ){
         $q = $this->_db->query('SELECT * FROM `commune` WHERE `com_code` = '.$id);
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
-            $this->getCriterias($data, $id);
             return new Commune($data);
         }
     }
@@ -49,7 +47,6 @@ class CommuneManager extends BaseManager implements MapInterface{
     public function getByName( string $name ){
         $q = $this->_db->query('SELECT * FROM `commune` WHERE `com_name` = '.$name);
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
-            $this->getCriterias($data, $data['com_code']);
             return new Commune($data);
         }
     }
@@ -59,30 +56,18 @@ class CommuneManager extends BaseManager implements MapInterface{
         $communes = [];
         $q = $this->_db->query('SELECT * FROM `commune` ORDER BY `com_name`');
         while ($data = $q->fetch(PDO::FETCH_ASSOC)){
-            $this->getCriterias($data, $data['com_code']);
             $communes[] = new Commune($data);
         }
         return $communes;
     }
     // get list of all communes in the given arrondissement
-    public function getListByParent( $arr ){
+    public function getListByParent( &$arr ){
         return $this->getListByParentId( $arr->getId() );
     }
     public function getListByParentId( $arr_id ){
         $communes = [];
         $q = $this->_db->query('SELECT * FROM `commune` WHERE `arr_code`="'.$arr_id.'" ORDER BY `com_name`');
         while ($data = $q->fetch(PDO::FETCH_ASSOC)){
-            $this->getCriterias($data, $data['com_code']);
-            $communes[] = new Commune($data);
-        }
-        return $communes;
-    }
-    // get list of all communes in the given zone
-    public function getListByZoneEmploi( $zone ){
-        $communes = [];
-        $q = $this->_db->query('SELECT * FROM `commune` WHERE `zone_no`="'.$zone->getId().'" ORDER BY `com_name`');
-        while ($data = $q->fetch(PDO::FETCH_ASSOC)){
-            $this->getCriterias($data, $data['com_code']);
             $communes[] = new Commune($data);
         }
         return $communes;
@@ -90,7 +75,7 @@ class CommuneManager extends BaseManager implements MapInterface{
     
 
     // update the arrondissement object in the database
-    public function update( $com ){
+    public function update( &$com ){
         $q = $this->_db->prepare(
             'UPDATE `commune` SET '
             .'`com_name` = :name, '
@@ -107,37 +92,25 @@ class CommuneManager extends BaseManager implements MapInterface{
         $q->execute();
     }
     
-    protected function getCriterias(array &$data, string $id){
-        $data['_deces'] = $this->getDeces($id);
-        $data['_naiss'] = $this->getNaissances($id);
-        $data['_trav'] = $this->getTravailleurs($id);
-        $data['_defm'] = $this->getDefm($id);
-        $data['_etab'] = $this->getEtablissements($id);
-        $data['_loge'] = $this->getLogements($id);
-        $data['_mena'] = $this->getMenages($id);
-        $data['_popu'] = $this->getPopulation($id);
-        $data['_fisc'] = $this->getRevenusFiscaux($id);
-    }
-    
-    public function getDeces( $com ){
+    public function getDeces( Commune &$com ){
         $deces = [];
-        $q = $this->_db->query('SELECT * FROM `deces` WHERE `com_code` = '.$com);
+        $q = $this->_db->query( 'SELECT * FROM `deces` WHERE `com_code` = '.$com->getId() );
         while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
             $deces[] = new Deces($data);
         }
         return $deces;
     }
-    public function getNaissances( $com ){
+    public function getNaissances( Commune &$com ){
         $naiss = [];
-        $q = $this->_db->query('SELECT * FROM `naissances` WHERE `com_code` = '.$com);
+        $q = $this->_db->query( 'SELECT * FROM `naissance` WHERE `com_code` = '.$com->getId() );
         while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
             $naiss[] = new Naissances($data);
         }
         return $naiss;
     }
-    public function getTravailleurs( $com ){
+    public function getTravailleurs( Commune &$com ){
         $trav = [];
-        $q = $this->_db->query('SELECT * FROM `travailleurs` WHERE `com_code` = '.$com);
+        $q = $this->_db->query( 'SELECT * FROM `travailleurs` WHERE `com_code` = '.$com->getId() );
         while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
 
             $data['_cats'] = [];
@@ -149,9 +122,9 @@ class CommuneManager extends BaseManager implements MapInterface{
         }
         return $trav;
     }
-    public function getDefm( $com ){
+    public function getDefm( Commune &$com ){
         $defms = [];
-        $q = $this->_db->query('SELECT * FROM `defm` WHERE `com_code` = '.$com);
+        $q = $this->_db->query( 'SELECT * FROM `defm` WHERE `com_code` = '.$com->getId() );
         while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
 
             $data['_types'] = [];
@@ -163,9 +136,9 @@ class CommuneManager extends BaseManager implements MapInterface{
         }
         return $defms;
     }
-    public function getEtablissements( $com ){
+    public function getEtablissements( Commune &$com ){
         $etabs = [];
-        $q = $this->_db->query('SELECT * FROM `etabl_activ` WHERE `com_code` = '.$com);
+        $q = $this->_db->query( 'SELECT * FROM `etabl_activ` WHERE `com_code` = '.$com->getId() );
         while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
 
             $data['_types'] = [];
@@ -177,9 +150,9 @@ class CommuneManager extends BaseManager implements MapInterface{
         }
         return $etabs;
     }
-    public function getLogements( $com ){
+    public function getLogements( Commune &$com ){
         $logs = [];
-        $q = $this->_db->query('SELECT * FROM `logements` WHERE `com_code` = '.$com);
+        $q = $this->_db->query( 'SELECT * FROM `logements` WHERE `com_code` = '.$com->getId() );
         while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
             
             $data['_types'] = [];
@@ -191,9 +164,9 @@ class CommuneManager extends BaseManager implements MapInterface{
         }
         return $logs;
     }
-    public function getMenages( $com ){
+    public function getMenages( Commune &$com ){
         $menas = [];
-        $q = $this->_db->query('SELECT * FROM `menages` WHERE `com_code` = '.$com);
+        $q = $this->_db->query( 'SELECT * FROM `menages` WHERE `com_code` = '.$com->getId() );
         while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
 
             $data['_types'] = [];
@@ -205,9 +178,9 @@ class CommuneManager extends BaseManager implements MapInterface{
         }
         return $menas;
     }
-    public function getPopulation( $com ){
+    public function getPopulation( Commune &$com ){
         $pops = [];
-        $q = $this->_db->query('SELECT * FROM `population` WHERE `com_code` = '.$com);
+        $q = $this->_db->query( 'SELECT * FROM `population` WHERE `com_code` = '.$com->getId() );
         while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
 
             $data['_types'] = [];
@@ -226,9 +199,9 @@ class CommuneManager extends BaseManager implements MapInterface{
         }
         return $pops;
     }
-    public function getRevenusFiscaux( $com ){
+    public function getRevenusFiscaux( Commune &$com ){
         $fiscs = [];
-        $q = $this->_db->query('SELECT * FROM `revenue_fisc` WHERE `com_code` = '.$com);
+        $q = $this->_db->query( 'SELECT * FROM `revenue_fisc` WHERE `com_code` = '.$com->getId() );
         while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
             $fiscs[] = new Naissances($data);
         }

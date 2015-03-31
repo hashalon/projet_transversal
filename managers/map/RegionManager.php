@@ -2,7 +2,6 @@
 
 require_once ($RootDir.'managers/abstract/BaseManager.php');
 require_once ($RootDir.'managers/interface/MapSvgInterface.php');
-require_once ($RootDir.'managers/map/DepartementManager.php');
 
 require_once ($RootDir.'models/map/Region.php');
 require_once ($RootDir.'models/map/Departement.php');
@@ -10,7 +9,7 @@ require_once ($RootDir.'models/map/Departement.php');
 class RegionManager extends BaseManager implements MapSvgInterface{
     
     // add a region entry to the database
-    public function add( $region ){
+    public function add( &$region ){
         $q = $this->_db->prepare(
             'INSERT INTO `region` SET '
             .'`reg_no` = :no, '
@@ -27,7 +26,6 @@ class RegionManager extends BaseManager implements MapSvgInterface{
     public function get( $id ){
         $q = $this->_db->query('SELECT * FROM `region` WHERE `reg_no` = '.$id);
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
-            $data['_children'] = getChildren( $data['reg_no'] );
             return new Region($data);
         }
     }
@@ -35,7 +33,6 @@ class RegionManager extends BaseManager implements MapSvgInterface{
     public function getByName( string $name ){
         $q = $this->_db->query('SELECT * FROM `region` WHERE `reg_name` = '.$name);
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
-            $data['_children'] = getChildren( $data['reg_no'] );
             return new Region($data);
         }
     }
@@ -43,15 +40,13 @@ class RegionManager extends BaseManager implements MapSvgInterface{
     public function getBySvg( string $svg ){
         $q = $this->_db->query('SELECT * FROM `region` WHERE `reg_svg` = '.$svg);
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
-            $data['_children'] = getChildren( $data['reg_no'] );
             return new Region($data);
         }
     }
     // gives the parent region of this departement object
-    public function getByDepartement( Departement $dep ){
+    public function getByDepartement( Departement &$dep ){
         $q = $this->_db->query('SELECT * FROM `region` NATURAL JOIN `departement` WHERE `dep_no`="'.$dep->getId().'"');
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
-            $data['_children'] = getChildren( $data['reg_no'] );
             return new Region($data);
         }
     }
@@ -60,7 +55,6 @@ class RegionManager extends BaseManager implements MapSvgInterface{
         $name = (string) $name;
         $q = $this->_db->query('SELECT * FROM `region` NATURAL JOIN `departement` WHERE `dep_name`="'.$name.'"');
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
-            $data['_children'] = getChildren( $data['reg_no'] );
             return new Region($data);
         }
     }
@@ -70,13 +64,12 @@ class RegionManager extends BaseManager implements MapSvgInterface{
         $regions = [];
         $q = $this->_db->query('SELECT * FROM `region` ORDER BY `reg_name`');
         while ($data = $q->fetch(PDO::FETCH_ASSOC)){
-            $data['_children'] = $this->getChildren( $data['reg_no'] );
             $regions[] = new Region($data);
         }
         return $regions;
     }
     // in this case getListByParent = getList
-    public function getListByParent( $object ){
+    public function getListByParent( &$object ){
         return getList();
     }
     public function getListByParentId( $id ){
@@ -84,7 +77,7 @@ class RegionManager extends BaseManager implements MapSvgInterface{
     }
 
     // update the region object in the database
-    public function update( $reg ){
+    public function update( &$reg ){
         $q = $this->_db->prepare(
             'UPDATE `region` SET '
             .'`reg_name` = :name, '
@@ -95,12 +88,6 @@ class RegionManager extends BaseManager implements MapSvgInterface{
         $q->bindValue(':name', $reg->getName());
         $q->bindValue(':svg', $reg->getSvg());
         $q->execute();
-    }
-    
-    // return the departements in this region
-    public function getChildren( $reg_id ){
-        $depMan = new DepartementManager($this->_db);
-        return $depMan->getListByParentId( $reg_id );
     }
     
 }
