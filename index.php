@@ -19,6 +19,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         
         <link href="web/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="web/css/font-awesome.min.css" rel="stylesheet" />
         <link href="web/css/checkbox.min.css" rel="stylesheet" />
         <link href="web/css/checkboxCustom.min.css" rel="stylesheet" />
         <link href="web/css/bootstrapOverwrite.min.css" rel="stylesheet" />

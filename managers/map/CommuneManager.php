@@ -165,5 +165,78 @@ class CommuneManager extends BaseManager implements MapInterface{
         return $fiscs;
     }
     
-
+    
+    public function getYearsInDeces(){
+        $years = [];
+        $q = $this->_db->query( 'SELECT DISTINCT `deces_year` FROM `deces`;' );
+        while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
+            $years[] = $data['deces_years'];
+        }
+        return $years;
+    }
+    public function getYearsInNaissances(){
+        $years = [];
+        $q = $this->_db->query( 'SELECT DISTINCT `naiss_year` FROM `naissance`;' );
+        while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
+            $years[] = $data['naiss_year'];
+        }
+        return $years;
+    }
+    public function getYearsInTravailleurs(){
+        $years = [];
+        $q = $this->_db->query( 'SELECT DISTINCT `tr_year` FROM `travailleurs`;' );
+        while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
+            $years[] = $data['tr_year'];
+        }
+        return $years;
+    }
+    public function getYearsInDefm(){
+        $years = [];
+        $q = $this->_db->query( 'SELECT DISTINCT `defm_year` FROM `defm`;' );
+        while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
+            $years[] = $data['defm_year'];
+        }
+        return $years;
+    }
+    public function getYearsInEtablissements(){
+        $years = [];
+        $q = $this->_db->query( 'SELECT DISTINCT `ea_year` FROM `etabl_activ`;' );
+        while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
+            $years[] = $data['ea_year'];
+        }
+        return $years;
+    }
+    public function getYearsInLogements(){
+        $years = [];
+        $q = $this->_db->query( 'SELECT DISTINCT `log_year` FROM `logements`;' );
+        while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
+            $years[] = $data['log_year'];
+        }
+        return $years;
+    }
+    public function getYearsInMenages(){
+        $years = [];
+        $q = $this->_db->query( 'SELECT DISTINCT `menag_year` FROM `menages`;' );
+        while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
+            $years[] = $data['menag_year'];
+        }
+        return $years;
+    }
+    public function getYearsInPopulation(){
+        $years = [];
+        $q = $this->_db->query( 'SELECT DISTINCT `ph_year` FROM `population`;' );
+        while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
+            $years[] = $data['ph_year'];
+        }
+        return $years;
+    }
+    public function getYearsInRevenusFiscaux(){
+        $years = [];
+        $q = $this->_db->query( 'SELECT DISTINCT `rf_year` FROM `revenue_fisc`;' );
+        while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
+            $years[] = $data['rf_year'];
+        }
+        return $years;
+    }
+    
 }
