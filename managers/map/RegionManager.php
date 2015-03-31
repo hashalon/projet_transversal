@@ -24,36 +24,36 @@ class RegionManager extends BaseManager implements MapSvgInterface{
 
     // get the region object from the database based on its reg_no
     public function get( $id ){
-        $q = $this->_db->query('SELECT * FROM `region` WHERE `reg_no` = '.$id);
+        $q = $this->_db->query('SELECT * FROM `region` WHERE `reg_no` = "'.$id.'";');
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
             return new Region($data);
         }
     }
     // get the region object from the database based on its reg_name
-    public function getByName( string $name ){
-        $q = $this->_db->query('SELECT * FROM `region` WHERE `reg_name` = '.$name);
+    public function getByName( $name ){
+        $q = $this->_db->query('SELECT * FROM `region` WHERE `reg_name` = "'.$name.'";');
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
             return new Region($data);
         }
     }
     // get the region object from the database based on its reg_svg
-    public function getBySvg( string $svg ){
-        $q = $this->_db->query('SELECT * FROM `region` WHERE `reg_svg` = '.$svg);
+    public function getBySvg( $svg ){
+        $q = $this->_db->query('SELECT * FROM `region` WHERE `reg_svg` = "'.$svg.'";');
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
             return new Region($data);
         }
     }
     // gives the parent region of this departement object
     public function getByDepartement( Departement &$dep ){
-        $q = $this->_db->query('SELECT * FROM `region` NATURAL JOIN `departement` WHERE `dep_no`="'.$dep->getId().'"');
+        $q = $this->_db->query('SELECT * FROM `region` NATURAL JOIN `departement` WHERE `dep_no`="'.$dep->getId().'";');
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
             return new Region($data);
         }
     }
     // gives the parent region of this departement name
-    public function getByDepartementName( string $name ){
+    public function getByDepartementName( $name ){
         $name = (string) $name;
-        $q = $this->_db->query('SELECT * FROM `region` NATURAL JOIN `departement` WHERE `dep_name`="'.$name.'"');
+        $q = $this->_db->query('SELECT * FROM `region` NATURAL JOIN `departement` WHERE `dep_name`="'.$name.'";');
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
             return new Region($data);
         }

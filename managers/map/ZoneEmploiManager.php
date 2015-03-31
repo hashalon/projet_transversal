@@ -29,15 +29,15 @@ class ZoneEmploiManager extends BaseManager implements MapInterface{
 
     // get the zone_demploi object from the database based on its zone_no
     public function get( $id ){
-        $q = $this->_db->query('SELECT * FROM `zone_demploi` WHERE `zone_code` = '.$id);
+        $q = $this->_db->query('SELECT * FROM `zone_demploi` WHERE `zone_code` = "'.$id.'";');
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
             $this->getCriterias($data, $id);
             return new ZoneEmploi($data);
         }
     }
     // get the zone_demploi object from the database based on its zone_name
-    public function getByName( string $name ){
-        $q = $this->_db->query('SELECT * FROM `zone_demploi` WHERE `zone_name` = '.$name);
+    public function getByName( $name ){
+        $q = $this->_db->query('SELECT * FROM `zone_demploi` WHERE `zone_name` = "'.$name.'";');
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
             $this->getCriterias($data, $data['zone_no']);
             return new ZoneEmploi($data);
@@ -45,16 +45,16 @@ class ZoneEmploiManager extends BaseManager implements MapInterface{
     }
     // gives the parent zone_demploi of this commune object
     public function getByCommune( Commune &$com ){
-        $q = $this->_db->query('SELECT * FROM `zone_demploi` NATURAL JOIN `commune` WHERE `com_code`="'.$com->getId().'"');
+        $q = $this->_db->query('SELECT * FROM `zone_demploi` NATURAL JOIN `commune` WHERE `com_code`= "'.$com->getId().'";');
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
             $this->getCriterias($data, $data['zone_no']);
             return new ZoneEmploi($data);
         }
     }
     // gives the parent zone_demploi of this commune name
-    public function getByCommuneName( string $name ){
+    public function getByCommuneName( $name ){
         $name = (string) $name;
-        $q = $this->_db->query('SELECT * FROM `zone_demploi` NATURAL JOIN `commune` WHERE `com_name`="'.$name.'"');
+        $q = $this->_db->query('SELECT * FROM `zone_demploi` NATURAL JOIN `commune` WHERE `com_name`= "'.$name.'";');
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
             $this->getCriterias($data, $data['zone_no']);
             return new ZoneEmploi($data);
@@ -64,7 +64,7 @@ class ZoneEmploiManager extends BaseManager implements MapInterface{
     // get list of all zone_demplois
     public function getList(){
         $zones = [];
-        $q = $this->_db->query('SELECT * FROM `zone_demploi` ORDER BY `zone_name`');
+        $q = $this->_db->query('SELECT * FROM `zone_demploi` ORDER BY `zone_name`;');
         while ($data = $q->fetch(PDO::FETCH_ASSOC)){
             $this->getCriterias($data, $data['zone_no']);
             $zones[] = new ZoneEmploi($data);
@@ -85,7 +85,7 @@ class ZoneEmploiManager extends BaseManager implements MapInterface{
     }
     public function getNumberOfCommunesById( $zone_id ){
         $count = 0;
-        $q = $this->_db->query('SELECT * FROM `commune` WHERE `zone_no`="'.$zone_id.'" ORDER BY `com_name`');
+        $q = $this->_db->query('SELECT * FROM `commune` WHERE `zone_no`="'.$zone_id.'" ORDER BY `com_name`;');
         while ($data = $q->fetch(PDO::FETCH_ASSOC)){
             ++$count;
         }
@@ -108,14 +108,14 @@ class ZoneEmploiManager extends BaseManager implements MapInterface{
         $q->execute();
     }
 
-    protected function getCriterias(array &$data, string $id){
+    protected function getCriterias(array &$data, $id){
         $data['_chom'] = $this->getChomage($id);
         $data['_trav'] = $this->getTravailleurs($id);
     }
     
     public function getChomage($zone){
         $chom = [];
-        $q = $this->_db->query('SELECT * FROM `chomage` WHERE `zone_no` = '.$zone);
+        $q = $this->_db->query('SELECT * FROM `chomage` WHERE `zone_no` = "'.$zone.'";');
         while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
             $chom[] = new Chomage($data);
         }
@@ -123,11 +123,11 @@ class ZoneEmploiManager extends BaseManager implements MapInterface{
     }
     public function getTravailleurs($zone){
         $trav = [];
-        $q = $this->_db->query('SELECT * FROM `travailleurs` WHERE `zone_no` = '.$zone);
+        $q = $this->_db->query('SELECT * FROM `travailleurs` WHERE `zone_no` = "'.$zone.'";');
         while( $data = $q->fetch(PDO::FETCH_ASSOC) ){
 
             $data['_cats'] = [];
-            $q2 = $this->_db->query('SELECT * FROM `categorie_age` WHERE `cat_id` = '.$data['cat_id']);
+            $q2 = $this->_db->query('SELECT * FROM `categorie_age` WHERE `cat_id` = "'.$data['cat_id'].'";');
             while( $data2 = $q2->fetch(PDO::FETCH_ASSOC) ){
                 $data['_cats'][] = $data2['cat_name'];
             }

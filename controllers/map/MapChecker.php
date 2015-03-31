@@ -84,6 +84,10 @@ class MapChecker {
         return false;
     }
     
+    public function getLevel(){
+        return $this->_level;
+    }
+    
     public function getLowerDetail(){
         $detail = "#";
         switch($this->_detail){
@@ -173,13 +177,13 @@ class MapChecker {
         $level = -1;
         if( $map == "France" ){
             $level = 4;
-        }elseif( $reg != null ){
+        }elseif( $reg->fetch() ){
             $level = 3;
-        }elseif( $dep != null ){
+        }elseif( $dep->fetch() ){
             $level = 2;
-        }elseif( $arr != null ){
+        }elseif( $arr->fetch() ){
             $level = 1;
-        }elseif( $com != null ){
+        }elseif( $com->fetch() ){
             $level = 0;
         }
         return $level;

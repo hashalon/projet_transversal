@@ -27,36 +27,36 @@ class DepartementManager extends BaseManager implements MapSvgInterface{
 
     // get the departement object from the database based on its dep_no
     public function get( $id ){
-        $q = $this->_db->query('SELECT * FROM `departement` WHERE `dep_no` = '.$id);
+        $q = $this->_db->query('SELECT * FROM `departement` WHERE `dep_no` = "'.$id.'";');
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
             return new Departement($data);
         }
     }
     // get the departement object from the database based on its dep_name
-    public function getByName( string $name ){
-        $q = $this->_db->query('SELECT * FROM `departement` WHERE `dep_name` = '.$name);
+    public function getByName( $name ){
+        $q = $this->_db->query('SELECT * FROM `departement` WHERE `dep_name` = "'.$name.'";');
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
             return new Departement($data);
         }
     }
     // get the departement object from the database based on its dep_svg
-    public function getBySvg( string $svg ){
-        $q = $this->_db->query('SELECT * FROM `departement` WHERE `dep_svg` = '.$svg);
+    public function getBySvg( $svg ){
+        $q = $this->_db->query('SELECT * FROM `departement` WHERE `dep_svg` = "'.$svg.'";');
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
             return new Departement($data);
         }
     }
     // gives the parent departement of this arrondissement object
-    public function getByArrondissment( Arrondissment &$arr ){
-        $q = $this->_db->query('SELECT * FROM `departement` NATURAL JOIN `arrondissement` WHERE `arr_code`="'.$arr->getId().'"');
+    public function getByArrondissement( Arrondissement &$arr ){
+        $q = $this->_db->query('SELECT * FROM `departement` NATURAL JOIN `arrondissement` WHERE `arr_code`= "'.$arr->getId().'";');
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
             return new Departement($data);
         }
     }
     // gives the parent departement of this arrondissement name
-    public function getByArrondissementName( string $name ){
+    public function getByArrondissementName( $name ){
         $name = (string) $name;
-        $q = $this->_db->query('SELECT * FROM `departement` NATURAL JOIN `arrondissement` WHERE `arr_name`="'.$name.'"');
+        $q = $this->_db->query('SELECT * FROM `departement` NATURAL JOIN `arrondissement` WHERE `arr_name`= "'.$name.'";');
         if( $data = $q->fetch(PDO::FETCH_ASSOC) ){
             return new Departement($data);
         }
@@ -77,7 +77,7 @@ class DepartementManager extends BaseManager implements MapSvgInterface{
     }
     public function getListByParentId( $reg_id ){
         $departements = [];
-        $q = $this->_db->query('SELECT * FROM `departement` WHERE `reg_no`="'.$reg_id.'" ORDER BY `dep_name`');
+        $q = $this->_db->query('SELECT * FROM `departement` WHERE `reg_no`="'.$reg_id.'" ORDER BY `dep_name`;');
         while ($data = $q->fetch(PDO::FETCH_ASSOC)){
             $departements[] = new Departement($data);
         }
