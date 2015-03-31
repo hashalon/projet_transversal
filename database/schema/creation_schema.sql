@@ -342,7 +342,7 @@ CREATE TABLE IF NOT EXISTS `travailleurs` (
   `com_code` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`tr_id`),
   KEY `com_code` (`com_code`),
-  KEY `travailleurs_ibfk_1` (`zone_no`),
+  KEY `travailleurs_ibfk_1` (`zone_demploi_zone_no`),
   KEY `travailleurs_ibfk_3` (`categorie_age_cat_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
