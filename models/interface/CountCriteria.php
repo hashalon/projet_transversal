@@ -37,4 +37,22 @@ interface CountCriteria{
     public function getYearsInPopulation();
     public function getYearsInRevenusFiscaux();
     
+    /* GET CATEGORIES IN */
+    //public function getCategoriesInFormation();
+    //public function getCategoriesInPopulation();
+    //public function getCategoriesInTravailleurs();
+    
+    /* GET PLACES IN */
+    //public function getPlacesInDeces();
+    //public function getPlacesInNaissances();
+    
+    /* GET TYPES IN */
+    //public function getTypesInDefm();
+    //public function getTypesInEtablissements();
+    //public function getTypesInLogements();
+    //public function getTypesInMenages();
+    //public function getTypesInPopulation();
+    
+    
+    
 }
