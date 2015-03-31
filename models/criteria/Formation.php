@@ -2,15 +2,16 @@
 
 require_once ($RootDir.'models/abstract/Criteria.php');
 require_once ($RootDir.'models/interface/Types.php');
+require_once ($RootDir.'models/interface/CtegoriesAge.php');
 
-class Formation extends Criteria implements Types{
+class Formation extends Criteria implements Types, CategoriesAge{
     
     // id, year, num
     protected $_types = array(); // list of types
     protected $_categories_age = array(); // list of categories of age
     protected $_population_types = array();
     
-    protected function hydrate( array &$data ){
+    public function __construct( array $data ){
         $this->hmatch( $data, 'setId', 'form_id' );
         $this->hmatch( $data, 'setYear', 'dipl_year' );
         $this->hmatch( $data, 'setNum', 'dipl_num' );

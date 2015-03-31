@@ -6,7 +6,7 @@ class Menages extends Criteriatyped{
 
     // id, year, num, commune_code, types
 
-    protected function hydrate( array &$data ){
+    public function __construct( array $data ){
         $this->hmatch( $data, 'setId', 'menag_id' );
         $this->hmatch( $data, 'setYear', 'menag_year' );
         $this->hmatch( $data, 'setNum', 'menag_num' );

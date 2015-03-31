@@ -9,7 +9,7 @@ class Travailleurs extends CriteriaCom implements CategoriesAge{
     protected $_zone_no;
     protected $_categories_age = array();
     
-    protected function hydrate( array &$data ){
+    public function __construct( array $data ){
         $this->hmatch( $data, 'setId', 'tr_id' );
         $this->hmatch( $data, 'setYear', 'tr_year' );
         $this->hmatch( $data, 'setNum', 'tr_number' );

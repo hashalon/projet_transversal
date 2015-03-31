@@ -7,7 +7,7 @@ class RevenusFiscaux extends CriteriaCom{
     // id, year, num, commune_code
     protected $_nombre_pers;
     
-    protected function hydrate( array &$data ){
+    public function __construct( array $data ){
         $this->hmatch( $data, 'setId', 'rf_id' );
         $this->hmatch( $data, 'setYear', 'rf_year' );
         $this->hmatch( $data, 'setNum', 'nomb_men_fc' );
