@@ -12,7 +12,7 @@
             
     <div class="navbar-collapse collapse navbar-responsive-collapse" aria-expanded="true">
         <ul class="nav navbar-nav">
-            <li <?php if($page=="site_map")echo'class="active"'; ?>><a href="<?= $RootURL ?>?r=site_map">Plan du site</a></li>
+            <li <?php if($page=="site_map")echo'class="active"'; ?>><a href="<?= $RootURL ?>?r=site_map">Accès Rapide</a></li>
             <!-- Pour faire plaisir à Rudi -->
 <?php 
     // lien pour afficher les graphiques
@@ -38,10 +38,9 @@
             .'&detail='.urlencode($_mapChecker->getCurrentDetail())
             .'">Carte</a></li>';
         if($page=="map"){
-    }
 ?>   
-<li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Detail <span class="caret"></span></a>
+<li class="active dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="caret"></span></a>
     <ul class="dropdown-menu" role="menu">
 <?php
     
@@ -56,7 +55,7 @@
                 .'?r=map&map='.urlencode($_mapChecker->getMap())
                 .'&detail=regions">Regions</a></li>';
         }else{
-            echo '<li class="disable"><a href="">Regions</a></li>';
+            echo '<li class="disabled"><a href="">Regions</a></li>';
         }
     
         // sub link detail = departements
@@ -70,7 +69,7 @@
                 .'?r=map&map='.urlencode($_mapChecker->getMap())
                 .'&detail=departements">Departements</a></li>';
         }else{
-            echo '<li class="disable"><a href="">Departements</a></li>';
+            echo '<li class="disabled"><a href="">Departements</a></li>';
         }
         
         // sub link detail = arrondissements
@@ -84,7 +83,7 @@
                 .'?r=map&map='.urlencode($_mapChecker->getMap())
                 .'&detail=arrondissements">Arrondissements</a></li>';
         }else{
-            echo '<li class="disable"><a href="">Arrondissements</a></li>';
+            echo '<li class="disabled"><a href="">Arrondissements</a></li>';
         }
         
         // sub link detail = communes
@@ -98,13 +97,16 @@
                 .'?r=map&map='.urlencode($_mapChecker->getMap())
                 .'&detail=communes">Communes</a></li>';
         }else{
-            echo '<li class="disable"><a href="">Communes</a></li>';
+            echo '<li class="disabled"><a href="">Communes</a></li>';
         }
     
 ?>
     </ul>
 </li>  
-<?php } ?>
+<?php
+        }
+    }
+?>
         </ul>    
         <ul class="nav navbar-nav navbar-right">
             <li>
